@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/randomListFragment">
+    <fragment
+        android:id="@+id/dicesFragment"
+        android:name="com.example.yaroslavgorbach.randomizer.DicesFragment"
+        android:label="fragment_dices"
+        tools:layout="@layout/fragment_dices" />
+    <fragment
+        android:id="@+id/randomListFragment"
+        android:name="com.example.yaroslavgorbach.randomizer.RandomListFragment"
+        android:label="fragment_random_list"
+        tools:layout="@layout/fragment_random_list" >
+        <action
+            android:id="@+id/action_randomListFragment_to_dicesFragment"
+            app:destination="@id/dicesFragment" />
+        <action
+            android:id="@+id/action_randomListFragment_to_coinFragment"
+            app:destination="@id/coinFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/coinFragment"
+        android:name="com.example.yaroslavgorbach.randomizer.CoinFragment"
+        android:label="fragment_coin"
+        tools:layout="@layout/fragment_coin" />
+</navigation>
