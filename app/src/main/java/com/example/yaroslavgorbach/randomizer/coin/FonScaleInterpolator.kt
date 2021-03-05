@@ -1,4 +1,4 @@
-package com.example.yaroslavgorbach.randomizer
+package com.example.yaroslavgorbach.randomizer.coin
 
 import android.animation.TimeInterpolator
 import android.os.Build

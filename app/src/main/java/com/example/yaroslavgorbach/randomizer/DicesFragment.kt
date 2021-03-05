@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.view.animation.*
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
+import com.example.yaroslavgorbach.randomizer.coin.FonScaleInterpolator
 
 class DicesFragment : Fragment() {
     private lateinit var mImageView: ImageView

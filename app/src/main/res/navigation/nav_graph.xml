@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/coinFragment"
-        android:name="com.example.yaroslavgorbach.randomizer.CoinFragment"
+        android:name="com.example.yaroslavgorbach.randomizer.coin.CoinFragment"
         android:label="fragment_coin"
         tools:layout="@layout/fragment_coin" />
 </navigation>

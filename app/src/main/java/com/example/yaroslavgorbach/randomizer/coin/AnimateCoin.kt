@@ -1,57 +1,36 @@
-package com.example.yaroslavgorbach.randomizer
+package com.example.yaroslavgorbach.randomizer.coin
 
 import android.animation.*
-import android.graphics.drawable.Drawable
-import android.os.Build
-import android.os.Bundle
-import android.os.Handler
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.view.animation.*
+import android.view.animation.LinearInterpolator
 import android.widget.ImageView
-import androidx.annotation.RequiresApi
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
-import androidx.fragment.app.Fragment
+import com.example.yaroslavgorbach.randomizer.R
 
-
-class CoinFragment : Fragment() {
-    private lateinit var mCoinImage: ImageView
-    private lateinit var mDeckFon: ImageView
+class AnimateCoin(coinImage: ImageView, fonImage: ImageView) {
+    private val mCoinImage: ImageView = coinImage
+    private val mFonImage: ImageView = fonImage
     private var coinState = 0
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_coin, container, false)
-        mCoinImage = view.findViewById(R.id.coin)
-        mDeckFon = view.findViewById(R.id.wood)
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        mCoinImage.setOnClickListener{
-            scaleFon()
-            rotateAnim()
-            shake()
-        }
+    fun animate(){
+        scaleFon()
+        rotateAnim_1440()
+        shake()
     }
 
     private fun scaleFon() {
-        val scaleX = ObjectAnimator.ofFloat(mDeckFon, View.SCALE_X, 1.5f).apply {
+        val scaleX = ObjectAnimator.ofFloat(mFonImage, View.SCALE_X, 1.5f).apply {
             repeatCount = 1
             repeatMode = ObjectAnimator.REVERSE
         }
 
-        val scaleY = ObjectAnimator.ofFloat(mDeckFon, View.SCALE_Y, 1.5f).apply {
+        val scaleY = ObjectAnimator.ofFloat(mFonImage, View.SCALE_Y, 1.5f).apply {
             repeatCount = 1
             repeatMode = ObjectAnimator.REVERSE
         }
 
         AnimatorSet().apply {
-         playTogether(scaleX, scaleY)
+            playTogether(scaleX, scaleY)
             interpolator = FonScaleInterpolator()
             duration = 900
             start()
@@ -59,9 +38,21 @@ class CoinFragment : Fragment() {
 
     }
 
-    private fun rotateAnim(){
+    private fun shake() {
+        val scaleX = ObjectAnimator.ofFloat(mCoinImage, "scaleX", 1f, 1.1f, 1f, 1.1f, 1f, 1.1f, 1f)
+        val scaleY = ObjectAnimator.ofFloat(mCoinImage, "scaleY", 1f, 1.1f, 1f, 1.1f, 1f, 1.1f, 1f)
+        val rotation =ObjectAnimator.ofFloat(mCoinImage, "rotation", 0f, -3f, -3f, 3f, -3f, 3f, -3f, 3f, -3f, 0f)
 
-       // val rotateX = ObjectAnimator.ofFloat(mCoinImage, View.ROTATION_X, -1440f, 0f)
+        AnimatorSet().apply {
+            playTogether(scaleX, scaleY, rotation)
+            startDelay = 1400
+            duration = 300
+            start()
+        }
+    }
+
+    private fun rotateAnim_1440(){
+        // val rotateX = ObjectAnimator.ofFloat(mCoinImage, View.ROTATION_X, -1440f, 0f)
         ValueAnimator.ofFloat(-1440f, 0f).apply {
             addUpdateListener { animation ->
                 mCoinImage.rotationX = animation.animatedValue as Float
@@ -114,19 +105,6 @@ class CoinFragment : Fragment() {
             playTogether(scaleX, scaleY)
             duration = 700
             interpolator = LinearInterpolator()
-            start()
-        }
-    }
-
-    private fun shake() {
-        val scaleX = ObjectAnimator.ofFloat(mCoinImage, "scaleX", 1f, 1.1f, 1f, 1.1f, 1f, 1.1f, 1f)
-        val scaleY = ObjectAnimator.ofFloat(mCoinImage, "scaleY", 1f, 1.1f, 1f, 1.1f, 1f, 1.1f, 1f)
-        val rotation =ObjectAnimator.ofFloat(mCoinImage, "rotation", 0f, -3f, -3f, 3f, -3f, 3f, -3f, 3f, -3f, 0f)
-
-        AnimatorSet().apply {
-            playTogether(scaleX, scaleY, rotation)
-            startDelay = 1400
-            duration = 300
             start()
         }
     }
