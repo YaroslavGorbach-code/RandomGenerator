@@ -18,11 +18,12 @@ class AnimateCoin(coinImage: ImageView, fonImage: ImageView) {
 
     fun animate(){
         mCoinState = (0..1).random()
-        when((1..4).random()){
+        when((1..5).random()){
+            5-> rotateAnimSlowlyTwo()
             4-> rotateAnimNormalTwo()
             3-> rotateAnimFast()
             2-> rotateAnimNormalOne()
-            1-> rotateAnimSlowly()
+            1-> rotateAnimSlowlyOne()
         }
         scaleFon()
         scaleCoin()
@@ -155,7 +156,7 @@ class AnimateCoin(coinImage: ImageView, fonImage: ImageView) {
     }
 
 
-    private fun rotateAnimSlowly() {
+    private fun rotateAnimSlowlyOne() {
         ValueAnimator.ofFloat(-740f, 0f).apply {
             addUpdateListener { animation ->
                 mCoinImage.rotationX = animation.animatedValue as Float
@@ -177,13 +178,49 @@ class AnimateCoin(coinImage: ImageView, fonImage: ImageView) {
                 }
             }
             duration = 1400
-            interpolator = InterpolatorRotateSlowly()
+            interpolator = InterpolatorRotateSlowlyOne()
             disableViewDuringAnimation(mCoinImage)
             startDelay = 100
             start()
         }
     }
 
+    private fun rotateAnimSlowlyTwo() {
+        ValueAnimator.ofFloat(-1100f, 0f).apply {
+            addUpdateListener { animation ->
+                mCoinImage.rotationX = animation.animatedValue as Float
+                Log.v("coin", (animation.animatedValue as Float).toInt().toString())
+
+                if (mCoinSide == CoinSide.FRONT) {
+                    when ((animation.animatedValue as Float).toInt()) {
+                        in -1100..-990 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
+                        in -990..-810 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
+                        in -810..-90 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
+                        in -90..0 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
+                    }
+
+                } else {
+                    when ((animation.animatedValue as Float).toInt()) {
+                        in -1100..-990 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
+                        in -990..-810 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
+                        in -810..-90 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
+                        in -90..0 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
+                    }
+                }
+            }
+            addListener(object: AnimatorListenerAdapter(){
+                override fun onAnimationEnd(animation: Animator?) {
+                    super.onAnimationEnd(animation)
+                    mCoinSide = if (mCoinSide == CoinSide.FRONT) CoinSide.BACK else CoinSide.FRONT
+                }
+            })
+            duration = 1400
+            interpolator = InterpolatorRotateSlowlyTwo()
+            disableViewDuringAnimation(mCoinImage)
+            startDelay = 100
+            start()
+        }
+    }
 
     private fun rotateAnimFast() {
         ValueAnimator.ofFloat(-2160f, 0f).apply {
@@ -274,34 +311,4 @@ class AnimateCoin(coinImage: ImageView, fonImage: ImageView) {
             }
         })
     }
-
-    fun fast() {
-        mCoinState = (0..1).random()
-        rotateAnimFast()
-        scaleFon()
-        scaleCoin()
-        shake()
-
-    }
-
-    fun slow() {
-        mCoinState = (0..1).random()
-        rotateAnimSlowly()
-        scaleFon()
-        scaleCoin()
-        shake()    }
-
-    fun normal1() {
-        mCoinState = (0..1).random()
-        rotateAnimNormalOne()
-        scaleFon()
-        scaleCoin()
-        shake()    }
-
-    fun normal2() {
-        mCoinState = (0..1).random()
-        rotateAnimNormalTwo()
-        scaleFon()
-        scaleCoin()
-        shake()    }
 }

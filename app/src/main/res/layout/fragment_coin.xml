@@ -31,46 +31,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/slow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="slow"
-        app:layout_constraintEnd_toStartOf="@+id/normal1"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/wood"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/normal1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="normal1"
-        app:layout_constraintEnd_toStartOf="@+id/normal2"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/slow"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/normal2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="normal2"
-        app:layout_constraintEnd_toStartOf="@+id/fast"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/normal1"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/fast"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="fast"
-        app:layout_constraintEnd_toStartOf="@+id/wood"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/normal2"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

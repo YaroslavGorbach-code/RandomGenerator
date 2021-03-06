@@ -2,7 +2,7 @@ package com.example.yaroslavgorbach.randomizer.coin
 
 import android.animation.TimeInterpolator
 
-class InterpolatorRotateSlowly: TimeInterpolator {
+class InterpolatorRotateSlowlyOne: TimeInterpolator {
     var lastInput = 0f
     var lastInputBeforeSlowed = 0f
     override fun getInterpolation(t: Float): Float {
