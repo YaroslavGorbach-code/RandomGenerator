@@ -118,28 +118,30 @@ class AnimateCoin(coinImage: ImageView, fonImage: ImageView) {
 
                 if (mCoinSide == CoinSide.FRONT) {
                     when ((animation.animatedValue as Float).toInt()) {
-                        in -1980..-1900 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
-                        in -1900..-1720 -> {
+                        in -1980..-1880 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
+                        in -1880..-1690 -> {
                             setCoinSide()
                             mCoinImage.setImageResource(R.drawable.ic_coin_back)
                         }
-                        in -1720..-1530 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
+                        in -1690..-1530 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
                         in -1530..-1340 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
-                        in -1340..-80 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
-                        in -80..0 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
+                        in -1340..-1170 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
+                        in -1170..-270 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
+                        in -270..-0 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
                     }
 
                 } else {
                     when ((animation.animatedValue as Float).toInt()) {
-                        in -1980..-1900 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
-                        in -1900..-1720 -> {
+                        in -1980..-1880 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
+                        in -1880..-1690 -> {
                             setCoinSide()
                             mCoinImage.setImageResource(R.drawable.ic_coin_front)
                         }
-                        in -1720..-1530 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
+                        in -1690..-1530 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
                         in -1530..-1340 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
-                        in -1340..-80 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
-                        in -80..0 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
+                        in -1340..-1170 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
+                        in -1170..-270 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
+                        in -270..-0 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
                     }
                 }
             }
@@ -184,43 +186,43 @@ class AnimateCoin(coinImage: ImageView, fonImage: ImageView) {
 
 
     private fun rotateAnimFast() {
-        ValueAnimator.ofFloat(-2880f, 0f).apply {
+        ValueAnimator.ofFloat(-2160f, 0f).apply {
             addUpdateListener { animation ->
                 mCoinImage.rotationX = animation.animatedValue as Float
                 Log.v("coin", (animation.animatedValue as Float).toInt().toString())
 
                 if (mCoinSide == CoinSide.FRONT) {
                     when ((animation.animatedValue as Float).toInt()) {
-                        in -2880..-2780 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
-                        in -2780..-2610 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
-                        in -2610..-2250 -> {
+                        in -2160..-2080 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
+                        in -2080..-1900 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
+                        in -1900..-1700 -> {
                             setCoinSide()
                             mCoinImage.setImageResource(R.drawable.ic_coin_front)
                         }
-                        in -2250..-2077 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
-                        in -2077..-1890 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
-                        in -1890..-1700 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
-                        in -1700..-440 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
-                        in -440..-270 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
-                        in -270..-100 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
+                        in -1700..-1530 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
+                        in -1530..-1350 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
+                        in -1350..-800 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
+                        in -800..-630 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
+                        in -630..-450 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
+                        in -450..-270 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
                         in -100..0 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
                     }
 
                 } else {
                     when ((animation.animatedValue as Float).toInt()) {
-                        in -2880..-2780 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
-                        in -2780..-2610 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
-                        in -2610..-2250 -> {
+                        in -2160..-2080 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
+                        in -2080..-1900 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
+                        in -1900..-1700 -> {
                             setCoinSide()
                             mCoinImage.setImageResource(R.drawable.ic_coin_back)
                         }
-                        in -2250..-2077 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
-                        in -2077..-1890 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
-                        in -1890..-1700 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
-                        in -1700..-440 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
-                        in -440..-270 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
-                        in -270..-100 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
-                        in -100..0 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
+                        in -1700..-1530 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
+                        in -1530..-1350 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
+                        in -1350..-800 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
+                        in -800..-630 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
+                        in -630..-450 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
+                        in -450..-270 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
+                        in -100..0 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
                     }
                 }
             }
