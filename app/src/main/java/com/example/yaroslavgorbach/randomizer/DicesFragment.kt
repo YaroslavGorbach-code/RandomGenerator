@@ -33,75 +33,54 @@ class DicesFragment : Fragment() {
 
 
         mImageView.setOnClickListener {
-            translater()
-            rotateAnim()
-            scalerFon()
-            shake()
+            rotateDice(mImageView)
             when((1..6).random()){
-                1 ->  Handler().postDelayed({mImageView.setImageResource(R.drawable.dice_1)}, 900)
-                2 ->  Handler().postDelayed({mImageView.setImageResource(R.drawable.dice_2)}, 900)
-                3 ->  Handler().postDelayed({mImageView.setImageResource(R.drawable.dice_3)}, 900)
-                4 ->  Handler().postDelayed({mImageView.setImageResource(R.drawable.dice_4)}, 900)
-                5 ->  Handler().postDelayed({mImageView.setImageResource(R.drawable.dice_5)}, 900)
-                6 ->  Handler().postDelayed({mImageView.setImageResource(R.drawable.dice_6)}, 900)
+//                1 ->  Handler().postDelayed({mImageView.setImageResource(R.drawable.dice_1)}, 900)
+//                2 ->  Handler().postDelayed({mImageView.setImageResource(R.drawable.dice_2)}, 900)
+//                3 ->  Handler().postDelayed({mImageView.setImageResource(R.drawable.dice_3)}, 900)
+//                4 ->  Handler().postDelayed({mImageView.setImageResource(R.drawable.dice_4)}, 900)
+//                5 ->  Handler().postDelayed({mImageView.setImageResource(R.drawable.dice_5)}, 900)
+//                6 ->  Handler().postDelayed({mImageView.setImageResource(R.drawable.dice_6)}, 900)
             }
 
         }
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP_MR1)
-    private fun scalerFon() {
-        val fonScaleSet = AnimatorSet()
-        val scaleX = ObjectAnimator.ofFloat(mDeckFon, View.SCALE_X, 1.5f)
-        scaleX.repeatCount = 1
-        scaleX.repeatMode = ObjectAnimator.REVERSE
+    private fun scaleFon() {
+        val scaleX = ObjectAnimator.ofFloat(mDeckFon, View.SCALE_X, 1.5f).apply {
+            repeatCount = 1
+            repeatMode = ObjectAnimator.REVERSE
+        }
 
-        val scaleY = ObjectAnimator.ofFloat(mDeckFon, View.SCALE_Y, 1.5f)
-        scaleY.repeatCount = 1
-        scaleY.repeatMode = ObjectAnimator.REVERSE
+        val scaleY = ObjectAnimator.ofFloat(mDeckFon, View.SCALE_Y, 1.5f).apply {
+            repeatCount = 1
+            repeatMode = ObjectAnimator.REVERSE
+        }
 
-        fonScaleSet.playTogether(scaleX, scaleY)
-//        fonScaleSet.interpolator = AnticipateOvershootInterpolator(0.0f, 0.0f)
-        fonScaleSet.interpolator = FonScaleInterpolator()
-        fonScaleSet.duration = 1200
-        fonScaleSet.start()
+        AnimatorSet().apply {
+            playTogether(scaleX, scaleY)
+            interpolator = FonScaleInterpolator()
+            duration = 900
+            start()
+        }
 
     }
 
 
+    private fun rotateDice(dice: ImageView){
 
-    private fun rotateAnim(){
-        val setR = AnimatorSet()
-        val setS = AnimatorSet()
+        val rotate = ObjectAnimator.ofFloat(dice, View.ROTATION_X, -360f, 0f)
 
-        val rotateX = ObjectAnimator.ofFloat(mImageView, View.ROTATION, -2060f, 0f)
-
-        val scaleX = ObjectAnimator.ofFloat(mImageView, View.SCALE_X, 1.6f)
-        scaleX.repeatCount = 1
-        scaleX.repeatMode = ObjectAnimator.REVERSE
-        val scaleY = ObjectAnimator.ofFloat(mImageView, View.SCALE_Y, 1.6f)
-        scaleY.repeatCount = 1
-        scaleY.repeatMode = ObjectAnimator.REVERSE
-
-        setS.playTogether(scaleX, scaleY)
-        setS.duration = 1000
-        setS.interpolator = AnticipateOvershootInterpolator(0.0f, 0.0f)
-        setS.start()
-
-
-        setR.play(rotateX)
-        setR.duration = 2000
-        setR.interpolator  = AccelerateDecelerateInterpolator()
-        setR.startDelay = 200
-        setR.start()
-
-        //  animator.disableViewDuringAnimation(mImageView)
+        rotate.duration = 700
+        rotate.interpolator  = LinearInterpolator()
+        rotate.startDelay = 100
+        rotate.start()
 
     }
 
     private fun translater() {
-        val animator = ObjectAnimator.ofFloat(mImageView, View.TRANSLATION_Y,
+        val animator = ObjectAnimator.ofFloat(mImageView, View.TRANSLATION_X,
             -600f)
         animator.repeatCount = 1
         animator.duration = 1000

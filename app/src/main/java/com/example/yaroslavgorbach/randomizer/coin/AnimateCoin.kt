@@ -25,6 +25,7 @@ class AnimateCoin(coinImage: ImageView, fonImage: ImageView) {
             2-> rotateAnimNormalOne()
             1-> rotateAnimSlowlyOne()
         }
+
         scaleFon()
         scaleCoin()
         shake()
@@ -51,14 +52,17 @@ class AnimateCoin(coinImage: ImageView, fonImage: ImageView) {
     }
 
     private fun shake() {
-        val scaleX = ObjectAnimator.ofFloat(mCoinImage, "scaleX", 1f, 1.1f, 1f, 1.1f, 1f, 1.1f, 1f)
-        val scaleY = ObjectAnimator.ofFloat(mCoinImage, "scaleY", 1f, 1.1f, 1f, 1.1f, 1f, 1.1f, 1f)
-        val rotation =ObjectAnimator.ofFloat(mCoinImage, "rotation", 0f, -3f, -3f, 3f, -3f, 3f, -3f, 3f, -3f, 0f)
+        val scaleX = ObjectAnimator.ofFloat(mCoinImage, "scaleX", 1f, 1.15f, 1f, 1.15f, 1f, 1.15f, 1f)
+        val scaleY = ObjectAnimator.ofFloat(mCoinImage, "scaleY", 1f, 1.15f, 1f, 1.15f, 1f, 1.15f, 1f)
+        val rotation =ObjectAnimator.ofFloat(mCoinImage, "rotation", 0f, 10f, -10f, 10f, -10f, 10f, -10f, 10f,0f)
+        val tX = ObjectAnimator.ofFloat(mCoinImage, View.TRANSLATION_X, 1f, -10f, -10f, 10f, 10f, -10f, -10f, 10f,
+                10f, -10f, -10f, 10f, 10f, 1f)
+        val tY = ObjectAnimator.ofFloat(mCoinImage, View.TRANSLATION_Y, 1f, -5f, -5f, 5f, 5f, 1f)
 
         AnimatorSet().apply {
-            playTogether(scaleX, scaleY, rotation)
+            playTogether(tX, tY, scaleX, scaleY, rotation)
             startDelay = 1400
-            duration = 300
+            duration = 500
             start()
         }
     }
@@ -259,7 +263,7 @@ class AnimateCoin(coinImage: ImageView, fonImage: ImageView) {
                         in -800..-630 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
                         in -630..-450 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
                         in -450..-270 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
-                        in -100..0 -> mCoinImage.setImageResource(R.drawable.ic_coin_front)
+                        in -100..0 -> mCoinImage.setImageResource(R.drawable.ic_coin_back)
                     }
                 }
             }
