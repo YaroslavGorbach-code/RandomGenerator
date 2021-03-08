@@ -6,6 +6,7 @@ import android.view.View
 import android.view.animation.*
 import android.widget.ImageView
 import com.example.yaroslavgorbach.randomizer.R
+import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
 
 class AnimateCoin(coinImage: ImageView, fonImage: ImageView) {
     private enum class CoinSide {
@@ -71,7 +72,6 @@ class AnimateCoin(coinImage: ImageView, fonImage: ImageView) {
         ValueAnimator.ofFloat(-1980f, 0f).apply {
             addUpdateListener { animation ->
                 mCoinImage.rotationX = animation.animatedValue as Float
-                Log.v("coin", (animation.animatedValue as Float).toInt().toString())
 
                 if (mCoinSide == CoinSide.FRONT) {
                     when ((animation.animatedValue as Float).toInt()) {
@@ -119,7 +119,6 @@ class AnimateCoin(coinImage: ImageView, fonImage: ImageView) {
         ValueAnimator.ofFloat(-1980f, 0f).apply {
             addUpdateListener { animation ->
                 mCoinImage.rotationX = animation.animatedValue as Float
-                Log.v("coin", (animation.animatedValue as Float).toInt().toString())
 
                 if (mCoinSide == CoinSide.FRONT) {
                     when ((animation.animatedValue as Float).toInt()) {
@@ -164,7 +163,6 @@ class AnimateCoin(coinImage: ImageView, fonImage: ImageView) {
         ValueAnimator.ofFloat(-740f, 0f).apply {
             addUpdateListener { animation ->
                 mCoinImage.rotationX = animation.animatedValue as Float
-                Log.v("coin", (animation.animatedValue as Float).toInt().toString())
 
                 if (mCoinSide == CoinSide.FRONT) {
                     when ((animation.animatedValue as Float).toInt()) {
@@ -193,7 +191,6 @@ class AnimateCoin(coinImage: ImageView, fonImage: ImageView) {
         ValueAnimator.ofFloat(-1100f, 0f).apply {
             addUpdateListener { animation ->
                 mCoinImage.rotationX = animation.animatedValue as Float
-                Log.v("coin", (animation.animatedValue as Float).toInt().toString())
 
                 if (mCoinSide == CoinSide.FRONT) {
                     when ((animation.animatedValue as Float).toInt()) {
@@ -230,7 +227,6 @@ class AnimateCoin(coinImage: ImageView, fonImage: ImageView) {
         ValueAnimator.ofFloat(-2160f, 0f).apply {
             addUpdateListener { animation ->
                 mCoinImage.rotationX = animation.animatedValue as Float
-                Log.v("coin", (animation.animatedValue as Float).toInt().toString())
 
                 if (mCoinSide == CoinSide.FRONT) {
                     when ((animation.animatedValue as Float).toInt()) {
@@ -304,15 +300,5 @@ class AnimateCoin(coinImage: ImageView, fonImage: ImageView) {
         }
     }
 
-    private fun ValueAnimator.disableViewDuringAnimation(view: View) {
-        this.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationStart(animation: Animator?) {
-                view.isClickable = false
-            }
 
-            override fun onAnimationEnd(animation: Animator?) {
-                view.isClickable = true
-            }
-        })
-    }
 }
