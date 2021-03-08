@@ -6,7 +6,7 @@
     app:startDestination="@id/randomListFragment">
     <fragment
         android:id="@+id/dicesFragment"
-        android:name="com.example.yaroslavgorbach.randomizer.DicesFragment"
+        android:name="com.example.yaroslavgorbach.randomizer.dice.DicesFragment"
         android:label="fragment_dices"
         tools:layout="@layout/fragment_dices" />
     <fragment
