@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.*
 import android.widget.ImageView
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.yaroslavgorbach.randomizer.R
@@ -23,19 +22,17 @@ class DicesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_dices, container, false)
         mRecyclerOfDices = view.findViewById(R.id.listOfDices)
+
         mDiceAnimator = AnimatorDice()
         var numberOfDices = 30
-        val adapter = DicesAdapter { diceImage ->
-            mDiceAnimator.animateDice(diceImage)
+        val adapter = DicesAdapter { diceImage, diceModel ->
+            mDiceAnimator.animateDice(diceImage, diceModel)
         }
-        //mDiceAnimator.inflateDices(mGrid, 30)
-        adapter.setNumberOfDices(numberOfDices)
+        adapter.setData(createDices(numberOfDices))
         mRecyclerOfDices.apply {
             this.adapter = adapter
             layoutManager = StaggeredGridLayoutManager(if (numberOfDices > 1) 2 else 1 , StaggeredGridLayoutManager.VERTICAL)
             return view
-
-
         }
     }
 
@@ -49,6 +46,21 @@ class DicesFragment : Fragment() {
         animator.interpolator = AnticipateOvershootInterpolator(0.0f, 0.0f)
         animator.repeatMode = ObjectAnimator.REVERSE
         animator.start()
+    }
+
+    private fun createDices(number: Int): List<DiceModel>{
+        val list: MutableList<DiceModel> = mutableListOf()
+        for (i in 1..number){
+            when(i){
+                1,7,13,19,25 -> list.add(i-1, DiceModel( R.drawable.ic_dice_1, 1, false ))
+                2,8,14,20,26 -> list.add(i-1, DiceModel( R.drawable.ic_dice_2, 2, false ))
+                3,9,15,21,27 -> list.add(i-1, DiceModel( R.drawable.ic_dice_3, 3, false ))
+                4,10,16,22,28 -> list.add(i-1, DiceModel( R.drawable.ic_dice_4, 4, false ))
+                5,11,17,23,29 -> list.add(i-1, DiceModel( R.drawable.ic_dice_5, 5, false ))
+                6,12,18,24,30 -> list.add(i-1, DiceModel( R.drawable.ic_dice_6, 6, false ))
+            }
+        }
+        return list
     }
 }
 

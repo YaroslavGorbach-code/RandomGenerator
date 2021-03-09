@@ -10,15 +10,33 @@ import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
 
 class AnimatorDice {
-     fun animateDice(image: ImageView){
+     fun animateDice(image: ImageView, diceModel: DiceModel){
         rotateDice(image)
         when((1..6).random()){
-            1-> android.os.Handler().postDelayed({ image.setImageResource(R.drawable.ic_dice_1) }, 600)
-            2-> android.os.Handler().postDelayed({ image.setImageResource(R.drawable.ic_dice_2) }, 600)
-            3-> android.os.Handler().postDelayed({ image.setImageResource(R.drawable.ic_dice_3) }, 600)
-            4-> android.os.Handler().postDelayed({ image.setImageResource(R.drawable.ic_dice_4) }, 600)
-            5-> android.os.Handler().postDelayed({ image.setImageResource(R.drawable.ic_dice_5) }, 600)
-            6-> android.os.Handler().postDelayed({ image.setImageResource(R.drawable.ic_dice_6) }, 600)
+            1 -> {
+                android.os.Handler().postDelayed({ image.setImageResource(R.drawable.ic_dice_1) }, 600)
+                diceModel.image = R.drawable.ic_dice_1
+            }
+            2 -> {
+                android.os.Handler().postDelayed({ image.setImageResource(R.drawable.ic_dice_2) }, 600)
+                diceModel.image = R.drawable.ic_dice_2
+            }
+            3 -> {
+                android.os.Handler().postDelayed({ image.setImageResource(R.drawable.ic_dice_3) }, 600)
+                diceModel.image = R.drawable.ic_dice_3
+            }
+            4 -> {
+                android.os.Handler().postDelayed({ image.setImageResource(R.drawable.ic_dice_4) }, 600)
+                diceModel.image = R.drawable.ic_dice_4
+            }
+            5 -> {
+                android.os.Handler().postDelayed({ image.setImageResource(R.drawable.ic_dice_5) }, 600)
+                diceModel.image = R.drawable.ic_dice_5
+            }
+            6 -> {
+                android.os.Handler().postDelayed({ image.setImageResource(R.drawable.ic_dice_6) }, 600)
+                diceModel.image = R.drawable.ic_dice_6
+            }
         }
     }
 
