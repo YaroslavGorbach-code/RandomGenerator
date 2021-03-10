@@ -2,65 +2,41 @@ package com.example.yaroslavgorbach.randomizer.dice
 
 import android.animation.*
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.*
+import android.widget.GridLayout
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.yaroslavgorbach.randomizer.R
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 class DicesFragment : Fragment() {
     private lateinit var mImageView: ImageView
-    private lateinit var mRecyclerOfDices: RecyclerView
     private lateinit var mDiceAnimator: AnimatorDice
-
+    private lateinit var mAnimateAllDicesBt: ExtendedFloatingActionButton
+    private lateinit var mGrid: GridLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_dices, container, false)
-        mRecyclerOfDices = view.findViewById(R.id.listOfDices)
+        mAnimateAllDicesBt = view.findViewById(R.id.animateAllDices)
 
+        mGrid = view.findViewById(R.id.grid)
         mDiceAnimator = AnimatorDice()
-        var numberOfDices = 30
-        val adapter = DicesAdapter { diceImage, diceModel ->
-            mDiceAnimator.animateDice(diceImage, diceModel)
+        var numberOfDices = 15
+        mDiceAnimator.inflateDices(mGrid, numberOfDices)
+
+        mAnimateAllDicesBt.setOnClickListener{
+            mDiceAnimator.animateAllDices()
+            mDiceAnimator.rotateButton(it)
         }
-        adapter.setData(createDices(numberOfDices))
-        mRecyclerOfDices.apply {
-            this.adapter = adapter
-            layoutManager = StaggeredGridLayoutManager(if (numberOfDices > 1) 2 else 1 , StaggeredGridLayoutManager.VERTICAL)
-            return view
-        }
-    }
 
-
-
-    private fun translater() {
-        val animator = ObjectAnimator.ofFloat(mImageView, View.TRANSLATION_X,
-            -600f)
-        animator.repeatCount = 1
-        animator.duration = 1000
-        animator.interpolator = AnticipateOvershootInterpolator(0.0f, 0.0f)
-        animator.repeatMode = ObjectAnimator.REVERSE
-        animator.start()
-    }
-
-    private fun createDices(number: Int): List<DiceModel>{
-        val list: MutableList<DiceModel> = mutableListOf()
-        for (i in 1..number){
-            when(i){
-                1,7,13,19,25 -> list.add(i-1, DiceModel( R.drawable.ic_dice_1, 1, false ))
-                2,8,14,20,26 -> list.add(i-1, DiceModel( R.drawable.ic_dice_2, 2, false ))
-                3,9,15,21,27 -> list.add(i-1, DiceModel( R.drawable.ic_dice_3, 3, false ))
-                4,10,16,22,28 -> list.add(i-1, DiceModel( R.drawable.ic_dice_4, 4, false ))
-                5,11,17,23,29 -> list.add(i-1, DiceModel( R.drawable.ic_dice_5, 5, false ))
-                6,12,18,24,30 -> list.add(i-1, DiceModel( R.drawable.ic_dice_6, 6, false ))
-            }
-        }
-        return list
+        return view
     }
 }
 
