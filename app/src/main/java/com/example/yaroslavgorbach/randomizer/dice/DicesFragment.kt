@@ -10,31 +10,36 @@ import android.view.ViewGroup
 import android.view.animation.*
 import android.widget.GridLayout
 import android.widget.ImageView
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.yaroslavgorbach.randomizer.R
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 class DicesFragment : Fragment() {
-    private lateinit var mImageView: ImageView
     private lateinit var mDiceAnimator: AnimatorDice
     private lateinit var mAnimateAllDicesBt: ExtendedFloatingActionButton
     private lateinit var mGrid: GridLayout
+    private lateinit var mToolbar: Toolbar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_dices, container, false)
         mAnimateAllDicesBt = view.findViewById(R.id.animateAllDices)
-
+        mToolbar = view.findViewById(R.id.materialToolbar)
         mGrid = view.findViewById(R.id.grid)
         mDiceAnimator = AnimatorDice()
-        var numberOfDices = 15
+        var numberOfDices = 6
         mDiceAnimator.inflateDices(mGrid, numberOfDices)
 
         mAnimateAllDicesBt.setOnClickListener{
             mDiceAnimator.animateAllDices()
             mDiceAnimator.rotateButton(it)
         }
+
+        mDiceAnimator.getSum().observe(viewLifecycleOwner,{
+            mToolbar.title = it.toString()
+        })
 
         return view
     }
