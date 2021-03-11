@@ -5,6 +5,7 @@ import android.view.TextureView
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
+import android.view.animation.OvershootInterpolator
 import android.widget.TextView
 import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
 
@@ -43,10 +44,19 @@ class NumberAnimator {
                         start()
                     }else{
                         mRepeatTimes = 0
+                        finishAnimation(view)
                     }
                 }
             })
             interpolator = LinearInterpolator()
+            start()
+        }
+    }
+
+    fun finishAnimation(view: TextView){
+        ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, -400f, 0f).apply {
+            duration = 1500
+            interpolator = OvershootInterpolator(1.5f)
             start()
         }
     }

@@ -20,6 +20,7 @@ class NumberFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_number, container, false)
         mNumberTv = view.findViewById(R.id.number)
         mNumberParent = view.findViewById(R.id.numberParent)
+        mNumberAnimator.animateNumber(mNumberTv, mNumberParent)
         return view
     }
 
