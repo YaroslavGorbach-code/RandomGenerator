@@ -22,7 +22,7 @@ class AnimatorDice{
     private val _mSum: MutableLiveData<Int> = MutableLiveData(0)
     private val mSum: LiveData<Int> = _mSum
 
-    fun inflateDices(parent: ViewGroup, number: Int) {
+    fun inflateDice(parent: ViewGroup, number: Int) {
         val inflater = LayoutInflater.from(parent.context)
         for (i in 1..number) {
             val item: View = inflater.inflate(R.layout.dice_i, parent, false)
@@ -62,11 +62,17 @@ class AnimatorDice{
         }
     }
 
-    fun animateAllDices() {
+    fun animateAllDice() {
         for (i in mDices.indices){
             animateDice(mDices[i])
         }
 
+    }
+
+    fun rotateAllDice(){
+        for (i in mDices.indices){
+            rotateDice(mDices[i].imageView)
+        }
     }
 
     fun rotateButton(view: View){

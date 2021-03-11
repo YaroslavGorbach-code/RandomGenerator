@@ -5,10 +5,15 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/randomListFragment">
     <fragment
-        android:id="@+id/dicesFragment"
-        android:name="com.example.yaroslavgorbach.randomizer.dice.DicesFragment"
-        android:label="fragment_dices"
-        tools:layout="@layout/fragment_dices" />
+        android:id="@+id/diceFragment"
+        android:name="com.example.yaroslavgorbach.randomizer.dice.DiceFragment"
+        android:label="fragment_dice"
+        tools:layout="@layout/fragment_dices">
+        <argument
+            android:name="numberOfDice"
+            android:defaultValue="1"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/randomListFragment"
         android:name="com.example.yaroslavgorbach.randomizer.RandomListFragment"
@@ -16,7 +21,7 @@
         tools:layout="@layout/fragment_random_list" >
         <action
             android:id="@+id/action_randomListFragment_to_dicesFragment"
-            app:destination="@id/dicesFragment" />
+            app:destination="@id/diceFragment" />
         <action
             android:id="@+id/action_randomListFragment_to_coinFragment"
             app:destination="@id/coinFragment" />

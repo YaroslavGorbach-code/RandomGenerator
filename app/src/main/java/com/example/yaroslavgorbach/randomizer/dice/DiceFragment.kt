@@ -1,22 +1,17 @@
 package com.example.yaroslavgorbach.randomizer.dice
 
-import android.animation.*
 import android.os.Bundle
-import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.*
 import android.widget.GridLayout
-import android.widget.ImageView
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
 import com.example.yaroslavgorbach.randomizer.R
+import com.example.yaroslavgorbach.randomizer.dice.DiceFragmentArgs.fromBundle
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
-class DicesFragment : Fragment() {
+class DiceFragment : Fragment() {
     private lateinit var mDiceAnimator: AnimatorDice
     private lateinit var mAnimateAllDicesBt: ExtendedFloatingActionButton
     private lateinit var mGrid: GridLayout
@@ -29,16 +24,16 @@ class DicesFragment : Fragment() {
         mToolbar = view.findViewById(R.id.materialToolbar)
         mGrid = view.findViewById(R.id.grid)
         mDiceAnimator = AnimatorDice()
-        var numberOfDices = 6
-        mDiceAnimator.inflateDices(mGrid, numberOfDices)
+        mDiceAnimator.inflateDice(mGrid, fromBundle(requireArguments()).numberOfDice)
+        mDiceAnimator.rotateAllDice()
 
         mAnimateAllDicesBt.setOnClickListener{
-            mDiceAnimator.animateAllDices()
+            mDiceAnimator.animateAllDice()
             mDiceAnimator.rotateButton(it)
         }
 
         mDiceAnimator.getSum().observe(viewLifecycleOwner,{
-            mToolbar.title = it.toString()
+            mToolbar.title ="Total: $it"
         })
 
         return view
