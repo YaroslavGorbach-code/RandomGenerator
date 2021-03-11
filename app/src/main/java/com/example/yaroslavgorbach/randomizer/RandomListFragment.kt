@@ -15,6 +15,7 @@ import com.google.android.material.textfield.TextInputEditText
 class RandomListFragment : Fragment() {
     private lateinit var mStartDice: MaterialButton
     private lateinit var mStartCoin: MaterialButton
+    private lateinit var mStartNumber: MaterialButton
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -22,6 +23,7 @@ class RandomListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_random_list, container, false)
         mStartDice = view.findViewById(R.id.dice)
         mStartCoin = view.findViewById(R.id.coin)
+        mStartNumber = view.findViewById(R.id.number)
         return view
     }
 
@@ -48,6 +50,9 @@ class RandomListFragment : Fragment() {
             findNavController().navigate(RandomListFragmentDirections.actionRandomListFragmentToCoinFragment())
         }
 
+        mStartNumber.setOnClickListener{
+            findNavController().navigate(RandomListFragmentDirections.actionRandomListFragmentToNumberFragment())
+        }
     }
 
 }

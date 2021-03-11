@@ -25,10 +25,18 @@
         <action
             android:id="@+id/action_randomListFragment_to_coinFragment"
             app:destination="@id/coinFragment" />
+        <action
+            android:id="@+id/action_randomListFragment_to_numberFragment"
+            app:destination="@id/numberFragment" />
     </fragment>
     <fragment
         android:id="@+id/coinFragment"
         android:name="com.example.yaroslavgorbach.randomizer.coin.CoinFragment"
         android:label="fragment_coin"
         tools:layout="@layout/fragment_coin" />
+    <fragment
+        android:id="@+id/numberFragment"
+        android:name="com.example.yaroslavgorbach.randomizer.number.NumberFragment"
+        android:label="fragment_number"
+        tools:layout="@layout/fragment_number" />
 </navigation>
