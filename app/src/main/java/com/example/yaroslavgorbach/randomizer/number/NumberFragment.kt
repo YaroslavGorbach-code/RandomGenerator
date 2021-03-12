@@ -9,14 +9,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.yaroslavgorbach.randomizer.R
 
 class NumberFragment : Fragment() {
     private lateinit var mNumberTv: TextView
-    private lateinit var mNumberParent: FrameLayout
+    private lateinit var mNumberParent: ConstraintLayout
     private lateinit var mPreviousNumber: TextView
     private var mMaxValue: Long = 10
     private var mMinValue: Long = 0
+    private var mNumberOfResults: Int = 1
 
 
     private val mNumberAnimator: NumberAnimator = NumberAnimator()
@@ -29,7 +31,8 @@ class NumberFragment : Fragment() {
 
         mMaxValue = NumberFragmentArgs.fromBundle(requireArguments()).maxValue
         mMinValue = NumberFragmentArgs.fromBundle(requireArguments()).minValue
-        mNumberAnimator.animateNumber(mNumberTv, mNumberParent, mMinValue, mMaxValue)
+        mNumberOfResults = NumberFragmentArgs.fromBundle(requireArguments()).numberOfResults
+        mNumberAnimator.animateNumber(mNumberTv, mNumberParent, mMinValue, mMaxValue, mNumberOfResults)
         return view
     }
 
@@ -37,12 +40,12 @@ class NumberFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mNumberParent.setOnClickListener {
-            mNumberAnimator.animateNumber(mNumberTv, mNumberParent, mMinValue, mMaxValue)
+            mNumberAnimator.animateNumber(mNumberTv, mNumberParent, mMinValue, mMaxValue, mNumberOfResults)
         }
 
         mNumberAnimator.getPreviousNumber().observe(viewLifecycleOwner, {
             if (mPreviousNumber.text.isEmpty()){
-                mPreviousNumber.text = "$it"
+                mPreviousNumber.text = it
             }else{
                 mPreviousNumber.text = "$it, ${mPreviousNumber.text}"
             }

@@ -47,5 +47,9 @@
             android:name="minValue"
             app:argType="long"
             android:defaultValue="10L" />
+        <argument
+            android:name="numberOfResults"
+            app:argType="integer"
+            android:defaultValue="1" />
     </fragment>
 </navigation>

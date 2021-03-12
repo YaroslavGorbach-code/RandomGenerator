@@ -54,6 +54,7 @@ class RandomListFragment : Fragment() {
             val dialogView: View = LayoutInflater.from(context).inflate(R.layout.create_number_dialog,null)
             val maxValue = dialogView.findViewById<TextInputEditText>(R.id.maxValue)
             val minValue = dialogView.findViewById<TextInputEditText>(R.id.minValue)
+            val numberOfResult = dialogView.findViewById<TextInputEditText>(R.id.numberOfResults)
 
             val positiveButton = dialogView.findViewById<MaterialButton>(R.id.createButton)
             val dialog = MaterialAlertDialogBuilder(requireContext())
@@ -62,11 +63,13 @@ class RandomListFragment : Fragment() {
             positiveButton.setOnClickListener {
                 if (InputFilters.numberMaxMinFilter(maxValue)
                         && InputFilters.numberMaxMinFilter(minValue)
-                        && InputFilters.numberMinBiggerThenMaxFilter(minValue, maxValue)){
-                    findNavController().navigate(RandomListFragmentDirections.actionRandomListFragmentToNumberFragment()
-                        .setMaxValue(maxValue.text.toString().toLong())
-                        .setMinValue(minValue.text.toString().toLong()))
-                            dialog.dismiss()
+                        && InputFilters.numberMinBiggerThenMaxFilter(minValue, maxValue)
+                        && InputFilters.numberOfResultsFilter(numberOfResult)){
+                            findNavController().navigate(RandomListFragmentDirections.actionRandomListFragmentToNumberFragment()
+                            .setMaxValue(maxValue.text.toString().toLong())
+                            .setMinValue(minValue.text.toString().toLong())
+                            .setNumberOfResults(numberOfResult.text.toString().toInt()))
+                    dialog.dismiss()
                 }
             }
         }

@@ -1,6 +1,7 @@
 package com.example.yaroslavgorbach.randomizer.number
 
 import android.animation.*
+import android.annotation.SuppressLint
 import android.view.View
 import android.view.animation.LinearInterpolator
 import android.view.animation.OvershootInterpolator
@@ -11,30 +12,30 @@ import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
 import kotlin.math.abs
 
 class NumberAnimator {
-    private val _mNumber: MutableLiveData<Long> = MutableLiveData()
-    private val mNumber: LiveData<Long> = _mNumber
-
+    private val _mNumber: MutableLiveData<String> = MutableLiveData()
+    private val mNumber: LiveData<String> = _mNumber
     private var mRepeatTimes = 0
 
-    fun animateNumber(view: TextView, parent: View, minValue: Long, maxValue: Long){
-        animate(view, parent, minValue, maxValue)
+    fun animateNumber(view: TextView, parent: View, minValue: Long, maxValue: Long, numberOfResults: Int){
+        animate(view, parent, minValue, maxValue, numberOfResults)
     }
 
-    fun getPreviousNumber(): LiveData<Long>{
+    fun getPreviousNumber(): LiveData<String>{
         return mNumber
     }
 
-    private fun animate(view: TextView, parent: View, minValue: Long, maxValue: Long){
-        val hide = ValueAnimator.ofFloat( -400f).apply {
+    private fun animate(view: TextView, parent: View, minValue: Long,
+                        maxValue: Long, numberOfResults: Int ){
+        val hide = ValueAnimator.ofFloat( -900f).apply {
             addUpdateListener {
                 view.translationY = animatedValue as Float
-                if((animatedValue as Float).toInt() == -400){
-                    changeValue(view, minValue, maxValue)
+                if((animatedValue as Float).toInt() == -900){
+                    generateValue(view, minValue, maxValue, numberOfResults)
                 }
             }
             disableViewDuringAnimation(parent)
         }
-        val show = ValueAnimator.ofFloat(400f, 0f).apply {
+        val show = ValueAnimator.ofFloat(900f, 0f).apply {
             addUpdateListener {
                 view.translationY = animatedValue as Float
             }
@@ -43,16 +44,16 @@ class NumberAnimator {
 
         AnimatorSet().apply {
             play(hide).before(show)
-            duration = 250
+            duration = 300
             addListener(object: AnimatorListenerAdapter(){
                 override fun onAnimationEnd(animation: Animator?) {
                     super.onAnimationEnd(animation)
-                    if (mRepeatTimes < 5){
+                    if (mRepeatTimes < 3){
                         mRepeatTimes += 1
                         start()
                     }else{
                         mRepeatTimes = 0
-                        _mNumber.value = view.text.toString().toLong()
+                        _mNumber.value = view.text.toString()
                         finishAnimation(view)
                     }
                 }
@@ -70,28 +71,26 @@ class NumberAnimator {
         }
     }
 
-    private fun changeValue(textView: TextView, minValue: Long, maxValue: Long){
-        val value = (minValue..maxValue).random()
-        when(abs(value)){
-            in 0..100 ->{
+    @SuppressLint("SetTextI18n")
+    private fun generateValue(textView: TextView, minValue: Long, maxValue: Long, numberOfResults: Int){
+        var value: String = (minValue..maxValue).random().toString()
+        for (i in 2..numberOfResults){
+            value += ", ${(minValue..maxValue).random()}"
+        }
+        when(value.length){
+            in 0..5 ->{
                 textView.textSize = 100F
             }
-            in 100..1000 ->{
-                textView.textSize = 90F
-            }
-            in 1000..10000 ->{
-                textView.textSize = 80F
-            }
-            in 10000..1000000 ->{
-                textView.textSize = 70F
-            }
-            in 1000000..1000000000000 ->{
+            in 5..40 ->{
                 textView.textSize = 50F
             }
-            in 1000000000000..Long.MAX_VALUE ->{
+            in 40..150 ->{
                 textView.textSize = 30F
             }
+            in 150..Long.MAX_VALUE ->{
+                textView.textSize = 15F
+            }
         }
-        textView.text = value.toString()
+        textView.text = value
     }
 }
