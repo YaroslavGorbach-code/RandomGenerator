@@ -38,5 +38,14 @@
         android:id="@+id/numberFragment"
         android:name="com.example.yaroslavgorbach.randomizer.number.NumberFragment"
         android:label="fragment_number"
-        tools:layout="@layout/fragment_number" />
+        tools:layout="@layout/fragment_number" >
+        <argument
+            android:name="maxValue"
+            app:argType="long"
+            android:defaultValue="10L" />
+        <argument
+            android:name="minValue"
+            app:argType="long"
+            android:defaultValue="10L" />
+    </fragment>
 </navigation>
