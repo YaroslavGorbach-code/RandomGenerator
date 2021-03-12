@@ -5,15 +5,23 @@ import android.view.View
 import android.view.animation.LinearInterpolator
 import android.view.animation.OvershootInterpolator
 import android.widget.TextView
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
 import kotlin.math.abs
 
 class NumberAnimator {
-    private var mRepeatTimes = 0
+    private val _mNumber: MutableLiveData<Long> = MutableLiveData()
+    private val mNumber: LiveData<Long> = _mNumber
 
+    private var mRepeatTimes = 0
 
     fun animateNumber(view: TextView, parent: View, minValue: Long, maxValue: Long){
         animate(view, parent, minValue, maxValue)
+    }
+
+    fun getPreviousNumber(): LiveData<Long>{
+        return mNumber
     }
 
     private fun animate(view: TextView, parent: View, minValue: Long, maxValue: Long){
@@ -44,6 +52,7 @@ class NumberAnimator {
                         start()
                     }else{
                         mRepeatTimes = 0
+                        _mNumber.value = view.text.toString().toLong()
                         finishAnimation(view)
                     }
                 }
@@ -53,7 +62,7 @@ class NumberAnimator {
         }
     }
 
-    fun finishAnimation(view: TextView){
+    private fun finishAnimation(view: TextView){
         ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, -200f, 0f).apply {
             duration = 2000
             interpolator = OvershootInterpolator(1.1f)
@@ -84,7 +93,5 @@ class NumberAnimator {
             }
         }
         textView.text = value.toString()
-
     }
-
 }
