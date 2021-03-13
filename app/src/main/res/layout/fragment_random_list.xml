@@ -7,13 +7,22 @@
     tools:context=".RandomListFragment">
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/list"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="list"
+        app:layout_constraintEnd_toEndOf="@+id/number"
+        app:layout_constraintStart_toStartOf="@+id/number"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/number"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:text="number"
         app:layout_constraintEnd_toEndOf="@+id/dice"
         app:layout_constraintStart_toStartOf="@+id/dice"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/list" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/dice"

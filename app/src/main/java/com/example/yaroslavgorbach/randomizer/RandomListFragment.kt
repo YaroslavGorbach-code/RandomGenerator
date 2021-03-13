@@ -15,6 +15,7 @@ class RandomListFragment : Fragment() {
     private lateinit var mStartDice: MaterialButton
     private lateinit var mStartCoin: MaterialButton
     private lateinit var mStartNumber: MaterialButton
+    private lateinit var mStartList: MaterialButton
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -23,6 +24,7 @@ class RandomListFragment : Fragment() {
         mStartDice = view.findViewById(R.id.dice)
         mStartCoin = view.findViewById(R.id.coin)
         mStartNumber = view.findViewById(R.id.number)
+        mStartList = view.findViewById(R.id.list)
         return view
     }
 
@@ -72,6 +74,9 @@ class RandomListFragment : Fragment() {
                     dialog.dismiss()
                 }
             }
+        }
+        mStartList.setOnClickListener{
+            findNavController().navigate(RandomListFragmentDirections.actionRandomListFragmentToListFragment())
         }
     }
 

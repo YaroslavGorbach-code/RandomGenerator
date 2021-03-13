@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_randomListFragment_to_numberFragment"
             app:destination="@id/numberFragment" />
+        <action
+            android:id="@+id/action_randomListFragment_to_listFragment"
+            app:destination="@id/listFragment" />
     </fragment>
     <fragment
         android:id="@+id/coinFragment"
@@ -52,4 +55,9 @@
             app:argType="integer"
             android:defaultValue="1" />
     </fragment>
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.example.yaroslavgorbach.randomizer.list.ListFragment"
+        android:label="fragment_list"
+        tools:layout="@layout/fragment_list" />
 </navigation>
