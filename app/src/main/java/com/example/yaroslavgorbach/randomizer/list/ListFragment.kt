@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.yaroslavgorbach.randomizer.R
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
@@ -15,7 +16,9 @@ class ListFragment : Fragment() {
     private lateinit var mAnimateAllItems: ExtendedFloatingActionButton
     private lateinit var mGrid: GridLayout
     private lateinit var mToolbar: Toolbar
-    private val mListOfItems: MutableList<String> = mutableListOf("item 1", "item 2", "item 3")
+    private lateinit var mParent: ConstraintLayout
+    private val mListOfItems: MutableList<String> = mutableListOf("item 1", "item 2", "item 3",
+            "item 1", "item 2", "item 3", "item 1", "item 2", "item 3")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -24,7 +27,8 @@ class ListFragment : Fragment() {
         mAnimateAllItems = view.findViewById(R.id.animateAllItems)
         mToolbar = view.findViewById(R.id.materialToolbar)
         mGrid = view.findViewById(R.id.grid)
-        mLIstAnimator = AnimatorList()
+        mParent = view.findViewById(R.id.parentList)
+        mLIstAnimator = AnimatorList(mParent, view.findViewById(R.id.finalItem))
         mLIstAnimator.inflateItems(mGrid, mListOfItems)
 
         mAnimateAllItems.setOnClickListener{

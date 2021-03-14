@@ -25,6 +25,7 @@ class RandomListFragment : Fragment() {
         mStartCoin = view.findViewById(R.id.coin)
         mStartNumber = view.findViewById(R.id.number)
         mStartList = view.findViewById(R.id.list)
+
         return view
     }
 

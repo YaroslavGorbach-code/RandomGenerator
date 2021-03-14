@@ -15,4 +15,5 @@ fun ValueAnimator.disableViewDuringAnimation(view: View) {
             view.isClickable = true
         }
     })
+
 }
