@@ -1,12 +1,10 @@
 package com.example.yaroslavgorbach.randomizer.list
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
-import android.app.Activity
+import android.animation.*
+import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
@@ -14,9 +12,11 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.animation.addListener
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
 import java.util.*
+
 
 class AnimatorList(parent: ConstraintLayout, finalItem: TextView){
     private val mItems = mutableListOf<ListItemModel>()
@@ -112,28 +112,62 @@ class AnimatorList(parent: ConstraintLayout, finalItem: TextView){
 
     private fun setDarkForeground(){
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M && !mIsForegroundTransparent) {
-            mParent.foreground = (ColorDrawable(Color.argb(200, 0,0,0)))
+            ValueAnimator.ofInt(0, 200).apply {
+                addUpdateListener { animator ->
+                    mParent.foreground = (ColorDrawable(Color.argb(animator.animatedValue as Int, 0, 0, 0)))
+                }
+                duration = 300
+                start()
+            }
+
             mIsForegroundTransparent = true
         }
     }
 
     private fun setLightForeground(){
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M){
-            mParent.foreground = null
-            mIsForegroundTransparent = false
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M && mIsForegroundTransparent) {
+            ValueAnimator.ofInt(200, 0).apply {
+                addUpdateListener { animator ->
+                    mParent.foreground = (ColorDrawable(Color.argb(animator.animatedValue as Int, 0, 0, 0)))
+                }
+                duration = 300
+                start()
+                mIsForegroundTransparent = false
+            }
         }
     }
 
-    private fun showFinalItem(item: ListItemModel){
+    private fun showFinalItem(item: ListItemModel) {
         setDarkForeground()
-        mFinalItem.visibility = View.VISIBLE
+        mFinalItem.setBackgroundColor(item.color)
         mFinalItem.text = item.text
+        mFinalItem.visibility = View.VISIBLE
+
+        val scaleX = ObjectAnimator.ofFloat(mFinalItem, View.SCALE_X, 0f, 1f)
+        val scaleY = ObjectAnimator.ofFloat(mFinalItem, View.SCALE_Y, 0f, 1f)
+        AnimatorSet().apply {
+            playTogether(scaleX, scaleY)
+            duration = 300
+            start()
+        }
     }
 
     private fun hideFinalItem(){
         setLightForeground()
-        mFinalItem.visibility = View.GONE
-        mFinalItem.text = null
+        val scaleX = ObjectAnimator.ofFloat(mFinalItem, View.SCALE_X, 1f, 0f)
+        val scaleY = ObjectAnimator.ofFloat(mFinalItem, View.SCALE_Y, 1f, 0f)
+        AnimatorSet().apply {
+            addListener(object : AnimatorListenerAdapter(){
+                override fun onAnimationEnd(animation: Animator?) {
+                    super.onAnimationEnd(animation)
+                    mFinalItem.visibility = View.GONE
+                    mFinalItem.text = null
+                }
+            })
+            playTogether(scaleX, scaleY)
+            duration = 300
+            start()
+        }
     }
 
     private fun hideAllItems() {
@@ -143,7 +177,6 @@ class AnimatorList(parent: ConstraintLayout, finalItem: TextView){
     }
 
     private fun showItem(item: ListItemModel){
-        //item.background.setBackgroundResource(R.drawable.ic_dice_1)
         item.parent.text = item.text
         item.isSelected = true
     }
@@ -172,8 +205,9 @@ class AnimatorList(parent: ConstraintLayout, finalItem: TextView){
         for (i in listOfItems.indices) {
             val itemV: View = inflater.inflate(R.layout.list_i, parent, false)
             val listItemBackground: TextView = itemV.findViewById(R.id.list_item)
-            listItemBackground.setBackgroundColor(getRandomColor())
-            val listItem = ListItemModel(listItemBackground, listOfItems[i], false)
+            val color = getRandomColor()
+            listItemBackground.setBackgroundColor(color)
+            val listItem = ListItemModel(listItemBackground, listOfItems[i], false, color)
             itemV.setOnClickListener {
                 manuallyShowItemRotate(listItem)
             }
