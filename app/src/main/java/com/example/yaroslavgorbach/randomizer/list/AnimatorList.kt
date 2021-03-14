@@ -12,8 +12,6 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
-import java.util.*
-
 
 class AnimatorList(parent: ConstraintLayout, finalItem: TextView){
     private val mItems = mutableListOf<ListItemModel>()
@@ -125,9 +123,8 @@ class AnimatorList(parent: ConstraintLayout, finalItem: TextView){
                 duration = 300
                 start()
             }
-
-            mIsForegroundDark = true
         }
+        mIsForegroundDark = true
     }
 
     private fun setLightForeground(){
@@ -138,14 +135,14 @@ class AnimatorList(parent: ConstraintLayout, finalItem: TextView){
                 }
                 duration = 300
                 start()
-                mIsForegroundDark = false
             }
         }
+        mIsForegroundDark = false
     }
 
     private fun showFinalItem(item: ListItemModel) {
         setDarkForeground()
-        mFinalItem.setBackgroundColor(item.color)
+        mFinalItem.background.setTint(item.color)
         mFinalItem.text = item.text
         mFinalItem.visibility = View.VISIBLE
 
@@ -178,6 +175,7 @@ class AnimatorList(parent: ConstraintLayout, finalItem: TextView){
 
     private fun hideAllItems() {
         for (i in mItems.indices){
+            mItems[i].isSelected = false
             Handler().postDelayed({ mItems[i].parent.text = null }, 200)
         }
     }
@@ -186,7 +184,6 @@ class AnimatorList(parent: ConstraintLayout, finalItem: TextView){
         item.parent.text = item.text
         item.isSelected = true
     }
-
 
     private fun MutableList<ListItemModel>.shuffle(){
         val listText = mutableListOf<String>()
@@ -197,13 +194,7 @@ class AnimatorList(parent: ConstraintLayout, finalItem: TextView){
 
         for (i in listText.indices){
             mItems[i].text = listText[i]
-            mItems[i].isSelected = false
         }
-    }
-
-    private fun getRandomColor(): Int {
-        val rnd = Random()
-        return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
     }
 
     fun inflateItems(parent: ViewGroup, listOfItems: MutableList<String>) {
@@ -211,10 +202,12 @@ class AnimatorList(parent: ConstraintLayout, finalItem: TextView){
         val inflater = LayoutInflater.from(parent.context)
         for (i in listOfItems.indices) {
             val itemV: View = inflater.inflate(R.layout.list_i, parent, false)
-            val listItemBackground: TextView = itemV.findViewById(R.id.list_item)
-            val color = getRandomColor()
-            listItemBackground.setBackgroundColor(color)
-            val listItem = ListItemModel(listItemBackground, listOfItems[i], false, color)
+            val listItemTv: TextView = itemV.findViewById(R.id.list_item)
+            val color = Color.argb(255, (0..200).random(),(0..100).random(), (0..200).random())
+            val drawable = parent.context.getDrawable(R.drawable.list_item_bg)
+            drawable?.setTint(color)
+            listItemTv.background = drawable
+            val listItem = ListItemModel(listItemTv, listOfItems[i], false, color)
             itemV.setOnClickListener {
                 manuallyShowItemRotate(listItem)
             }

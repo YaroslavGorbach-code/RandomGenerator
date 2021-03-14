@@ -19,10 +19,27 @@ class ListFragment : Fragment() {
     private lateinit var mGrid: GridLayout
     private lateinit var mToolbar: Toolbar
     private lateinit var mParent: ConstraintLayout
-    private val mListOfItems: MutableList<String> = mutableListOf("item 1", "item 2", "item 3",
-            "item 1", "item 2", "item 3", "item 1", "item 2", "item 3")
+    private val mListOfItems: MutableList<String> = mutableListOf("item 1 item 1item 1item 1item 1item 1item 1" +
+            "item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
+            "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
+            "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
+            "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
+            "",
+            "item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
+                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
+                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
+                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
+                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
+                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
+                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
+                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
+                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
+                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
+                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
+                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
+                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
+                    "", "item 2", "item 3")
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_list, container, false)
