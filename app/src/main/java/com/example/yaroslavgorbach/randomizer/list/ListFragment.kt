@@ -1,8 +1,10 @@
 package com.example.yaroslavgorbach.randomizer.list
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
@@ -20,6 +22,7 @@ class ListFragment : Fragment() {
     private val mListOfItems: MutableList<String> = mutableListOf("item 1", "item 2", "item 3",
             "item 1", "item 2", "item 3", "item 1", "item 2", "item 3")
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_list, container, false)
@@ -31,12 +34,18 @@ class ListFragment : Fragment() {
         mLIstAnimator = AnimatorList(mParent, view.findViewById(R.id.finalItem))
         mLIstAnimator.inflateItems(mGrid, mListOfItems)
 
-        mAnimateAllItems.setOnClickListener{
+        mAnimateAllItems.setOnClickListener {
             mLIstAnimator.rotateButton(mAnimateAllItems)
             mLIstAnimator.showItem()
         }
 
+        mParent.setOnClickListener {
+            mLIstAnimator.hideFinalItem()
+        }
+
+        mGrid.setOnClickListener {
+            mLIstAnimator.hideFinalItem()
+        }
         return view
     }
-
 }

@@ -11,7 +11,8 @@
     tools:text="f"
     android:textColor="@color/white"
     android:textSize="15sp"
-
+    android:clickable="false"
+    android:focusable="false"
     android:background="?colorPrimary"
     android:layout_marginStart="8dp"
     android:layout_gravity="center_horizontal"

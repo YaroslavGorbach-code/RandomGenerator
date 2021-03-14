@@ -1,10 +1,8 @@
 package com.example.yaroslavgorbach.randomizer.list
 
 import android.animation.*
-import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +10,6 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.animation.addListener
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
 import java.util.*
@@ -22,48 +19,57 @@ class AnimatorList(parent: ConstraintLayout, finalItem: TextView){
     private val mItems = mutableListOf<ListItemModel>()
     private val mParent = parent
     private val mFinalItem = finalItem
-    private var mIsForegroundTransparent = false
+    private var mIsForegroundDark = false
 
     private fun manuallyShowItemRotate(item: ListItemModel) {
-        val rotateY = ObjectAnimator.ofFloat(item.parent, View.ROTATION_Y, -740f, 0f).apply {
-            disableViewDuringAnimation(item.parent)
-            addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator?) {
-                    super.onAnimationEnd(animation)
-                    item.parent.text = item.text
-                }
-            })
-        }
-
-        val rotateX = ObjectAnimator.ofFloat(item.parent, View.ROTATION_Y, 740f, 0f).apply {
-            disableViewDuringAnimation(item.parent)
-            addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationStart(animation: Animator?) {
-                    super.onAnimationStart(animation)
-                    if (!item.isSelected)
-                        Handler().postDelayed({ item.parent.text = null }, 200)
-                }
-            })
-        }
-
-        AnimatorSet().apply {
-            playSequentially(rotateY, rotateX)
-            addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationStart(animation: Animator?) {
-                    super.onAnimationStart(animation)
-                    if (!item.isSelected)
-                        Handler().postDelayed({ item.parent.text = null }, 200)
+        if (!mIsForegroundDark){
+            if(!item.isSelected) {
+                val rotateY = ObjectAnimator.ofFloat(item.parent, View.ROTATION_Y, -740f, 0f).apply {
+                    disableViewDuringAnimation(item.parent)
+                    addListener(object : AnimatorListenerAdapter() {
+                        override fun onAnimationEnd(animation: Animator?) {
+                            super.onAnimationEnd(animation)
+                            item.parent.text = item.text
+                        }
+                    })
                 }
 
-                override fun onAnimationEnd(animation: Animator?, isReverse: Boolean) {
-                    super.onAnimationEnd(animation, isReverse)
-                    showItem(item)
+                val rotateX = ObjectAnimator.ofFloat(item.parent, View.ROTATION_Y, 740f, 0f).apply {
+                    disableViewDuringAnimation(item.parent)
+                    addListener(object : AnimatorListenerAdapter() {
+                        override fun onAnimationStart(animation: Animator?) {
+                            super.onAnimationStart(animation)
+                            if (!item.isSelected)
+                                Handler().postDelayed({ item.parent.text = null }, 200)
+                        }
+                    })
                 }
-            })
-            duration = 700
-            interpolator = AccelerateDecelerateInterpolator()
-            start()
+
+                AnimatorSet().apply {
+                    playSequentially(rotateY, rotateX)
+                    addListener(object : AnimatorListenerAdapter() {
+                        override fun onAnimationStart(animation: Animator?) {
+                            super.onAnimationStart(animation)
+                            if (!item.isSelected)
+                                Handler().postDelayed({ item.parent.text = null }, 200)
+                        }
+
+                        override fun onAnimationEnd(animation: Animator?, isReverse: Boolean) {
+                            super.onAnimationEnd(animation, isReverse)
+                            showItem(item)
+                        }
+                    })
+                    duration = 700
+                    interpolator = AccelerateDecelerateInterpolator()
+                    start()
+                }
+            }else{
+                showFinalItem(item)
+            }
+        }else{
+            hideFinalItem()
         }
+
     }
 
     private fun autoShowItemRotate(list: TextView, indexToShow: Int) {
@@ -73,7 +79,7 @@ class AnimatorList(parent: ConstraintLayout, finalItem: TextView){
                 override fun onAnimationEnd(animation: Animator?) {
                     super.onAnimationEnd(animation)
                     for (i in mItems.indices) {
-                        showItem(mItems[i])
+                        mItems[i].parent.text = mItems[i].text
                     }
                 }
             })
@@ -111,7 +117,7 @@ class AnimatorList(parent: ConstraintLayout, finalItem: TextView){
 
 
     private fun setDarkForeground(){
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M && !mIsForegroundTransparent) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M && !mIsForegroundDark) {
             ValueAnimator.ofInt(0, 200).apply {
                 addUpdateListener { animator ->
                     mParent.foreground = (ColorDrawable(Color.argb(animator.animatedValue as Int, 0, 0, 0)))
@@ -120,19 +126,19 @@ class AnimatorList(parent: ConstraintLayout, finalItem: TextView){
                 start()
             }
 
-            mIsForegroundTransparent = true
+            mIsForegroundDark = true
         }
     }
 
     private fun setLightForeground(){
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M && mIsForegroundTransparent) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M && mIsForegroundDark) {
             ValueAnimator.ofInt(200, 0).apply {
                 addUpdateListener { animator ->
                     mParent.foreground = (ColorDrawable(Color.argb(animator.animatedValue as Int, 0, 0, 0)))
                 }
                 duration = 300
                 start()
-                mIsForegroundTransparent = false
+                mIsForegroundDark = false
             }
         }
     }
@@ -152,7 +158,7 @@ class AnimatorList(parent: ConstraintLayout, finalItem: TextView){
         }
     }
 
-    private fun hideFinalItem(){
+     fun hideFinalItem(){
         setLightForeground()
         val scaleX = ObjectAnimator.ofFloat(mFinalItem, View.SCALE_X, 1f, 0f)
         val scaleY = ObjectAnimator.ofFloat(mFinalItem, View.SCALE_Y, 1f, 0f)
@@ -191,6 +197,7 @@ class AnimatorList(parent: ConstraintLayout, finalItem: TextView){
 
         for (i in listText.indices){
             mItems[i].text = listText[i]
+            mItems[i].isSelected = false
         }
     }
 
@@ -235,6 +242,7 @@ class AnimatorList(parent: ConstraintLayout, finalItem: TextView){
             autoShowItemRotate(mItems[i].parent, indexToShow)
         }
     }
+
 }
 
 
