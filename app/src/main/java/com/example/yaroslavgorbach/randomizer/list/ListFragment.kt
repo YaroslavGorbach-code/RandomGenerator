@@ -1,10 +1,8 @@
 package com.example.yaroslavgorbach.randomizer.list
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
@@ -19,41 +17,22 @@ class ListFragment : Fragment() {
     private lateinit var mGrid: GridLayout
     private lateinit var mToolbar: Toolbar
     private lateinit var mParent: ConstraintLayout
-    private val mListOfItems: MutableList<String> = mutableListOf("item 1 item 1item 1item 1item 1item 1item 1" +
-            "item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
-            "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
-            "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
-            "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
-            "",
-            "item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
-                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
-                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
-                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
-                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
-                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
-                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
-                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
-                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
-                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
-                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
-                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
-                    "item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1item 1" +
-                    "", "item 2", "item 3")
+    private val mListOfItems: MutableList<String> = mutableListOf()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_list, container, false)
+        fillListWitTestData(mListOfItems)
 
         mAnimateAllItems = view.findViewById(R.id.animateAllItems)
         mToolbar = view.findViewById(R.id.materialToolbar)
         mGrid = view.findViewById(R.id.grid)
         mParent = view.findViewById(R.id.parentList)
         mLIstAnimator = AnimatorList(mParent, view.findViewById(R.id.finalItem))
-        mLIstAnimator.inflateItems(mGrid, mListOfItems)
+        mLIstAnimator.inflateItems(mGrid, mAnimateAllItems, mListOfItems)
 
         mAnimateAllItems.setOnClickListener {
-            mLIstAnimator.rotateButton(mAnimateAllItems)
-            mLIstAnimator.showItem()
+            mLIstAnimator.showResult(mAnimateAllItems)
         }
 
         mParent.setOnClickListener {
@@ -64,5 +43,11 @@ class ListFragment : Fragment() {
             mLIstAnimator.hideFinalItem()
         }
         return view
+    }
+
+    private fun fillListWitTestData(list: MutableList<String>){
+        for (i in 0..(1..1000).random()){
+            list.add("element number $i")
+        }
     }
 }

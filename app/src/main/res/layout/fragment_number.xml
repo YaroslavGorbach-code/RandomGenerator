@@ -80,6 +80,7 @@
                 android:id="@+id/horizontalScrollView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:scrollbars="none"
                 app:layout_constraintEnd_toEndOf="@+id/numberParent"
                 app:layout_constraintStart_toStartOf="@+id/numberParent"
                 app:layout_constraintTop_toBottomOf="@+id/numberParent">

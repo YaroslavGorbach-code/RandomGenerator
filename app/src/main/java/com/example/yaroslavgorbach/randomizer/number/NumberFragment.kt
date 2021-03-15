@@ -2,6 +2,7 @@ package com.example.yaroslavgorbach.randomizer.number
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.TextureView
@@ -28,6 +29,7 @@ class NumberFragment : Fragment() {
         mNumberTv = view.findViewById(R.id.number)
         mNumberParent = view.findViewById(R.id.numberParent)
         mPreviousNumber = view.findViewById(R.id.previousNumberTv)
+        mNumberTv .movementMethod = ScrollingMovementMethod()
 
         mMaxValue = NumberFragmentArgs.fromBundle(requireArguments()).maxValue
         mMinValue = NumberFragmentArgs.fromBundle(requireArguments()).minValue
