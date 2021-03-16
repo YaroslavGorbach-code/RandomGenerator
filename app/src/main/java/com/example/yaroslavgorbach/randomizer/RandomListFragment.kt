@@ -9,11 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.yaroslavgorbach.randomizer.list.Database.ListItemEntity
 import com.example.yaroslavgorbach.randomizer.list.Database.Repo
-import com.example.yaroslavgorbach.randomizer.list.RvAdapter
+import com.example.yaroslavgorbach.randomizer.list.ListItemsAdapter
+import com.example.yaroslavgorbach.randomizer.list.ListTitlesAdapter
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
+import java.util.*
 
 class RandomListFragment : Fragment() {
     private lateinit var mStartDice: MaterialButton
@@ -83,25 +86,53 @@ class RandomListFragment : Fragment() {
             }
         }
         mStartList.setOnClickListener{
-            val dialogView: View = LayoutInflater.from(context).inflate(R.layout.create_list_dialog,null)
-            val positiveButton = dialogView.findViewById<MaterialButton>(R.id.createButton)
+            val dialogView: View = LayoutInflater.from(context).inflate(R.layout.chose_list_dialog,null)
+            val createListButton = dialogView.findViewById<MaterialButton>(R.id.createButton)
             val rvList: RecyclerView = dialogView.findViewById(R.id.recyclerView)
-            val adapter = RvAdapter()
-            rvList.apply {
-                setAdapter(adapter)
-                layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            }
-            mRepo.getItemsByTitle("TestList_1").observe(viewLifecycleOwner, {
-                adapter.submitList(mutableListOf(it[0].text, it[1].text, it[2].text))
-
+            val titleAdapter = ListTitlesAdapter()
+            mRepo.getTitles().observe(viewLifecycleOwner, {
+                titleAdapter.submitList(it)
             })
 
-            val dialog = MaterialAlertDialogBuilder(requireContext())
+            rvList.apply {
+                adapter = titleAdapter
+                layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            }
+
+
+            val listDialog = MaterialAlertDialogBuilder(requireContext())
                     .setView(dialogView)
                     .show()
-            positiveButton.setOnClickListener {
-                findNavController().navigate(RandomListFragmentDirections.actionRandomListFragmentToListFragment())
-                dialog.dismiss()
+            createListButton.setOnClickListener {
+//                findNavController().navigate(RandomListFragmentDirections.actionRandomListFragmentToListFragment())
+
+                val createListDialog: View = LayoutInflater.from(context).inflate(R.layout.create_list_dialog,null)
+                val listTitle = createListDialog.findViewById<TextInputEditText>(R.id.listTitle)
+                val listItem = createListDialog.findViewById<TextInputEditText>(R.id.listItem)
+                val createButton = createListDialog.findViewById<MaterialButton>(R.id.createButton)
+                val addItemButton = createListDialog.findViewById<MaterialButton>(R.id.addItem)
+                val itemsRv = createListDialog.findViewById<RecyclerView>(R.id.recyclerView)
+                val listOfItems = LinkedList<String>()
+                val itemAdapter = ListItemsAdapter()
+                itemsRv.also {
+                    it.adapter = itemAdapter
+                    it.layoutManager = LinearLayoutManager(requireContext())
+                }
+                val dialog = MaterialAlertDialogBuilder(requireContext())
+                    .setView(createListDialog)
+                    .show()
+
+                addItemButton.setOnClickListener {
+                    listOfItems.push(listItem.text.toString())
+                    itemAdapter.submitList(listOfItems)
+                    itemAdapter.notifyDataSetChanged()
+                }
+
+                createButton.setOnClickListener {
+                    mRepo.addItem(ListItemEntity(null, "item", listTitle.text.toString()))
+                    titleAdapter.notifyDataSetChanged()
+                    dialog.dismiss()
+                }
                 }
             }
         }

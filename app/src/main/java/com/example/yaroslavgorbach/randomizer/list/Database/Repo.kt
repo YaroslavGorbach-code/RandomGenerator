@@ -7,7 +7,11 @@ class Repo(context: Context) {
     private val database: Database = Database.getInstance(context)
     private val dao: Dao = database.dao()
 
-    fun getItemsByTitle(title: String):LiveData<List<ListItemEntity>>{
-        return dao.getItemsByTitle(title)
+    fun getTitles():LiveData<List<String>>{
+        return dao.getTitles()
+    }
+
+    fun addItem(listItemEntity: ListItemEntity){
+        dao.insert(listItemEntity)
     }
 }

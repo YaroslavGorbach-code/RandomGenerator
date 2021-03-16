@@ -15,6 +15,6 @@ interface Dao {
     @Update
     fun update(user: ListItemEntity)
 
-    @Query("SELECT * FROM ListItemEntity WHERE title LIKE :title")
-    fun getItemsByTitle(title: String):LiveData<List<ListItemEntity>>
+    @Query("SELECT DISTINCT title FROM ListItemEntity ORDER BY id DESC")
+    fun getTitles():LiveData<List<String>>
 }

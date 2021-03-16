@@ -1,7 +1,6 @@
 package com.example.yaroslavgorbach.randomizer.list
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
@@ -9,10 +8,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yaroslavgorbach.randomizer.R
 
-class RvAdapter : ListAdapter<String, RvAdapter.Vh>(DiffCallback()) {
+class ListTitlesAdapter : ListAdapter<String, ListTitlesAdapter.Vh>(DiffCallback()) {
 
     class Vh(parent: ViewGroup) : RecyclerView.ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.llist_rv_item, parent, false)) {
+            LayoutInflater.from(parent.context).inflate(R.layout.llist_rv_title, parent, false)) {
         var listTitleTv: TextView = itemView.findViewById(R.id.itemTitle)
         fun bindTo(item: String?) {
             listTitleTv.text = item
