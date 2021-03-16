@@ -7,6 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.yaroslavgorbach.randomizer.list.Database.Repo
+import com.example.yaroslavgorbach.randomizer.list.RvAdapter
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
@@ -16,6 +20,7 @@ class RandomListFragment : Fragment() {
     private lateinit var mStartCoin: MaterialButton
     private lateinit var mStartNumber: MaterialButton
     private lateinit var mStartList: MaterialButton
+    private lateinit var mRepo: Repo
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -25,6 +30,7 @@ class RandomListFragment : Fragment() {
         mStartCoin = view.findViewById(R.id.coin)
         mStartNumber = view.findViewById(R.id.number)
         mStartList = view.findViewById(R.id.list)
+        mRepo = Repo(requireContext())
 
         return view
     }
@@ -77,8 +83,26 @@ class RandomListFragment : Fragment() {
             }
         }
         mStartList.setOnClickListener{
-            findNavController().navigate(RandomListFragmentDirections.actionRandomListFragmentToListFragment())
+            val dialogView: View = LayoutInflater.from(context).inflate(R.layout.create_list_dialog,null)
+            val positiveButton = dialogView.findViewById<MaterialButton>(R.id.createButton)
+            val rvList: RecyclerView = dialogView.findViewById(R.id.recyclerView)
+            val adapter = RvAdapter()
+            rvList.apply {
+                setAdapter(adapter)
+                layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            }
+            mRepo.getItemsByTitle("TestList_1").observe(viewLifecycleOwner, {
+                adapter.submitList(mutableListOf(it[0].text, it[1].text, it[2].text))
+
+            })
+
+            val dialog = MaterialAlertDialogBuilder(requireContext())
+                    .setView(dialogView)
+                    .show()
+            positiveButton.setOnClickListener {
+                findNavController().navigate(RandomListFragmentDirections.actionRandomListFragmentToListFragment())
+                dialog.dismiss()
+                }
+            }
         }
     }
-
-}

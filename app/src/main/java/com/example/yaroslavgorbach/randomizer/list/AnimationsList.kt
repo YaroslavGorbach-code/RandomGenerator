@@ -10,7 +10,7 @@ import androidx.annotation.RequiresApi
 import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
 
 class AnimationsList {
-    fun manuallyShowItemRotate(view: View, button: View,listAnimationsManuallyListener: ListAnimationsManuallyListener) {
+    fun manuallyShowItemRotate(view: View, button: View, listAnimationsManuallyListener: ListAnimationsManuallyListener) {
         val rotateY = ValueAnimator.ofFloat( -740f, 0f).apply {
             disableViewDuringAnimation(view)
             disableViewDuringAnimation(button)

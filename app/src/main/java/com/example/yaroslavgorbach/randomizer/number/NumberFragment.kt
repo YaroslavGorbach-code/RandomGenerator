@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -15,7 +14,7 @@ import com.example.yaroslavgorbach.randomizer.R
 
 class NumberFragment : Fragment() {
     private lateinit var mNumberTv: TextView
-    private lateinit var mNumberParent: ConstraintLayout
+    private lateinit var mNumberParent: FrameLayout
     private lateinit var mPreviousNumber: TextView
     private var mMaxValue: Long = 10
     private var mMinValue: Long = 0
@@ -29,7 +28,7 @@ class NumberFragment : Fragment() {
         mNumberTv = view.findViewById(R.id.number)
         mNumberParent = view.findViewById(R.id.numberParent)
         mPreviousNumber = view.findViewById(R.id.previousNumberTv)
-        mNumberTv .movementMethod = ScrollingMovementMethod()
+       // mNumberTv.movementMethod = ScrollingMovementMethod()
 
         mMaxValue = NumberFragmentArgs.fromBundle(requireArguments()).maxValue
         mMinValue = NumberFragmentArgs.fromBundle(requireArguments()).minValue
