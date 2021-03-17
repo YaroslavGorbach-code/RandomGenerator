@@ -14,4 +14,8 @@ class Repo(context: Context) {
     fun addItem(listItemEntity: ListItemEntity){
         dao.insert(listItemEntity)
     }
+
+    fun getItemsByTitle(title: String):LiveData<MutableList<String>> {
+        return dao.getItemsByTitle(title)
+    }
 }

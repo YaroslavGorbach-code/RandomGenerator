@@ -8,19 +8,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yaroslavgorbach.randomizer.R
 
-class ListTitlesAdapter : ListAdapter<String, ListTitlesAdapter.Vh>(DiffCallback()) {
-
-    class Vh(parent: ViewGroup) : RecyclerView.ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.llist_rv_title, parent, false)) {
-        var listTitleTv: TextView = itemView.findViewById(R.id.itemTitle)
-        fun bindTo(item: String?) {
-            listTitleTv.text = item
-        }
-
-    }
+class ListTitlesAdapter(onItemClick: (String) -> Unit) : ListAdapter<String, ListTitlesAdapter.Vh>(DiffCallback()) {
+    private val mCLickListener = onItemClick
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Vh {
-        return Vh(parent)
+        return Vh(parent, onItemClick = mCLickListener)
     }
 
     override fun onBindViewHolder(holder: Vh, position: Int) {
@@ -36,5 +28,20 @@ class ListTitlesAdapter : ListAdapter<String, ListTitlesAdapter.Vh>(DiffCallback
                 return oldItem == newItem
             }
         }
+
+    class Vh(parent: ViewGroup, onItemClick: (String) -> Unit) : RecyclerView.ViewHolder(
+        LayoutInflater.from(parent.context).inflate(R.layout.llist_rv_title, parent, false)) {
+        private var listTitleTv: TextView = itemView.findViewById(R.id.itemTitle)
+
+        init {
+            itemView.setOnClickListener {
+                onItemClick(listTitleTv.text.toString())
+            }
+        }
+        fun bindTo(item: String?) {
+            listTitleTv.text = item
+        }
+
+    }
 
 }

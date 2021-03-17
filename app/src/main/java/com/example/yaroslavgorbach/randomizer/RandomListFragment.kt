@@ -1,10 +1,12 @@
 package com.example.yaroslavgorbach.randomizer
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -89,7 +91,15 @@ class RandomListFragment : Fragment() {
             val dialogView: View = LayoutInflater.from(context).inflate(R.layout.chose_list_dialog,null)
             val createListButton = dialogView.findViewById<MaterialButton>(R.id.createButton)
             val rvList: RecyclerView = dialogView.findViewById(R.id.recyclerView)
-            val titleAdapter = ListTitlesAdapter()
+            val listDialog = MaterialAlertDialogBuilder(requireContext())
+                    .setView(dialogView)
+                    .show()
+
+            val titleAdapter = ListTitlesAdapter(onItemClick = {
+                findNavController().navigate(RandomListFragmentDirections.actionRandomListFragmentToListFragment(it))
+                listDialog.dismiss()
+            })
+
             mRepo.getTitles().observe(viewLifecycleOwner, {
                 titleAdapter.submitList(it)
             })
@@ -99,13 +109,7 @@ class RandomListFragment : Fragment() {
                 layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             }
 
-
-            val listDialog = MaterialAlertDialogBuilder(requireContext())
-                    .setView(dialogView)
-                    .show()
             createListButton.setOnClickListener {
-//                findNavController().navigate(RandomListFragmentDirections.actionRandomListFragmentToListFragment())
-
                 val createListDialog: View = LayoutInflater.from(context).inflate(R.layout.create_list_dialog,null)
                 val listTitle = createListDialog.findViewById<TextInputEditText>(R.id.listTitle)
                 val listItem = createListDialog.findViewById<TextInputEditText>(R.id.listItem)
@@ -129,7 +133,9 @@ class RandomListFragment : Fragment() {
                 }
 
                 createButton.setOnClickListener {
-                    mRepo.addItem(ListItemEntity(null, "item", listTitle.text.toString()))
+                    listOfItems.forEach {
+                        mRepo.addItem(ListItemEntity(null, it, listTitle.text.toString()))
+                    }
                     titleAdapter.notifyDataSetChanged()
                     dialog.dismiss()
                 }

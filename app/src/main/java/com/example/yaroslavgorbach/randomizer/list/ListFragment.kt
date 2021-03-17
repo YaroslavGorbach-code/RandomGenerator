@@ -9,6 +9,7 @@ import android.widget.GridLayout
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.yaroslavgorbach.randomizer.R
+import com.example.yaroslavgorbach.randomizer.list.Database.Repo
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 class ListFragment : Fragment() {
@@ -17,19 +18,22 @@ class ListFragment : Fragment() {
     private lateinit var mGrid: GridLayout
     private lateinit var mToolbar: Toolbar
     private lateinit var mParent: ConstraintLayout
-    private val mListOfItems: MutableList<String> = mutableListOf()
+    private lateinit var mRepo: Repo
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_list, container, false)
-        fillListWitTestData(mListOfItems)
 
         mAnimateAllItems = view.findViewById(R.id.animateAllItems)
         mToolbar = view.findViewById(R.id.materialToolbar)
         mGrid = view.findViewById(R.id.grid)
         mParent = view.findViewById(R.id.parentList)
         mLIstAnimator = AnimatorList(mParent, view.findViewById(R.id.finalItem))
-        mLIstAnimator.inflateItems(mGrid, mAnimateAllItems, mListOfItems)
+        mRepo = Repo(requireContext())
+        mRepo.getItemsByTitle(ListFragmentArgs.fromBundle(requireArguments()).listTitle)
+            .observe(viewLifecycleOwner,{
+                mLIstAnimator.inflateItems(mGrid, mAnimateAllItems, listOfItems = it)
+            })
 
         mAnimateAllItems.setOnClickListener {
             mLIstAnimator.showResult(mAnimateAllItems)
@@ -45,9 +49,4 @@ class ListFragment : Fragment() {
         return view
     }
 
-    private fun fillListWitTestData(list: MutableList<String>){
-        for (i in 0..(1..1000).random()){
-            list.add("element number $i")
-        }
-    }
 }

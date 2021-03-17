@@ -59,5 +59,9 @@
         android:id="@+id/listFragment"
         android:name="com.example.yaroslavgorbach.randomizer.list.ListFragment"
         android:label="fragment_list"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_list" >
+        <argument
+            android:name="listTitle"
+            app:argType="string" />
+    </fragment>
 </navigation>
