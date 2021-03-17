@@ -120,21 +120,30 @@ class RandomListFragment : Fragment() {
         val createListDialog: View =
             LayoutInflater.from(context).inflate(R.layout.create_list_dialog, null)
         val listTitle = createListDialog.findViewById<TextInputEditText>(R.id.listTitle)
-        val listItem = createListDialog.findViewById<TextInputEditText>(R.id.listItem)
+        val itemText = createListDialog.findViewById<TextInputEditText>(R.id.listItem)
         val createButton = createListDialog.findViewById<MaterialButton>(R.id.createButton)
         val addItemButton = createListDialog.findViewById<MaterialButton>(R.id.addItem)
         val itemsRv = createListDialog.findViewById<RecyclerView>(R.id.recyclerView)
         val listOfItems = LinkedList<String>()
         val listOfNewItems = mutableListOf<String>()
+        val listOfDeletedItems= mutableListOf<String>()
+
         val itemAdapter = ListItemsAdapter()
 
+        itemAdapter.addDeleteListener {
+            listOfDeletedItems.add(listOfItems[it])
+            listOfItems.removeAt(it)
+            itemAdapter.submitList(listOfItems)
+            itemAdapter.notifyDataSetChanged()
+        }
+
+        // if update list
         title?.let {
             mRepo.getItemsByTitle(it).observe(viewLifecycleOwner, {items->
                 repeat(items.size) {index->
                     listOfItems.push(items[index])
                 }
             })
-//            listOfItems.reverse()
             listTitle.setText(it)
             itemAdapter.submitList(listOfItems)
             createButton.text = "SAVE"
@@ -149,15 +158,18 @@ class RandomListFragment : Fragment() {
             .show()
 
         addItemButton.setOnClickListener {
-            listOfItems.push(listItem.text.toString())
-            listOfNewItems.add(listItem.text.toString())
+            listOfItems.push(itemText.text.toString())
+            listOfNewItems.add(itemText.text.toString())
             itemAdapter.submitList(listOfItems)
             itemAdapter.notifyDataSetChanged()
+            itemText.text = null
         }
 
 
         createButton.setOnClickListener {
 
+            // if title == null it means create new list
+            // if title != null it means update current list
             if (title == null){
                 listOfItems.forEach {
                     mRepo.addItem(ListItemEntity(null, it, listTitle.text.toString()))
@@ -165,6 +177,9 @@ class RandomListFragment : Fragment() {
             }else{
                 listOfNewItems.forEach {
                     mRepo.addItem(ListItemEntity(null, it, listTitle.text.toString()))
+                }
+                listOfDeletedItems.forEach {
+                    mRepo.deleteItem(mRepo.getItemByText(it))
                 }
             }
 

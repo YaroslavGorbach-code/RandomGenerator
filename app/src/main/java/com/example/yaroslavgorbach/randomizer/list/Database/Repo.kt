@@ -24,6 +24,14 @@ class Repo(context: Context) {
     }
 
     fun deleteItemsByTitle(title: String) {
-        dao.deleteItemsByTitle(title)
+        dao.deleteListByTitle(title)
+    }
+
+    fun deleteItem(item: ListItemEntity) {
+        dao.delete(item)
+    }
+
+    fun getItemByText(it: String): ListItemEntity {
+        return dao.getItemByText(it)
     }
 }

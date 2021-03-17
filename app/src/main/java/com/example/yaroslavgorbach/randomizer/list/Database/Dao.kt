@@ -9,6 +9,8 @@ interface Dao {
     @Insert
     fun insert(vararg item: ListItemEntity)
 
+//    @Query("DELETE FROM ListItemEntity WHERE text == :text LIMIT 1")
+//    @Query("DELETE FROM ListItemEntity WHERE text IN (SELECT text FROM ListItemEntity WHERE text  == :text LIMIT 1)")
     @Delete
     fun delete(item: ListItemEntity)
 
@@ -21,9 +23,12 @@ interface Dao {
     @Query("SELECT text FROM ListItemEntity WHERE title LIKE :title")
     fun getItemsByTitle(title: String):LiveData<MutableList<String>>
 
+    @Query("SELECT * FROM ListItemEntity WHERE text LIKE :text LIMIT 1")
+    fun getItemByText(text: String): ListItemEntity
+
     @Query("UPDATE ListItemEntity SET title = :newTitle WHERE title == :oldTitle")
     fun changeTitle(oldTitle: String, newTitle: String)
 
     @Query("DELETE FROM ListItemEntity WHERE title == :title")
-    fun deleteItemsByTitle(title: String)
+    fun deleteListByTitle(title: String)
 }
