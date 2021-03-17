@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_randomListFragment_to_listFragment"
             app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_randomListFragment_to_matchesFragment"
+            app:destination="@id/matchesFragment" />
     </fragment>
     <fragment
         android:id="@+id/coinFragment"
@@ -64,4 +67,9 @@
             android:name="listTitle"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/matchesFragment"
+        android:name="com.example.yaroslavgorbach.randomizer.matches.MatchesFragment"
+        android:label="fragment_matches"
+        tools:layout="@layout/fragment_matches" />
 </navigation>

@@ -9,8 +9,6 @@ interface Dao {
     @Insert
     fun insert(vararg item: ListItemEntity)
 
-//    @Query("DELETE FROM ListItemEntity WHERE text == :text LIMIT 1")
-//    @Query("DELETE FROM ListItemEntity WHERE text IN (SELECT text FROM ListItemEntity WHERE text  == :text LIMIT 1)")
     @Delete
     fun delete(item: ListItemEntity)
 

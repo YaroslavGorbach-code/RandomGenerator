@@ -7,13 +7,22 @@
     tools:context=".RandomListFragment">
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/matches"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="matches"
+        app:layout_constraintEnd_toEndOf="@+id/list"
+        app:layout_constraintStart_toStartOf="@+id/list"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/list"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:text="list"
         app:layout_constraintEnd_toEndOf="@+id/number"
         app:layout_constraintStart_toStartOf="@+id/number"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/matches" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/number"

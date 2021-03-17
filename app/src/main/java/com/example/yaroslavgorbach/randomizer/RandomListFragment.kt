@@ -23,6 +23,7 @@ class RandomListFragment : Fragment() {
     private lateinit var mStartCoin: MaterialButton
     private lateinit var mStartNumber: MaterialButton
     private lateinit var mStartList: MaterialButton
+    private lateinit var mStartMatches: MaterialButton
     private lateinit var mRepo: Repo
 
     override fun onCreateView(
@@ -33,6 +34,7 @@ class RandomListFragment : Fragment() {
         mStartCoin = view.findViewById(R.id.coin)
         mStartNumber = view.findViewById(R.id.number)
         mStartList = view.findViewById(R.id.list)
+        mStartMatches = view.findViewById(R.id.matches)
         mRepo = Repo(requireContext())
 
         return view
@@ -96,7 +98,7 @@ class RandomListFragment : Fragment() {
                 findNavController().navigate(RandomListFragmentDirections.actionRandomListFragmentToListFragment(it))
                 listDialog.dismiss()
             }, onEditClick = {
-                showCreateEditItemDialog(title = it)
+                showCreateEditListItemDialog(title = it)
             }, onDeleteClick = {
                 mRepo.deleteItemsByTitle(title = it)
             })
@@ -111,12 +113,19 @@ class RandomListFragment : Fragment() {
             }
 
             createListButton.setOnClickListener {
-                showCreateEditItemDialog(null)
+                showCreateEditListItemDialog(null)
             }
             }
-        }
 
-    private fun showCreateEditItemDialog(title: String?) {
+        mStartMatches.setOnClickListener {
+            findNavController().navigate(RandomListFragmentDirections.actionRandomListFragmentToMatchesFragment())
+        }
+    }
+
+
+
+
+    private fun showCreateEditListItemDialog(title: String?) {
         val createListDialog: View =
             LayoutInflater.from(context).inflate(R.layout.create_list_dialog, null)
         val listTitle = createListDialog.findViewById<TextInputEditText>(R.id.listTitle)
