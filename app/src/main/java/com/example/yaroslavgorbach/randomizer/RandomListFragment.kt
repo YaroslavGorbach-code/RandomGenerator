@@ -1,12 +1,10 @@
 package com.example.yaroslavgorbach.randomizer
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -57,7 +55,6 @@ class RandomListFragment : Fragment() {
                                     .setNumberOfDice(Integer.valueOf(numberOfDiceEt.text.toString())))
                             dialog.dismiss()
                         }
-
             }
         }
         mStartCoin.setOnClickListener{
@@ -98,6 +95,10 @@ class RandomListFragment : Fragment() {
             val titleAdapter = ListTitlesAdapter(onItemClick = {
                 findNavController().navigate(RandomListFragmentDirections.actionRandomListFragmentToListFragment(it))
                 listDialog.dismiss()
+            }, onEditClick = {
+                showCreateEditItemDialog(title = it)
+            }, onDeleteClick = {
+                mRepo.deleteItemsByTitle(title = it)
             })
 
             mRepo.getTitles().observe(viewLifecycleOwner, {
@@ -110,36 +111,67 @@ class RandomListFragment : Fragment() {
             }
 
             createListButton.setOnClickListener {
-                val createListDialog: View = LayoutInflater.from(context).inflate(R.layout.create_list_dialog,null)
-                val listTitle = createListDialog.findViewById<TextInputEditText>(R.id.listTitle)
-                val listItem = createListDialog.findViewById<TextInputEditText>(R.id.listItem)
-                val createButton = createListDialog.findViewById<MaterialButton>(R.id.createButton)
-                val addItemButton = createListDialog.findViewById<MaterialButton>(R.id.addItem)
-                val itemsRv = createListDialog.findViewById<RecyclerView>(R.id.recyclerView)
-                val listOfItems = LinkedList<String>()
-                val itemAdapter = ListItemsAdapter()
-                itemsRv.also {
-                    it.adapter = itemAdapter
-                    it.layoutManager = LinearLayoutManager(requireContext())
-                }
-                val dialog = MaterialAlertDialogBuilder(requireContext())
-                    .setView(createListDialog)
-                    .show()
-
-                addItemButton.setOnClickListener {
-                    listOfItems.push(listItem.text.toString())
-                    itemAdapter.submitList(listOfItems)
-                    itemAdapter.notifyDataSetChanged()
-                }
-
-                createButton.setOnClickListener {
-                    listOfItems.forEach {
-                        mRepo.addItem(ListItemEntity(null, it, listTitle.text.toString()))
-                    }
-                    titleAdapter.notifyDataSetChanged()
-                    dialog.dismiss()
-                }
-                }
+                showCreateEditItemDialog(null)
+            }
             }
         }
+
+    private fun showCreateEditItemDialog(title: String?) {
+        val createListDialog: View =
+            LayoutInflater.from(context).inflate(R.layout.create_list_dialog, null)
+        val listTitle = createListDialog.findViewById<TextInputEditText>(R.id.listTitle)
+        val listItem = createListDialog.findViewById<TextInputEditText>(R.id.listItem)
+        val createButton = createListDialog.findViewById<MaterialButton>(R.id.createButton)
+        val addItemButton = createListDialog.findViewById<MaterialButton>(R.id.addItem)
+        val itemsRv = createListDialog.findViewById<RecyclerView>(R.id.recyclerView)
+        val listOfItems = LinkedList<String>()
+        val listOfNewItems = mutableListOf<String>()
+        val itemAdapter = ListItemsAdapter()
+
+        title?.let {
+            mRepo.getItemsByTitle(it).observe(viewLifecycleOwner, {items->
+                repeat(items.size) {index->
+                    listOfItems.push(items[index])
+                }
+            })
+//            listOfItems.reverse()
+            listTitle.setText(it)
+            itemAdapter.submitList(listOfItems)
+            createButton.text = "SAVE"
+        }
+
+        itemsRv.also {
+            it.adapter = itemAdapter
+            it.layoutManager = LinearLayoutManager(requireContext())
+        }
+        val dialog = MaterialAlertDialogBuilder(requireContext())
+            .setView(createListDialog)
+            .show()
+
+        addItemButton.setOnClickListener {
+            listOfItems.push(listItem.text.toString())
+            listOfNewItems.add(listItem.text.toString())
+            itemAdapter.submitList(listOfItems)
+            itemAdapter.notifyDataSetChanged()
+        }
+
+
+        createButton.setOnClickListener {
+
+            if (title == null){
+                listOfItems.forEach {
+                    mRepo.addItem(ListItemEntity(null, it, listTitle.text.toString()))
+                }
+            }else{
+                listOfNewItems.forEach {
+                    mRepo.addItem(ListItemEntity(null, it, listTitle.text.toString()))
+                }
+            }
+
+            if (title!= null && title!= listTitle.text.toString()){
+                mRepo.changeTitle(oldTitle = title, newTitle = listTitle.text.toString())
+            }
+            dialog.dismiss()
+        }
     }
+}

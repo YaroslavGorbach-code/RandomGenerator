@@ -18,4 +18,12 @@ class Repo(context: Context) {
     fun getItemsByTitle(title: String):LiveData<MutableList<String>> {
         return dao.getItemsByTitle(title)
     }
+
+    fun changeTitle(oldTitle: String, newTitle: String) {
+        dao.changeTitle(oldTitle, newTitle)
+    }
+
+    fun deleteItemsByTitle(title: String) {
+        dao.deleteItemsByTitle(title)
+    }
 }
