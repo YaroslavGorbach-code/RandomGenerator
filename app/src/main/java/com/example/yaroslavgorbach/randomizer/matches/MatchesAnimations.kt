@@ -26,6 +26,20 @@ class MatchesAnimations {
         }
     }
 
+    private fun refreshMatchAnimation(matchModel: MatchModel){
+        ValueAnimator.ofFloat(matchModel.imageView.translationY, 0f).apply {
+            disableViewDuringAnimation(matchModel.imageView)
+            addUpdateListener {
+                    matchModel.imageView.translationY = it.animatedValue as Float
+                if ((it.animatedValue as Float).toInt() in 0..150) {
+                    matchModel.imageView.setImageResource(R.drawable.ic_match)
+                }
+            }
+            duration = 500
+            start()
+        }
+    }
+
      private fun MutableList<MatchModel>.shuffle(){
         val listText = mutableListOf<Boolean>()
         for (i in this.indices){
@@ -58,4 +72,12 @@ class MatchesAnimations {
             mMatches.shuffle()
         }
     }
+    fun refreshMatches() {
+        for (i in mMatches.indices) {
+        refreshMatchAnimation(mMatches[i])
+        }
+        mMatches.shuffle()
+    }
+
+
 }

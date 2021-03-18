@@ -9,9 +9,11 @@ import android.widget.HorizontalScrollView
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.example.yaroslavgorbach.randomizer.R
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 class MatchesFragment : Fragment() {
     private lateinit var mParent: LinearLayout
+    private lateinit var mRefreshMatchesButton: ExtendedFloatingActionButton
     private val mAnimator: MatchesAnimations = MatchesAnimations()
 
 
@@ -21,7 +23,12 @@ class MatchesFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_matches, container, false)
 
         mParent = view.findViewById(R.id.matchesParent)
+        mRefreshMatchesButton = view.findViewById(R.id.refreshMatches)
         mAnimator.inflateMatches(mParent, 20, 10)
+
+        mRefreshMatchesButton.setOnClickListener {
+            mAnimator.refreshMatches()
+        }
 
         return view
     }
