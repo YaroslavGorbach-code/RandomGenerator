@@ -21,7 +21,7 @@ class MatchesFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_matches, container, false)
 
         mParent = view.findViewById(R.id.matchesParent)
-        mAnimator.inflateMatches(mParent, 10, 1)
+        mAnimator.inflateMatches(mParent, 20, 10)
 
         return view
     }
