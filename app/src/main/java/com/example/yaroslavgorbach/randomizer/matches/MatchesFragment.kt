@@ -24,7 +24,8 @@ class MatchesFragment : Fragment() {
 
         mParent = view.findViewById(R.id.matchesParent)
         mRefreshMatchesButton = view.findViewById(R.id.refreshMatches)
-        mAnimator.inflateMatches(mParent, 20, 10)
+        mAnimator.inflateMatches(mParent, MatchesFragmentArgs.fromBundle(requireArguments()).numberMatches,
+            MatchesFragmentArgs.fromBundle(requireArguments()).numberBurned)
 
         mRefreshMatchesButton.setOnClickListener {
             mAnimator.refreshMatches()

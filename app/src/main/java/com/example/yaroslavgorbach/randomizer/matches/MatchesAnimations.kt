@@ -17,8 +17,8 @@ class MatchesAnimations {
             addUpdateListener {
                 if ((matchModel.imageView.translationY).toInt() != -200)
                 matchModel.imageView.translationY = it.animatedValue as Float
-                if ((it.animatedValue as Float).toInt() in -200..-150 && matchModel.isBurnt) {
-                    matchModel.imageView.setImageResource(R.drawable.ic_match_burnt)
+                if ((it.animatedValue as Float).toInt() in -200..-150 && matchModel.isBurned) {
+                    matchModel.imageView.setImageResource(R.drawable.ic_match_burned)
                 }
             }
             duration = 500
@@ -43,12 +43,12 @@ class MatchesAnimations {
      private fun MutableList<MatchModel>.shuffle(){
         val listText = mutableListOf<Boolean>()
         for (i in this.indices){
-            listText.add(mMatches[i].isBurnt)
+            listText.add(mMatches[i].isBurned)
         }
         listText.shuffle()
 
         for (i in listText.indices){
-            mMatches[i].isBurnt = listText[i]
+            mMatches[i].isBurned = listText[i]
         }
     }
 
@@ -72,6 +72,7 @@ class MatchesAnimations {
             mMatches.shuffle()
         }
     }
+
     fun refreshMatches() {
         for (i in mMatches.indices) {
         refreshMatchAnimation(mMatches[i])
