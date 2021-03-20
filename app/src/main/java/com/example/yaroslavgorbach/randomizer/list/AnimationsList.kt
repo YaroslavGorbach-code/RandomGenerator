@@ -128,14 +128,15 @@ class AnimationsList {
     }
 
     fun buttonRotateAnimation(view: View){
-            val rotate = ObjectAnimator.ofFloat(view, View.ROTATION, -720f, 0f).apply {
-                repeatCount = 1
-                repeatMode = ObjectAnimator.REVERSE
-            }
-            rotate.duration = 700
-            rotate.interpolator = AccelerateDecelerateInterpolator()
-            rotate.disableViewDuringAnimation(view)
-            rotate.start()
+        ObjectAnimator.ofFloat(view, View.ROTATION, -720f, 0f).apply {
+            repeatCount = 1
+            repeatMode = ObjectAnimator.REVERSE
+            duration = 700
+            interpolator = AccelerateDecelerateInterpolator()
+            disableViewDuringAnimation(view)
+            start()
+        }
+
     }
 
     @RequiresApi(Build.VERSION_CODES.M)

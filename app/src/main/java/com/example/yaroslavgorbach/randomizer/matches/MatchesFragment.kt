@@ -16,8 +16,6 @@ class MatchesFragment : Fragment() {
     private lateinit var mRefreshMatchesButton: ExtendedFloatingActionButton
     private val mAnimator: MatchesAnimations = MatchesAnimations()
 
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_matches, container, false)
@@ -28,7 +26,7 @@ class MatchesFragment : Fragment() {
             MatchesFragmentArgs.fromBundle(requireArguments()).numberBurned)
 
         mRefreshMatchesButton.setOnClickListener {
-            mAnimator.refreshMatches()
+            mAnimator.refreshMatches(mRefreshMatchesButton)
         }
 
         return view

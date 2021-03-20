@@ -1,10 +1,14 @@
 package com.example.yaroslavgorbach.randomizer.matches
 
+import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
+import androidx.core.animation.addListener
+import androidx.core.animation.doOnEnd
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
 
@@ -17,6 +21,7 @@ class MatchesAnimations {
             addUpdateListener {
                 if ((matchModel.imageView.translationY).toInt() != -200)
                 matchModel.imageView.translationY = it.animatedValue as Float
+
                 if ((it.animatedValue as Float).toInt() in -200..-150 && matchModel.isBurned) {
                     matchModel.imageView.setImageResource(R.drawable.ic_match_burned)
                 }
@@ -52,6 +57,15 @@ class MatchesAnimations {
         }
     }
 
+   private fun buttonRotateAnimation(view: View){
+         ObjectAnimator.ofFloat(view, View.ROTATION, -360f, 0f).apply {
+            duration = 500
+            interpolator = AccelerateDecelerateInterpolator()
+            disableViewDuringAnimation(view)
+            start()
+        }
+    }
+
 
     fun inflateMatches(parent: ViewGroup, numberOfMatches: Int, numberOfBurnt: Int) {
         val inflater = LayoutInflater.from(parent.context)
@@ -71,7 +85,8 @@ class MatchesAnimations {
         }
     }
 
-    fun refreshMatches() {
+    fun refreshMatches(button: View) {
+        buttonRotateAnimation(button)
         for (i in mMatches.indices) {
         refreshMatchAnimation(mMatches[i])
         }

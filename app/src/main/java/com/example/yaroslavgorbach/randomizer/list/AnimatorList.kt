@@ -103,7 +103,7 @@ class AnimatorList(parent: ConstraintLayout, finalItem: TextView){
         hideFinalItem()
         mAnimationsList.buttonRotateAnimation(button)
         val indexToShow = (mItems.indices).random()
-        if(mItems.size<=15){
+        if(mItems.size<=9){
             for (i in mItems.indices){
                 mAnimationsList.autoShowItemRotate(mItems[i].parent, button, object : ListAnimationsRandom{
                     override fun showAllItemsText() {
