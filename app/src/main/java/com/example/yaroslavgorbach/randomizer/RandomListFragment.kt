@@ -1,11 +1,13 @@
 package com.example.yaroslavgorbach.randomizer
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +18,7 @@ import com.example.yaroslavgorbach.randomizer.list.ListTitlesAdapter
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import java.util.*
 
@@ -102,7 +105,14 @@ class RandomListFragment : Fragment() {
             }, onEditClick = {
                 showCreateEditListDialog(title = it)
             }, onDeleteClick = {
-                mRepo.deleteItemsByTitle(title = it)
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Delete list?")
+                    .setMessage("This action cannot be undone")
+                    .setPositiveButton("yes") { _, _ ->
+                        mRepo.deleteItemsByTitle(title = it)
+                    }
+                    .setNegativeButton("cancel") { _, _ ->}
+                    .show()
             })
 
             mRepo.getTitles().observe(viewLifecycleOwner, {
