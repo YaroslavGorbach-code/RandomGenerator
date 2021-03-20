@@ -1,13 +1,12 @@
 package com.example.yaroslavgorbach.randomizer
 
 import android.annotation.SuppressLint
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +17,6 @@ import com.example.yaroslavgorbach.randomizer.list.ListTitlesAdapter
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import java.util.*
 
@@ -155,8 +153,8 @@ class RandomListFragment : Fragment() {
     private fun showCreateEditListDialog(title: String?) {
         val createListDialog: View =
             LayoutInflater.from(context).inflate(R.layout.create_list_dialog, null)
-        val listTitle = createListDialog.findViewById<TextInputEditText>(R.id.listTitle)
-        val itemText = createListDialog.findViewById<TextInputEditText>(R.id.listItem)
+        val listTitleEt = createListDialog.findViewById<TextInputEditText>(R.id.listTitle)
+        val itemTextEt = createListDialog.findViewById<TextInputEditText>(R.id.listItem)
         val createButton = createListDialog.findViewById<MaterialButton>(R.id.createButton)
         val addItemButton = createListDialog.findViewById<MaterialButton>(R.id.addItem)
         val itemsRv = createListDialog.findViewById<RecyclerView>(R.id.recyclerView)
@@ -173,14 +171,14 @@ class RandomListFragment : Fragment() {
             itemAdapter.notifyDataSetChanged()
         }
 
-        // if update list
+        // if != null update list
         title?.let {
             mRepo.getItemsByTitle(it).observe(viewLifecycleOwner, {items->
                 repeat(items.size) {index->
                     listOfItems.push(items[index])
                 }
             })
-            listTitle.setText(it)
+            listTitleEt.setText(it)
             itemAdapter.submitList(listOfItems)
             createButton.text = "SAVE"
         }
@@ -194,34 +192,44 @@ class RandomListFragment : Fragment() {
             .show()
 
         addItemButton.setOnClickListener {
-            listOfItems.push(itemText.text.toString())
-            listOfNewItems.add(itemText.text.toString())
-            itemAdapter.submitList(listOfItems)
-            itemAdapter.notifyDataSetChanged()
-            itemText.text = null
+            if (InputFilters.createListItemTestFilter(itemTextEt)){
+                listOfItems.push(itemTextEt.text.toString())
+                listOfNewItems.add(itemTextEt.text.toString())
+                itemAdapter.submitList(listOfItems)
+                itemAdapter.notifyDataSetChanged()
+                itemTextEt.text = null
+            }
         }
 
 
         createButton.setOnClickListener {
-            // if title == null it means create new list
-            // if title != null it means update current list
-            if (title == null){
-                listOfItems.forEach {
-                    mRepo.addItem(ListItemEntity(null, it, listTitle.text.toString()))
-                }
-            }else{
-                listOfNewItems.forEach {
-                    mRepo.addItem(ListItemEntity(null, it, listTitle.text.toString()))
-                }
-                listOfDeletedItems.forEach {
-                    mRepo.deleteItem(mRepo.getItemByText(it))
-                }
-            }
 
-            if (title!= null && title!= listTitle.text.toString()){
-                mRepo.changeTitle(oldTitle = title, newTitle = listTitle.text.toString())
+            if (InputFilters.createListDialogTitleFilter(listTitleEt)){
+                if (listOfItems.size != 0){
+                    // if title == null it means create new list
+                    // if title != null it means update current list
+                    if (title == null){
+                        listOfItems.forEach {
+                            mRepo.addItem(ListItemEntity(null, it, listTitleEt.text.toString()))
+                        }
+                    }else{
+                        listOfNewItems.forEach {
+                            mRepo.addItem(ListItemEntity(null, it, listTitleEt.text.toString()))
+                        }
+                        listOfDeletedItems.forEach {
+                            mRepo.deleteItem(mRepo.getItemByText(it))
+                        }
+                    }
+
+                    if (title!= null && title!= listTitleEt.text.toString()){
+                        mRepo.changeTitle(oldTitle = title, newTitle = listTitleEt.text.toString())
+                    }
+                    dialog.dismiss()
+                }else{
+                    Toast.makeText(requireContext(), "Add atleast one item", Toast.LENGTH_LONG).show()
+                }
             }
-            dialog.dismiss()
         }
+
     }
 }

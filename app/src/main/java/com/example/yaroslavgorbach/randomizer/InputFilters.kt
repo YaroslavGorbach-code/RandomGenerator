@@ -53,12 +53,14 @@ class InputFilters {
             if (numberOfMatchesEt.text.toString().trim().isEmpty()
                 || numberOfMatchesEt.text.toString().toInt() < 1) {
                 numberOfMatchesEt.error = "This field cannot be empty and les then 1"
+                numberOfMatchesEt.setText("5")
                 return false
             }
 
             if (numberOfBurnedEt.text.toString().trim().isEmpty()
                 || numberOfBurnedEt.text.toString().toInt() < 0) {
                 numberOfBurnedEt.error = "This field cannot be empty and les then 0"
+                numberOfBurnedEt.setText("1")
                 return false
             }
 
@@ -76,6 +78,22 @@ class InputFilters {
                     .toInt()
             ) {
                 numberOfBurnedEt.error = "Value cannot be bigger then number of matches"
+                return false
+            }
+            return true
+        }
+
+        fun createListDialogTitleFilter(listTitleEt: TextInputEditText?): Boolean {
+            if (listTitleEt?.text.toString().trim().isEmpty()){
+                listTitleEt?.error = "Title cannot be empty"
+                return false
+            }
+            return true
+        }
+
+        fun createListItemTestFilter(itemTextEt: TextInputEditText): Boolean {
+            if (itemTextEt.text.toString().trim().isEmpty()){
+                itemTextEt.error = "Item cannot be empty"
                 return false
             }
             return true
