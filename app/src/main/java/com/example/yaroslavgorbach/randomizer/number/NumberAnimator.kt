@@ -48,7 +48,7 @@ class NumberAnimator {
             addListener(object: AnimatorListenerAdapter(){
                 override fun onAnimationEnd(animation: Animator?) {
                     super.onAnimationEnd(animation)
-                    if (mRepeatTimes < 3){
+                    if (mRepeatTimes < 2){
                         mRepeatTimes += 1
                         start()
                     }else{

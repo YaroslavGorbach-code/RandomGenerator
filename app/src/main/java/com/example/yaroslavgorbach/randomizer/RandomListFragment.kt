@@ -101,7 +101,7 @@ class RandomListFragment : Fragment() {
                 findNavController().navigate(RandomListFragmentDirections.actionRandomListFragmentToListFragment(it))
                 listDialog.dismiss()
             }, onEditClick = {
-                showCreateEditListDialog(title = it)
+                showCreateEditListDialog(currentTitle = it)
             }, onDeleteClick = {
                 MaterialAlertDialogBuilder(requireContext())
                     .setTitle("Delete list?")
@@ -148,9 +148,7 @@ class RandomListFragment : Fragment() {
     }
 
 
-
-
-    private fun showCreateEditListDialog(title: String?) {
+    private fun showCreateEditListDialog(currentTitle: String?) {
         val createListDialog: View =
             LayoutInflater.from(context).inflate(R.layout.create_list_dialog, null)
         val listTitleEt = createListDialog.findViewById<TextInputEditText>(R.id.listTitle)
@@ -160,7 +158,7 @@ class RandomListFragment : Fragment() {
         val itemsRv = createListDialog.findViewById<RecyclerView>(R.id.recyclerView)
         val listOfItems = LinkedList<String>()
         val listOfNewItems = mutableListOf<String>()
-        val listOfDeletedItems= mutableListOf<String>()
+        val listOfDeletedItems = mutableListOf<String>()
 
         val itemAdapter = ListItemsAdapter()
 
@@ -172,9 +170,9 @@ class RandomListFragment : Fragment() {
         }
 
         // if != null update list
-        title?.let {
-            mRepo.getItemsByTitle(it).observe(viewLifecycleOwner, {items->
-                repeat(items.size) {index->
+        currentTitle?.let {
+            mRepo.getItemsByTitle(it).observe(viewLifecycleOwner, { items ->
+                repeat(items.size) { index ->
                     listOfItems.push(items[index])
                 }
             })
@@ -189,6 +187,21 @@ class RandomListFragment : Fragment() {
         }
         val dialog = MaterialAlertDialogBuilder(requireContext())
             .setView(createListDialog)
+            .setOnCancelListener {
+                if (listOfNewItems.size > 0
+                    || currentTitle != listTitleEt.text.toString()
+                    || listOfDeletedItems.size > 0
+                ) {
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setTitle("Save changes?")
+                        .setPositiveButton("Yes") { _, _ ->
+                            changeListItems(listOfNewItems, listTitleEt, listOfDeletedItems)
+                            changeListTitle(currentTitle, listTitleEt)
+                        }
+                        .setNegativeButton("No") { _, _ ->}
+                        .show()
+                }
+            }
             .show()
 
         addItemButton.setOnClickListener {
@@ -201,35 +214,46 @@ class RandomListFragment : Fragment() {
             }
         }
 
-
         createButton.setOnClickListener {
-
             if (InputFilters.createListDialogTitleFilter(listTitleEt)){
                 if (listOfItems.size != 0){
                     // if title == null it means create new list
                     // if title != null it means update current list
-                    if (title == null){
+                    if (currentTitle == null){
                         listOfItems.forEach {
                             mRepo.addItem(ListItemEntity(null, it, listTitleEt.text.toString()))
                         }
                     }else{
-                        listOfNewItems.forEach {
-                            mRepo.addItem(ListItemEntity(null, it, listTitleEt.text.toString()))
-                        }
-                        listOfDeletedItems.forEach {
-                            mRepo.deleteItem(mRepo.getItemByText(it))
-                        }
+                        changeListItems(listOfNewItems, listTitleEt, listOfDeletedItems)
                     }
-
-                    if (title!= null && title!= listTitleEt.text.toString()){
-                        mRepo.changeTitle(oldTitle = title, newTitle = listTitleEt.text.toString())
-                    }
+                    changeListTitle(currentTitle, listTitleEt)
                     dialog.dismiss()
                 }else{
-                    Toast.makeText(requireContext(), "Add atleast one item", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "Add at least one item", Toast.LENGTH_LONG).show()
                 }
             }
         }
+    }
 
+    private fun changeListItems(
+        listOfNewItems: MutableList<String>,
+        listTitleEt: TextInputEditText,
+        listOfDeletedItems: MutableList<String>
+    ) {
+        listOfNewItems.forEach {
+            mRepo.addItem(ListItemEntity(null, it, listTitleEt.text.toString()))
+        }
+        listOfDeletedItems.forEach {
+            mRepo.deleteItem(mRepo.getItemByText(it))
+        }
+    }
+
+    private fun changeListTitle(
+        currentTitle: String?,
+        listTitleEt: TextInputEditText
+    ) {
+        if (currentTitle != null && currentTitle != listTitleEt.text.toString()) {
+            mRepo.changeTitle(oldTitle = currentTitle, newTitle = listTitleEt.text.toString())
+        }
     }
 }
