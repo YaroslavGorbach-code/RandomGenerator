@@ -24,12 +24,10 @@ class DiceFragment : Fragment() {
         mToolbar = view.findViewById(R.id.materialToolbar)
         mGrid = view.findViewById(R.id.grid)
         mDiceAnimator = AnimatorDice()
-        mDiceAnimator.inflateDice(mGrid, fromBundle(requireArguments()).numberOfDice)
-        mDiceAnimator.rotateAllDice()
+        mDiceAnimator.inflateDice(mGrid, fromBundle(requireArguments()).numberOfDice, mAnimateAllDicesBt)
 
         mAnimateAllDicesBt.setOnClickListener{
-            mDiceAnimator.animateAllDice()
-            mDiceAnimator.rotateButton(it)
+            mDiceAnimator.animateAllDice(mAnimateAllDicesBt)
         }
 
         mDiceAnimator.getSum().observe(viewLifecycleOwner,{

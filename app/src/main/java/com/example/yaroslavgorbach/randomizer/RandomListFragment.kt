@@ -189,8 +189,10 @@ class RandomListFragment : Fragment() {
             .setView(createListDialog)
             .setOnCancelListener {
                 if (listOfNewItems.size > 0
-                    || currentTitle != listTitleEt.text.toString()
                     || listOfDeletedItems.size > 0
+                    || listTitleEt.text.toString().isNotEmpty() && listOfItems.isNotEmpty()
+                    && currentTitle != listTitleEt.text.toString()
+
                 ) {
                     MaterialAlertDialogBuilder(requireContext())
                         .setTitle("Save changes?")
@@ -216,7 +218,6 @@ class RandomListFragment : Fragment() {
 
         createButton.setOnClickListener {
             if (InputFilters.createListDialogTitleFilter(listTitleEt)){
-                if (listOfItems.size != 0){
                     // if title == null it means create new list
                     // if title != null it means update current list
                     if (currentTitle == null){
@@ -228,9 +229,6 @@ class RandomListFragment : Fragment() {
                     }
                     changeListTitle(currentTitle, listTitleEt)
                     dialog.dismiss()
-                }else{
-                    Toast.makeText(requireContext(), "Add at least one item", Toast.LENGTH_LONG).show()
-                }
             }
         }
     }
