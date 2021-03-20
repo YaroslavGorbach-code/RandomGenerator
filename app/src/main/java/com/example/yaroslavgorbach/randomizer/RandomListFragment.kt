@@ -117,26 +117,25 @@ class RandomListFragment : Fragment() {
             createListButton.setOnClickListener {
                 showCreateEditListDialog(null)
             }
-            }
+        }
 
         mStartMatches.setOnClickListener {
             val dialogView: View = LayoutInflater.from(context).inflate(R.layout.create_matches_dialog, null)
             val numberOfMatchesEt = dialogView.findViewById<TextInputEditText>(R.id.number_matches)
             val numberOfBurnedEt = dialogView.findViewById<TextInputEditText>(R.id.number_burned)
             val createListButton = dialogView.findViewById<MaterialButton>(R.id.createButton)
-
-           val dialog = MaterialAlertDialogBuilder(view.context)
+            val dialog = MaterialAlertDialogBuilder(view.context)
                 .setView(dialogView)
                 .show()
 
             createListButton.setOnClickListener {
-                findNavController().navigate(RandomListFragmentDirections.actionRandomListFragmentToMatchesFragment()
-                    .setNumberBurned(numberOfBurnedEt.text.toString().toInt())
-                    .setNumberMatches(numberOfMatchesEt.text.toString().toInt()))
-                dialog.dismiss()
+                if(InputFilters.matchesFieldsFilter(numberOfMatchesEt, numberOfBurnedEt)){
+                        findNavController().navigate(RandomListFragmentDirections.actionRandomListFragmentToMatchesFragment()
+                            .setNumberBurned(numberOfBurnedEt.text.toString().toInt())
+                            .setNumberMatches(numberOfMatchesEt.text.toString().toInt()))
+                        dialog.dismiss()
+                }
             }
-
-
         }
     }
 

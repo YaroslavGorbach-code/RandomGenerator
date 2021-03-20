@@ -55,17 +55,15 @@ class MatchesAnimations {
 
     fun inflateMatches(parent: ViewGroup, numberOfMatches: Int, numberOfBurnt: Int) {
         val inflater = LayoutInflater.from(parent.context)
-        for (i in 0..numberOfMatches) {
+        for (i in 1..numberOfMatches) {
             val itemV: View = inflater.inflate(R.layout.match_i, parent, false)
             val matchIv: ImageView = itemV.findViewById(R.id.match)
-            val matchItem: MatchModel = if (numberOfBurnt > i) MatchModel(matchIv, true)
+            val matchItem: MatchModel = if (numberOfBurnt >= i) MatchModel(matchIv, true)
             else MatchModel(matchIv, false)
-
 
             itemV.setOnClickListener {
                 animateMatch(matchItem)
             }
-
 
             mMatches.add(matchItem)
             parent.addView(itemV)
