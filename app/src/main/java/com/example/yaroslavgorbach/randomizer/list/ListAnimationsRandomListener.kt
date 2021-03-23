@@ -1,6 +1,6 @@
 package com.example.yaroslavgorbach.randomizer.list
 
-interface ListAnimationsRandom {
+interface ListAnimationsRandomListener {
     fun showAllItemsText()
     fun hideAllItemsText()
     fun hideAllItems()

@@ -43,7 +43,7 @@ class AnimationsList {
         }
     }
 
-    fun autoShowItemRotate(view: View, button: View, listAnimationsRandom: ListAnimationsRandom) {
+    fun autoShowItemRotate(view: View, button: View, listAnimationsRandomListener: ListAnimationsRandomListener) {
 
         val rotateY = ValueAnimator.ofFloat( -740f, 0f).apply {
             disableViewDuringAnimation(view)
@@ -51,8 +51,8 @@ class AnimationsList {
             addUpdateListener { animation ->
                 view.rotationY = animation.animatedValue as Float
                 when ((animation.animatedValue as Float).toInt()){
-                    in -640..-620 -> listAnimationsRandom.hideAllItems()
-                    in -150..0 -> listAnimationsRandom.showAllItemsText()
+                    in -640..-620 -> listAnimationsRandomListener.hideAllItems()
+                    in -150..0 -> listAnimationsRandomListener.showAllItemsText()
 
                 }
             }
@@ -64,8 +64,8 @@ class AnimationsList {
             addUpdateListener { animation ->
                 view.rotationY = animation.animatedValue as Float
                 when ((animation.animatedValue as Float).toInt() ){
-                    in 500..590 -> listAnimationsRandom.hideAllItemsText()
-                    in 0..120 -> listAnimationsRandom.showResult()
+                    in 500..590 -> listAnimationsRandomListener.hideAllItemsText()
+                    in 0..120 -> listAnimationsRandomListener.showResult()
                 }
             }
         }

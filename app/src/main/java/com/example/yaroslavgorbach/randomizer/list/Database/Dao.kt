@@ -19,7 +19,7 @@ interface Dao {
     fun getTitles():LiveData<List<String>>
 
     @Query("SELECT text FROM ListItemEntity WHERE title LIKE :title")
-    fun getItemsByTitle(title: String):LiveData<MutableList<String>>
+    fun getItemsByTitle(title: String): MutableList<String>
 
     @Query("SELECT * FROM ListItemEntity WHERE text LIKE :text LIMIT 1")
     fun getItemByText(text: String): ListItemEntity

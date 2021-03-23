@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
 import androidx.appcompat.widget.Toolbar
+import androidx.navigation.fragment.findNavController
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.dice.DiceFragmentArgs.fromBundle
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -33,6 +34,10 @@ class DiceFragment : Fragment() {
         mDiceAnimator.getSum().observe(viewLifecycleOwner,{
             mToolbar.title ="Total: $it"
         })
+
+        mToolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
 
         return view
     }

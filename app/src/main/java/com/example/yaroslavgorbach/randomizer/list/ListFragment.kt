@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.GridLayout
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.fragment.findNavController
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.list.Database.Repo
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -30,10 +31,14 @@ class ListFragment : Fragment() {
         mParent = view.findViewById(R.id.parentList)
         mLIstAnimator = AnimatorList(mParent, view.findViewById(R.id.finalItem))
         mRepo = Repo(requireContext())
-        mRepo.getItemsByTitle(ListFragmentArgs.fromBundle(requireArguments()).listTitle)
-            .observe(viewLifecycleOwner,{
-                mLIstAnimator.inflateItems(mGrid, mAnimateAllItems, listOfItems = it)
-            })
+
+        mToolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        mRepo.getItemsByTitle(ListFragmentArgs.fromBundle(requireArguments()).listTitle).also {
+            mLIstAnimator.inflateItems(mGrid, mAnimateAllItems, listOfItems = it)
+        }
 
         mAnimateAllItems.setOnClickListener {
             mLIstAnimator.showResult(mAnimateAllItems)

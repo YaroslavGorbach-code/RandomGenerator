@@ -22,6 +22,7 @@ class AnimatorDice{
     private val _mSum: MutableLiveData<Int> = MutableLiveData(0)
     private val mSum: LiveData<Int> = _mSum
 
+
     private fun animateDice(dice: DiceModel, rotateAllDice: View) {
         rotateDice(dice.imageView, rotateAllDice)
         _mSum.value  = _mSum.value!! - dice.points

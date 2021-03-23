@@ -1,7 +1,6 @@
 package com.example.yaroslavgorbach.randomizer.list
 
 import android.graphics.Color
-import android.os.Handler
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
@@ -105,7 +104,7 @@ class AnimatorList(parent: ConstraintLayout, finalItem: TextView){
         val indexToShow = (mItems.indices).random()
         if(mItems.size<=9){
             for (i in mItems.indices){
-                mAnimationsList.autoShowItemRotate(mItems[i].parent, button, object : ListAnimationsRandom{
+                mAnimationsList.autoShowItemRotate(mItems[i].parent, button, object : ListAnimationsRandomListener{
                     override fun showAllItemsText() {
                         for (item in mItems.indices) {
                             mItems[item].parent.text = mItems[item].text

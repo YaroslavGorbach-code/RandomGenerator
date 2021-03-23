@@ -9,6 +9,7 @@ import java.util.*
 @androidx.room.Database(entities = [ListItemEntity::class], version = 1)
 abstract class Database : RoomDatabase() {
     abstract fun dao(): Dao
+
     companion object {
         private var sInstance: Database? = null
 
