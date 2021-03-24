@@ -1,6 +1,7 @@
 package com.example.yaroslavgorbach.randomizer
 
 import android.app.Dialog
+import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.yaroslavgorbach.randomizer.list.Database.Database
 import com.example.yaroslavgorbach.randomizer.list.Database.ListItemEntity
 import com.example.yaroslavgorbach.randomizer.list.Database.Repo
 import com.example.yaroslavgorbach.randomizer.list.ListItemsAdapter
@@ -17,14 +19,15 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import java.util.*
+import javax.inject.Inject
 
 class CreateEditListDialog private constructor() : DialogFragment() {
-    private lateinit var mRepo: Repo
     private val listOfItems = LinkedList<String>()
     private val listOfNewItems = mutableListOf<String>()
     private val listOfDeletedItems = mutableListOf<String>()
     private var currentTitle: String? = null
     private lateinit var listTitleEt: TextInputEditText
+    @Inject lateinit var mRepo: Repo
 
     companion object {
         const val TITLE_ARG_KEY = "TITLE_ARG_KEY"
@@ -38,6 +41,11 @@ class CreateEditListDialog private constructor() : DialogFragment() {
         }
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity?.application as MyApplication).appComponent.inject(this)
+    }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val createListDialog: View =
             LayoutInflater.from(context).inflate(R.layout.create_list_dialog, null)
@@ -46,7 +54,6 @@ class CreateEditListDialog private constructor() : DialogFragment() {
         val addItemButton = createListDialog.findViewById<MaterialButton>(R.id.addItem)
         val itemsRv = createListDialog.findViewById<RecyclerView>(R.id.recyclerView)
         val itemAdapter = ListItemsAdapter()
-        mRepo = Repo(requireContext())
         currentTitle = requireArguments().getString(TITLE_ARG_KEY)
         listTitleEt = createListDialog.findViewById<TextInputEditText>(R.id.listTitle)
 

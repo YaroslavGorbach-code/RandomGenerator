@@ -7,9 +7,7 @@ import android.widget.ImageView
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
 
-class CoinAnimator(
-    coinImage: ImageView,
-    fonImage: ImageView) {
+class CoinAnimator(coinImage: ImageView, fonImage: ImageView) {
 
      private enum class CoinSide {
         FRONT, BACK
@@ -56,10 +54,8 @@ class CoinAnimator(
     }
 
     private fun shake() {
-        val scaleX =
-            ObjectAnimator.ofFloat(mCoinImage, "scaleX", 1f, 1.15f, 1f, 1.15f, 1f, 1.15f, 1f)
-        val scaleY =
-            ObjectAnimator.ofFloat(mCoinImage, "scaleY", 1f, 1.15f, 1f, 1.15f, 1f, 1.15f, 1f)
+        val scaleX = ObjectAnimator.ofFloat(mCoinImage, "scaleX", 1f, 1.15f, 1f, 1.15f, 1f, 1.15f, 1f)
+        val scaleY = ObjectAnimator.ofFloat(mCoinImage, "scaleY", 1f, 1.15f, 1f, 1.15f, 1f, 1.15f, 1f)
         val rotation = ObjectAnimator.ofFloat(mCoinImage, "rotation",0f, 10f, -10f, 10f, -10f, 10f, -10f, 10f, -0f
         )
         val tX = ObjectAnimator.ofFloat(

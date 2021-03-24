@@ -1,6 +1,7 @@
 package com.example.yaroslavgorbach.randomizer
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.yaroslavgorbach.randomizer.list.Database.Database
 import com.example.yaroslavgorbach.randomizer.list.Database.ListItemEntity
 import com.example.yaroslavgorbach.randomizer.list.Database.Repo
 import com.example.yaroslavgorbach.randomizer.list.ListItemsAdapter
@@ -19,6 +21,7 @@ import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import java.util.*
+import javax.inject.Inject
 
 class RandomListFragment : Fragment() {
     private lateinit var mStartDice: MaterialCardView
@@ -26,7 +29,12 @@ class RandomListFragment : Fragment() {
     private lateinit var mStartNumber: MaterialCardView
     private lateinit var mStartList: MaterialCardView
     private lateinit var mStartMatches: MaterialCardView
-    private lateinit var mRepo: Repo
+    @Inject lateinit var mRepo: Repo
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity?.application as MyApplication).appComponent.inject(this)
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +45,6 @@ class RandomListFragment : Fragment() {
         mStartNumber = view.findViewById(R.id.startNumber)
         mStartList = view.findViewById(R.id.startList)
         mStartMatches = view.findViewById(R.id.startMatches)
-        mRepo = Repo(requireContext())
 
         return view
     }

@@ -3,8 +3,8 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
     id 'androidx.navigation.safeargs'
-
 }
 
 
@@ -38,7 +38,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:cardview-v7:28.0.0'
     def room_version = "2.2.6"
     def navigation_version = "2.3.4"
 
@@ -50,7 +49,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-    testImplementation 'junit:junit:4.+'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
@@ -58,7 +57,11 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
 
+    // DI
+    implementation "com.google.dagger:dagger:2.33"
+    kapt "com.google.dagger:dagger-compiler:2.33"
 
+    // DB
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 }

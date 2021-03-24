@@ -31,16 +31,16 @@ abstract class Database : RoomDatabase() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 Thread {
                     val dao: Dao = sInstance!!.dao()
-                   dao.insert(
-                       ListItemEntity(null, "item 1", "TestList_1"),
-                       ListItemEntity(null, "item 2", "TestList_1"),
-                       ListItemEntity(null, "item 3", "TestList_1"),
-                       ListItemEntity(null, "item 1", "TestList_2"),
-                       ListItemEntity(null, "item 2", "TestList_2"),
-                       ListItemEntity(null, "item 3", "TestList_2"),
-                       ListItemEntity(null, "item 1", "TestList_3"),
-                       ListItemEntity(null, "item 2", "TestList_3"),
-                       ListItemEntity(null, "item 3", "TestList_3"))
+                    dao.insert(
+                        ListItemEntity(null, "item 1", "TestList_1"),
+                        ListItemEntity(null, "item 2", "TestList_1"),
+                        ListItemEntity(null, "item 3", "TestList_1"),
+                        ListItemEntity(null, "item 1", "TestList_2"),
+                        ListItemEntity(null, "item 2", "TestList_2"),
+                        ListItemEntity(null, "item 3", "TestList_2"),
+                        ListItemEntity(null, "item 1", "TestList_3"),
+                        ListItemEntity(null, "item 2", "TestList_3"),
+                        ListItemEntity(null, "item 3", "TestList_3"))
                 }.start()
             }
 

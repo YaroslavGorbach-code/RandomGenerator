@@ -2,9 +2,9 @@ package com.example.yaroslavgorbach.randomizer.list.Database
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import javax.inject.Inject
 
-class Repo(context: Context) {
-    private val database: Database = Database.getInstance(context)
+class Repo @Inject constructor(database: Database) {
     private val dao: Dao = database.dao()
 
     fun getTitles():LiveData<List<String>>{
