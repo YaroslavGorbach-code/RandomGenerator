@@ -20,6 +20,8 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
@@ -29,6 +31,7 @@ class RandomListFragment : Fragment() {
     private lateinit var mStartNumber: MaterialCardView
     private lateinit var mStartList: MaterialCardView
     private lateinit var mStartMatches: MaterialCardView
+
     @Inject lateinit var mRepo: Repo
 
     override fun onAttach(context: Context) {
@@ -116,7 +119,9 @@ class RandomListFragment : Fragment() {
                     .setTitle("Delete list?")
                     .setMessage("This action cannot be undone")
                     .setPositiveButton("yes") { _, _ ->
-                        mRepo.deleteItemsByTitle(title = it)
+                        GlobalScope.launch {
+                            mRepo.deleteItemsByTitle(title = it)
+                        }
                     }
                     .setNegativeButton("cancel") { _, _ ->}
                     .show()
@@ -133,7 +138,8 @@ class RandomListFragment : Fragment() {
 
             createListButton.setOnClickListener {
                 CreateEditListDialog.newInstance(title = null)
-                    .show(parentFragmentManager, "createEditDialog")            }
+                    .show(parentFragmentManager, "createEditDialog")
+            }
         }
 
         mStartMatches.setOnClickListener {

@@ -9,13 +9,16 @@ import android.view.ViewGroup
 import android.widget.GridLayout
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.navigation.fragment.findNavController
 import com.example.yaroslavgorbach.randomizer.MyApplication
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.list.Database.Database
 import com.example.yaroslavgorbach.randomizer.list.Database.Repo
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import kotlinx.coroutines.*
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 class ListFragment : Fragment() {
     private lateinit var mLIstAnimator: AnimatorList
@@ -44,8 +47,13 @@ class ListFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        mRepo.getItemsByTitle(ListFragmentArgs.fromBundle(requireArguments()).listTitle).also {
-            mLIstAnimator.inflateItems(mGrid, mAnimateAllItems, listOfItems = it)
+       GlobalScope.launch {
+            val result = async {
+                mRepo.getItemsByTitle(ListFragmentArgs.fromBundle(requireArguments()).listTitle)
+            }
+            withContext(Dispatchers.Main) {
+                mLIstAnimator.inflateItems(mGrid, mAnimateAllItems, listOfItems = result.await())
+            }
         }
 
         mAnimateAllItems.setOnClickListener {

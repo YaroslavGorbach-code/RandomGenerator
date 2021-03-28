@@ -7,26 +7,26 @@ import androidx.room.Dao
 @Dao
 interface Dao {
     @Insert
-    fun insert(vararg item: ListItemEntity)
+    suspend fun insert(vararg item: ListItemEntity)
 
     @Delete
-    fun delete(item: ListItemEntity)
+    suspend fun delete(item: ListItemEntity)
 
     @Update
-    fun update(user: ListItemEntity)
+    suspend fun update(user: ListItemEntity)
 
     @Query("SELECT DISTINCT title FROM ListItemEntity ORDER BY id DESC")
     fun getTitles():LiveData<List<String>>
 
     @Query("SELECT text FROM ListItemEntity WHERE title LIKE :title")
-    fun getItemsByTitle(title: String): MutableList<String>
+    suspend fun getItemsByTitle(title: String): MutableList<String>
 
     @Query("SELECT * FROM ListItemEntity WHERE text LIKE :text LIMIT 1")
-    fun getItemByText(text: String): ListItemEntity
+    suspend fun getItemByText(text: String): ListItemEntity
 
     @Query("UPDATE ListItemEntity SET title = :newTitle WHERE title == :oldTitle")
-    fun changeTitle(oldTitle: String, newTitle: String)
+    suspend fun changeTitle(oldTitle: String, newTitle: String)
 
     @Query("DELETE FROM ListItemEntity WHERE title == :title")
-    fun deleteListByTitle(title: String)
+    suspend fun deleteListByTitle(title: String)
 }

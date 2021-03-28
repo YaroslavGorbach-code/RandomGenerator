@@ -12,12 +12,9 @@ import javax.inject.Singleton
 @Component(modules = [RoomModule::class])
 @Singleton
 interface AppComponent {
-    // Classes that can be injected by this Component
 
-    // Factory to create instances of the AppComponent
     @Component.Factory
     interface Factory {
-        // With @BindsInstance, the Context passed in will be available in the graph
         fun create(@BindsInstance context: Context): AppComponent
     }
 

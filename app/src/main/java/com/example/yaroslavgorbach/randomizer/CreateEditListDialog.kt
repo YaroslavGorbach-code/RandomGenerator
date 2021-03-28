@@ -4,20 +4,19 @@ import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.yaroslavgorbach.randomizer.list.Database.Database
 import com.example.yaroslavgorbach.randomizer.list.Database.ListItemEntity
 import com.example.yaroslavgorbach.randomizer.list.Database.Repo
 import com.example.yaroslavgorbach.randomizer.list.ListItemsAdapter
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
@@ -27,7 +26,9 @@ class CreateEditListDialog private constructor() : DialogFragment() {
     private val listOfDeletedItems = mutableListOf<String>()
     private var currentTitle: String? = null
     private lateinit var listTitleEt: TextInputEditText
-    @Inject lateinit var mRepo: Repo
+
+    @Inject
+    lateinit var mRepo: Repo
 
     companion object {
         const val TITLE_ARG_KEY = "TITLE_ARG_KEY"
@@ -66,9 +67,11 @@ class CreateEditListDialog private constructor() : DialogFragment() {
 
         // if != null update list
         currentTitle?.let {
-            mRepo.getItemsByTitle(it).also { items ->
-                repeat(items.size) { index ->
-                    listOfItems.push(items[index])
+            GlobalScope.launch {
+                mRepo.getItemsByTitle(it).also { items ->
+                    repeat(items.size) { index ->
+                        listOfItems.push(items[index])
+                    }
                 }
             }
 
@@ -98,7 +101,9 @@ class CreateEditListDialog private constructor() : DialogFragment() {
                 // if title != null it means update current list
                 if (currentTitle == null) {
                     listOfItems.forEach {
-                        mRepo.addItem(ListItemEntity(null, it, listTitleEt.text.toString()))
+                        GlobalScope.launch {
+                            mRepo.addItem(ListItemEntity(null, it, listTitleEt.text.toString()))
+                        }
                     }
                 } else {
                     changeListItems(listOfNewItems, listTitleEt, listOfDeletedItems)
@@ -138,10 +143,14 @@ class CreateEditListDialog private constructor() : DialogFragment() {
         listOfDeletedItems: MutableList<String>
     ) {
         listOfNewItems.forEach {
-            mRepo.addItem(ListItemEntity(null, it, listTitleEt.text.toString()))
+            GlobalScope.launch {
+                mRepo.addItem(ListItemEntity(null, it, listTitleEt.text.toString()))
+            }
         }
         listOfDeletedItems.forEach {
-            mRepo.deleteItem(mRepo.getItemByText(it))
+            GlobalScope.launch {
+                mRepo.deleteItem(mRepo.getItemByText(it))
+            }
         }
     }
 
@@ -150,7 +159,9 @@ class CreateEditListDialog private constructor() : DialogFragment() {
         listTitleEt: TextInputEditText
     ) {
         if (currentTitle != null && currentTitle != listTitleEt.text.toString()) {
-            mRepo.changeTitle(oldTitle = currentTitle, newTitle = listTitleEt.text.toString())
+            GlobalScope.launch {
+                mRepo.changeTitle(oldTitle = currentTitle, newTitle = listTitleEt.text.toString())
+            }
         }
     }
 

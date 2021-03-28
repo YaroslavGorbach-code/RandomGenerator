@@ -20,7 +20,7 @@ class CoinAnimator(coinImage: ImageView, fonImage: ImageView) {
 
     fun animate() {
         mCoinState = (0..1).random()
-        when ((4..4).random()) {
+        when ((1..5).random()) {
             5 -> rotateAnimSlowlyTwo()
             4 -> rotateAnimNormalTwo()
             3 -> rotateAnimFast()

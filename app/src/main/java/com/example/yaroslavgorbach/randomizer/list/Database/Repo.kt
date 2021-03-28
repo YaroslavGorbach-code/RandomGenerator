@@ -2,8 +2,11 @@ package com.example.yaroslavgorbach.randomizer.list.Database
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class Repo @Inject constructor(database: Database) {
     private val dao: Dao = database.dao()
 
@@ -11,27 +14,27 @@ class Repo @Inject constructor(database: Database) {
         return dao.getTitles()
     }
 
-    fun addItem(listItemEntity: ListItemEntity){
+    suspend fun addItem(listItemEntity: ListItemEntity){
         dao.insert(listItemEntity)
     }
 
-    fun getItemsByTitle(title: String): MutableList<String> {
+    suspend fun getItemsByTitle(title: String): MutableList<String> {
         return dao.getItemsByTitle(title)
     }
 
-    fun changeTitle(oldTitle: String, newTitle: String) {
+    suspend fun changeTitle(oldTitle: String, newTitle: String) {
         dao.changeTitle(oldTitle, newTitle)
     }
 
-    fun deleteItemsByTitle(title: String) {
+    suspend fun deleteItemsByTitle(title: String) {
         dao.deleteListByTitle(title)
     }
 
-    fun deleteItem(item: ListItemEntity) {
+    suspend  fun deleteItem(item: ListItemEntity) {
         dao.delete(item)
     }
 
-    fun getItemByText(it: String): ListItemEntity {
+    suspend fun getItemByText(it: String): ListItemEntity {
         return dao.getItemByText(it)
     }
 }
