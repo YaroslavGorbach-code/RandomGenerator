@@ -35,16 +35,6 @@ class InputFilters {
             return true
         }
 
-        fun numberOfResultsFilter(et: TextInputEditText): Boolean {
-            if (et.text.toString().trim().isEmpty()
-                || et.text.toString().toLong() > 10
-                || et.text.toString().toLong() < 1
-            ) {
-                et.error = "Value cannot be less than 1 and more than 10"
-                return false
-            }
-            return true
-        }
 
         fun matchesFieldsFilter(
             numberOfMatchesEt: TextInputEditText,

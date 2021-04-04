@@ -1,8 +1,7 @@
 package com.example.yaroslavgorbach.randomizer.di
 
 import android.content.Context
-import androidx.fragment.app.DialogFragment
-import com.example.yaroslavgorbach.randomizer.CreateEditListDialog
+import com.example.yaroslavgorbach.randomizer.list.CreateEditListDialog
 import com.example.yaroslavgorbach.randomizer.RandomListFragment
 import com.example.yaroslavgorbach.randomizer.list.ListFragment
 import dagger.BindsInstance

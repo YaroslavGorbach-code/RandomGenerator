@@ -6,15 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.yaroslavgorbach.randomizer.list.Database.Database
-import com.example.yaroslavgorbach.randomizer.list.Database.ListItemEntity
+import com.example.yaroslavgorbach.randomizer.list.CreateEditListDialog
 import com.example.yaroslavgorbach.randomizer.list.Database.Repo
-import com.example.yaroslavgorbach.randomizer.list.ListItemsAdapter
 import com.example.yaroslavgorbach.randomizer.list.ListTitlesAdapter
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -22,7 +19,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
 
 class RandomListFragment : Fragment() {
@@ -89,7 +85,7 @@ class RandomListFragment : Fragment() {
                 if (InputFilters.numberMaxMinFilter(maxValue)
                         && InputFilters.numberMaxMinFilter(minValue)
                         && InputFilters.numberMinBiggerThenMaxFilter(minValue, maxValue)
-                        && InputFilters.numberOfResultsFilter(numberOfResult)){
+                        && InputFilters.numberMaxMinFilter(numberOfResult)){
                             findNavController().navigate(RandomListFragmentDirections.actionRandomListFragmentToNumberFragment()
                             .setMaxValue(maxValue.text.toString().toLong())
                             .setMinValue(minValue.text.toString().toLong())

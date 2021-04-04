@@ -3,72 +3,66 @@ package com.example.yaroslavgorbach.randomizer.number
 import android.animation.*
 import android.annotation.SuppressLint
 import android.view.View
-import android.view.animation.LinearInterpolator
-import android.view.animation.OvershootInterpolator
+import android.view.ViewGroup
+import android.view.animation.*
 import android.widget.TextView
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
-import kotlin.math.abs
+
 
 class NumberAnimator {
-    private val _mNumber: MutableLiveData<String> = MutableLiveData()
-    private val mNumber: LiveData<String> = _mNumber
-    private var mRepeatTimes = 0
 
-    fun animateNumber(view: TextView, parent: View, minValue: Long, maxValue: Long, numberOfResults: Int){
+    fun animateNumber(view: TextView, parent: ViewGroup, button: View, minValue: Long, maxValue: Long, numberOfResults: Int){
         animate(view, parent, minValue, maxValue, numberOfResults)
+        animateButton(button)
     }
 
-    fun getPreviousNumber(): LiveData<String>{
-        return mNumber
+    private fun animateButton(button: View) {
+        ObjectAnimator.ofFloat(button, View.ROTATION, -360f, 0f).apply {
+            duration = 1000
+            interpolator = AnticipateOvershootInterpolator()
+            disableViewDuringAnimation(button)
+            start()
+        }
     }
 
-    private fun animate(view: TextView, parent: View, minValue: Long,
+
+    private fun animate(view: TextView, parent: ViewGroup, minValue: Long,
                         maxValue: Long, numberOfResults: Int ){
-        val hide = ValueAnimator.ofFloat( -900f).apply {
+        val hide = ValueAnimator.ofFloat( -NumberUtils.getScreenHeight(view.context).toFloat()).apply {
             addUpdateListener {
-                view.translationY = animatedValue as Float
-                if((animatedValue as Float).toInt() == -900){
+                parent.translationX = animatedValue as Float
+                if((animatedValue as Float).toInt() == -NumberUtils.getScreenHeight(view.context)){
                     generateValue(view, minValue, maxValue, numberOfResults)
                 }
             }
-            disableViewDuringAnimation(parent)
-        }
-        val show = ValueAnimator.ofFloat(900f, 0f).apply {
-            addUpdateListener {
-                view.translationY = animatedValue as Float
-            }
-            disableViewDuringAnimation(parent)
         }
 
+        val show = ValueAnimator.ofFloat(NumberUtils.getScreenHeight(view.context).toFloat(), 0f).apply {
+            addUpdateListener {
+                parent.translationX = animatedValue as Float
+            }
+        }
+
+        val scaleX = ObjectAnimator.ofFloat(parent, View.SCALE_X, 1f, 0.6f).apply {
+            repeatCount = 1
+            repeatMode = ObjectAnimator.REVERSE
+        }
+        val scaleY = ObjectAnimator.ofFloat(parent, View.SCALE_Y, 1f, 0.6f).apply {
+            repeatCount = 1
+            repeatMode = ObjectAnimator.REVERSE
+        }
+
+        val scaleSet = AnimatorSet().apply {playTogether(scaleX, scaleY)}
+
+
         AnimatorSet().apply {
-            play(hide).before(show)
-            duration = 300
-            addListener(object: AnimatorListenerAdapter(){
-                override fun onAnimationEnd(animation: Animator?) {
-                    super.onAnimationEnd(animation)
-                    if (mRepeatTimes < 2){
-                        mRepeatTimes += 1
-                        start()
-                    }else{
-                        mRepeatTimes = 0
-                        _mNumber.value = view.text.toString()
-                        finishAnimation(view)
-                    }
-                }
-            })
-            interpolator = LinearInterpolator()
+            play(hide).before(show).with(scaleSet)
+            duration = 500
+            interpolator = AnticipateOvershootInterpolator()
             start()
         }
     }
 
-    private fun finishAnimation(view: TextView){
-        ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, -200f, 0f).apply {
-            duration = 2000
-            interpolator = OvershootInterpolator(1.1f)
-            start()
-        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -88,9 +82,8 @@ class NumberAnimator {
                 textView.textSize = 30F
             }
             in 150..Long.MAX_VALUE ->{
-                textView.textSize = 15F
+                textView.textSize = 22F
             }
         }
         textView.text = value
     }
-}

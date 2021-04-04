@@ -14,12 +14,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.fragment.findNavController
 import com.example.yaroslavgorbach.randomizer.R
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 class NumberFragment : Fragment() {
     private lateinit var mNumberTv: TextView
-    private lateinit var mNumberParent: FrameLayout
-    private lateinit var mPreviousNumber: TextView
+    private lateinit var mNumberParent: ConstraintLayout
+//    private lateinit var mPreviousNumber: TextView
     private lateinit var mToolbar: Toolbar
+    private lateinit var mRefreshNumber: ExtendedFloatingActionButton
     private var mMaxValue: Long = 10
     private var mMinValue: Long = 0
     private var mNumberOfResults: Int = 1
@@ -30,15 +32,14 @@ class NumberFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_number, container, false)
         mNumberTv = view.findViewById(R.id.number)
-        mNumberParent = view.findViewById(R.id.numberParent)
-        mPreviousNumber = view.findViewById(R.id.previousNumberTv)
         mToolbar = view.findViewById(R.id.materialToolbar)
-       // mNumberTv.movementMethod = ScrollingMovementMethod()
+        mRefreshNumber = view.findViewById(R.id.refreshNumber)
+        mNumberParent = view.findViewById(R.id.numberParent)
 
         mMaxValue = NumberFragmentArgs.fromBundle(requireArguments()).maxValue
         mMinValue = NumberFragmentArgs.fromBundle(requireArguments()).minValue
         mNumberOfResults = NumberFragmentArgs.fromBundle(requireArguments()).numberOfResults
-        mNumberAnimator.animateNumber(mNumberTv, mNumberParent, mMinValue, mMaxValue, mNumberOfResults)
+        mNumberAnimator.animateNumber(mNumberTv, mNumberParent, mRefreshNumber, mMinValue, mMaxValue, mNumberOfResults)
         return view
     }
 
@@ -50,16 +51,16 @@ class NumberFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        mNumberParent.setOnClickListener {
-            mNumberAnimator.animateNumber(mNumberTv, mNumberParent, mMinValue, mMaxValue, mNumberOfResults)
+        mRefreshNumber.setOnClickListener { button ->
+            mNumberAnimator.animateNumber(mNumberTv, mNumberParent, button, mMinValue, mMaxValue, mNumberOfResults)
         }
 
-        mNumberAnimator.getPreviousNumber().observe(viewLifecycleOwner, {
-            if (mPreviousNumber.text.isEmpty()){
-                mPreviousNumber.text = it
-            }else{
-                mPreviousNumber.text = "$it, ${mPreviousNumber.text}"
-            }
-        })
+//        mNumberAnimator.getPreviousNumber().observe(viewLifecycleOwner, {
+//            if (mPreviousNumber.text.isEmpty()){
+//                mPreviousNumber.text = it
+//            }else{
+//                mPreviousNumber.text = "$it, ${mPreviousNumber.text}"
+//            }
+//        })
     }
 }
