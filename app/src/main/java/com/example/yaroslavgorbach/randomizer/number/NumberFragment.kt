@@ -19,7 +19,6 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 class NumberFragment : Fragment() {
     private lateinit var mNumberTv: TextView
     private lateinit var mNumberParent: ConstraintLayout
-//    private lateinit var mPreviousNumber: TextView
     private lateinit var mToolbar: Toolbar
     private lateinit var mRefreshNumber: ExtendedFloatingActionButton
     private var mMaxValue: Long = 10
@@ -55,12 +54,5 @@ class NumberFragment : Fragment() {
             mNumberAnimator.animateNumber(mNumberTv, mNumberParent, button, mMinValue, mMaxValue, mNumberOfResults)
         }
 
-//        mNumberAnimator.getPreviousNumber().observe(viewLifecycleOwner, {
-//            if (mPreviousNumber.text.isEmpty()){
-//                mPreviousNumber.text = it
-//            }else{
-//                mPreviousNumber.text = "$it, ${mPreviousNumber.text}"
-//            }
-//        })
     }
 }

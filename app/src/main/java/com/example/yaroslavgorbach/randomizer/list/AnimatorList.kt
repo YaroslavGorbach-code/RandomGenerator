@@ -1,19 +1,20 @@
 package com.example.yaroslavgorbach.randomizer.list
 
 import android.graphics.Color
-import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.yaroslavgorbach.randomizer.R
 
 
-class AnimatorList(parent: ConstraintLayout, finalItem: TextView){
+class AnimatorList(background: ConstraintLayout, finalItem: ScrollView, finalItemTextView: TextView){
     private val mItems = mutableListOf<ListItemModel>()
-    private val mParent = parent
+    private val mBackground = background
     private val mFinalItem = finalItem
+    private val mFinalItemTextView = finalItemTextView
     private var mFinalItemIsOnScreen = false
     private val mAnimationsList = AnimationsList()
 
@@ -38,11 +39,10 @@ class AnimatorList(parent: ConstraintLayout, finalItem: TextView){
     private fun showFinalItem(item: ListItemModel){
         mAnimationsList.showFinalItemAnimation(mFinalItem, onAnimationStart = {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M && !mFinalItemIsOnScreen) {
-                mAnimationsList.setDarkForeground(mParent)
+                mAnimationsList.setDarkForeground(mBackground)
             }
             mFinalItem.background.setTint(item.color)
-            mFinalItem.text = item.text
-            mFinalItem.movementMethod = ScrollingMovementMethod()
+            mFinalItemTextView.text = item.text
             mFinalItem.visibility = View.VISIBLE
         })
         mFinalItemIsOnScreen = true
@@ -50,11 +50,11 @@ class AnimatorList(parent: ConstraintLayout, finalItem: TextView){
 
     fun hideFinalItem(){
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M && mFinalItemIsOnScreen) {
-            mAnimationsList.setLightForeground(mParent)
+            mAnimationsList.setLightForeground(mBackground)
         }
         mAnimationsList.hideFinalItemAnimation(mFinalItem, onAnimationEnd = {
                 mFinalItem.visibility = View.GONE
-                mFinalItem.text = null
+                mFinalItemTextView.text = null
             })
         mFinalItemIsOnScreen = false
     }

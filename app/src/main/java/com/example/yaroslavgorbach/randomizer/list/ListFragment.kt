@@ -7,25 +7,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
+import android.widget.ScrollView
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.navigation.fragment.findNavController
 import com.example.yaroslavgorbach.randomizer.MyApplication
 import com.example.yaroslavgorbach.randomizer.R
-import com.example.yaroslavgorbach.randomizer.list.Database.Database
 import com.example.yaroslavgorbach.randomizer.list.Database.Repo
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import kotlinx.coroutines.*
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 
 class ListFragment : Fragment() {
     private lateinit var mLIstAnimator: AnimatorList
     private lateinit var mAnimateAllItems: ExtendedFloatingActionButton
+    private lateinit var mFinalTextView: TextView
+    private lateinit var mFinalItem: ScrollView
     private lateinit var mGrid: GridLayout
     private lateinit var mToolbar: Toolbar
-    private lateinit var mParent: ConstraintLayout
+    private lateinit var mBackground: ConstraintLayout
     @Inject lateinit var mRepo: Repo
 
     override fun onAttach(context: Context) {
@@ -40,8 +41,10 @@ class ListFragment : Fragment() {
         mAnimateAllItems = view.findViewById(R.id.animateAllItems)
         mToolbar = view.findViewById(R.id.materialToolbar)
         mGrid = view.findViewById(R.id.grid)
-        mParent = view.findViewById(R.id.parentList)
-        mLIstAnimator = AnimatorList(mParent, view.findViewById(R.id.finalItem))
+        mBackground = view.findViewById(R.id.background)
+        mFinalItem = view.findViewById(R.id.finalItem)
+        mFinalTextView = view.findViewById(R.id.finalText)
+        mLIstAnimator = AnimatorList(mBackground, mFinalItem, mFinalTextView)
 
         mToolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
@@ -60,7 +63,7 @@ class ListFragment : Fragment() {
             mLIstAnimator.showResult(mAnimateAllItems)
         }
 
-        mParent.setOnClickListener {
+        mBackground.setOnClickListener {
             mLIstAnimator.hideFinalItem()
         }
 

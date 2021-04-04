@@ -85,7 +85,7 @@ class RandomListFragment : Fragment() {
                 if (InputFilters.numberMaxMinFilter(maxValue)
                         && InputFilters.numberMaxMinFilter(minValue)
                         && InputFilters.numberMinBiggerThenMaxFilter(minValue, maxValue)
-                        && InputFilters.numberMaxMinFilter(numberOfResult)){
+                        && InputFilters.numberOfResultsFilter(numberOfResult)){
                             findNavController().navigate(RandomListFragmentDirections.actionRandomListFragmentToNumberFragment()
                             .setMaxValue(maxValue.text.toString().toLong())
                             .setMinValue(minValue.text.toString().toLong())
