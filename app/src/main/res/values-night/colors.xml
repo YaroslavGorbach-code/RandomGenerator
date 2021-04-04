@@ -3,13 +3,16 @@
 <!--    <color name="colorPrimary">#E53935</color>-->
 <!--    <color name="colorPrimaryDark">#982421</color>-->
 <!--    <color name="colorAccent">#E53935</color>-->
+<!--    <color name="rippleColor">#FFFFFF</color>-->
 
     <color name="colorPrimary">#26A69A</color>
-    <color name="colorPrimaryDark">#00695C</color>
+    <color name="colorPrimaryDark">#00796B</color>
     <color name="colorAccent">#26A69A</color>
     <color name="rippleColor">#FFFFFF</color>
 
-    <color name="mainIconTint_1">#00796B</color>
-    <color name="mainIconTint_2">#26A69A</color>
-    <color name="mainIconTint_3">#4DB6AC</color>
+    <color name="mainIconTint_1">#00897B</color>
+    <color name="mainIconTint_2">#009688</color>
+    <color name="mainIconTint_3">#26A69A</color>
+
+
 </resources>

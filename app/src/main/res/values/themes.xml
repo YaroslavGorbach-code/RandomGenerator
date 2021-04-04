@@ -2,8 +2,13 @@
     <!-- Base application theme. -->
     <style name="Theme.Randomizer" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#E53935</item>
-        <item name="colorPrimaryDark">#982421</item>
-        <item name="colorAccent">#E53935</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="rippleColor">@color/rippleColor</item>
+        <item name="mainIconTint_1">@color/mainIconTint_1</item>
+        <item name="mainIconTint_2">@color/mainIconTint_2</item>
+        <item name="mainIconTint_3">@color/mainIconTint_3</item>
+
     </style>
 </resources>

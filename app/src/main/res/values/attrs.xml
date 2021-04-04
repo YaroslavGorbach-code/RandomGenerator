@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="rippleColor" format="reference"/>
+    <attr name="mainIconTint_1" format="reference"/>
+    <attr name="mainIconTint_2" format="reference"/>
+    <attr name="mainIconTint_3" format="reference"/>
+
+
+</resources>
