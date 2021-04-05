@@ -13,9 +13,9 @@ class InterpolatorRotateNormalOne: TimeInterpolator{
     var lastInput = 0f
     var lastInputBeforeSlowed = 0f
         override fun getInterpolation(t: Float): Float {
-            return if (t < 0.8f && t > 0.2) {
+            return if (t > 0.40f &&  t < 1f) {
                 lastInputBeforeSlowed = lastInput
-                (t - lastInputBeforeSlowed) * 0.35f + lastInputBeforeSlowed
+                (t - lastInputBeforeSlowed) * 0.20f + lastInputBeforeSlowed
 
             } else {
                 lastInput = t

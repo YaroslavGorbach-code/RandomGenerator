@@ -1,6 +1,7 @@
 package com.example.yaroslavgorbach.randomizer.coin
 
 import android.animation.*
+import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
 import android.widget.ImageView
@@ -20,12 +21,13 @@ class CoinAnimator(coinImage: ImageView, fonImage: ImageView) {
 
     fun animate() {
         mCoinState = (0..1).random()
-        when ((1..5).random()) {
-            5 -> rotateAnimSlowlyTwo()
-            4 -> rotateAnimNormalTwo()
-            3 -> rotateAnimFast()
-            2 -> rotateAnimNormalOne()
-            1 -> rotateAnimSlowlyOne()
+        when ((1..4).random()) {
+            3 -> rotateAnimSlowlyTwo() // norm
+            4 -> rotateAnimNormalTwo() //норм
+            //3 -> rotateAnimFast()
+            5-> rotateAnimSlowlyOne()
+            2 -> rotateAnimNormalOne() // нори
+            1 -> rotateAnimSlowlyOne()//норм
         }
 
         scaleFon()
@@ -72,41 +74,34 @@ class CoinAnimator(coinImage: ImageView, fonImage: ImageView) {
         }
     }
 
+    //-1980
     private fun rotateAnimNormalOne() {
-        ValueAnimator.ofFloat(-1980f, 0f).apply {
+        ValueAnimator.ofFloat(-1440f, 0f).apply {
             addUpdateListener { animation ->
                 mCoinImage.rotationX = animation.animatedValue as Float
 
                 if (mCoinSide == CoinSide.FRONT) {
                     when ((animation.animatedValue as Float).toInt()) {
-                        in -1980..-1870 -> setFrontImage()
-                        in -1870..-1720 -> setBackImage()
-                        in -1720..-1530 -> {
+                        in -1440..-1360 -> setFrontImage()
+                        in -1360..-1180 -> setBackImage()
+                        in -1180..-980 -> {
                             setCoinSide()
                             setFrontImage()
                         }
-                        in -1530..-1340 -> setBackImage()
-                        in -1340..-1170 -> setFrontImage()
-                        in -1170..-395 -> setBackImage()
-                        in -395..-277 -> setFrontImage()
-                        in -277..-90 -> setBackImage()
-                        in -90..0 -> setFrontImage()
+                        in -980..-810 -> setBackImage()
+                        in -810..0 -> setFrontImage()
                     }
 
                 } else {
                     when ((animation.animatedValue as Float).toInt()) {
-                        in -1980..-1870 -> setBackImage()
-                        in -1870..-1720 -> setFrontImage()
-                        in -1720..-1530 -> {
+                        in -1440..-1360 -> setBackImage()
+                        in -1360..-1180 -> setFrontImage()
+                        in -1180..-980 -> {
                             setCoinSide()
                             setBackImage()
                         }
-                        in -1530..-1340 -> setFrontImage()
-                        in -1340..-1170 -> setBackImage()
-                        in -1170..-395 -> setFrontImage()
-                        in -395..-277 -> setBackImage()
-                        in -277..-90 -> setFrontImage()
-                        in -90..0 -> setBackImage()
+                        in -980..-810 -> setFrontImage()
+                        in -810..0 -> setBackImage()
                     }
                 }
             }
@@ -163,6 +158,7 @@ class CoinAnimator(coinImage: ImageView, fonImage: ImageView) {
     }
 
 
+    // TODO: 4/5/2021 переделать или удалить
     private fun rotateAnimSlowlyOne() {
         ValueAnimator.ofFloat(-740f, 0f).apply {
             addUpdateListener { animation ->
@@ -228,42 +224,38 @@ class CoinAnimator(coinImage: ImageView, fonImage: ImageView) {
     }
 
     private fun rotateAnimFast() {
-        ValueAnimator.ofFloat(-2160f, 0f).apply {
+        ValueAnimator.ofFloat(-1800f, 0f).apply {
             addUpdateListener { animation ->
                 mCoinImage.rotationX = animation.animatedValue as Float
-
+                Log.v("dd", (((animation.animatedValue) as Float).toInt()).toString())
                 if (mCoinSide == CoinSide.FRONT) {
                     when ((animation.animatedValue as Float).toInt()) {
-                        in -2160..-2080 -> setFrontImage()
-                        in -2080..-1900 -> setBackImage()
-                        in -1900..-1700 -> {
+                        in -1800..-1718 -> setFrontImage()
+                        in -1780..-1530 -> setBackImage()
+                        in -1530..-1340 -> {
                             setCoinSide()
                             setFrontImage()
                         }
-                        in -1700..-1530 -> setBackImage()
-                        in -1530..-1350 -> setFrontImage()
-                        in -1350..-800 -> setBackImage()
-                        in -800..-630 -> setFrontImage()
-                        in -630..-450 -> setBackImage()
-                        in -450..-270 -> setFrontImage()
-                        in -100..0 -> setFrontImage()
+                        in -1340..-1165 -> setBackImage()
+                        in -1165..-450 -> setFrontImage()
+                        in -450..-260 -> setBackImage()
+                        in -260..-90 -> setFrontImage()
+                        in -90..-0 -> setBackImage()
                     }
 
                 } else {
                     when ((animation.animatedValue as Float).toInt()) {
-                        in -2160..-2080 -> setBackImage()
-                        in -2080..-1900 -> setFrontImage()
-                        in -1900..-1700 -> {
+                        in -1800..-1718 -> setBackImage()
+                        in -1780..-1530 -> setFrontImage()
+                        in -1530..-1340 -> {
                             setCoinSide()
                             setBackImage()
                         }
-                        in -1700..-1530 -> setFrontImage()
-                        in -1530..-1350 -> setBackImage()
-                        in -1350..-800 -> setFrontImage()
-                        in -800..-630 -> setBackImage()
-                        in -630..-450 -> setFrontImage()
-                        in -450..-270 -> setBackImage()
-                        in -100..0 -> setBackImage()
+                        in -1340..-1165 -> setFrontImage()
+                        in -1165..-450 -> setBackImage()
+                        in -450..-260  -> setFrontImage()
+                        in -260..-90 -> setBackImage()
+                        in -90..-0 -> setFrontImage()
                     }
                 }
             }

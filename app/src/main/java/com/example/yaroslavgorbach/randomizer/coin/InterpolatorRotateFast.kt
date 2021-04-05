@@ -6,9 +6,9 @@ class InterpolatorRotateFast: TimeInterpolator {
     var lastInput = 0f
     var lastInputBeforeSlowed = 0f
     override fun getInterpolation(t: Float): Float {
-        return if (t < 0.6f && t > 0.3) {
+        return if (t > 0.30f &&  t < 0.70f) {
             lastInputBeforeSlowed = lastInput
-            (t - lastInputBeforeSlowed) * 0.4f + lastInputBeforeSlowed
+            (t - lastInputBeforeSlowed) * 0.30f + lastInputBeforeSlowed
 
         } else {
             lastInput = t

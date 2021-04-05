@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Randomizer" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.Randomizer" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -9,6 +9,7 @@
         <item name="mainIconTint_1">@color/mainIconTint_1</item>
         <item name="mainIconTint_2">@color/mainIconTint_2</item>
         <item name="mainIconTint_3">@color/mainIconTint_3</item>
+        <item name="coinBackground">@color/coinBackground</item>
 
     </style>
 </resources>
