@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Randomizer" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Randomizer_standart" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -10,6 +10,96 @@
         <item name="mainIconTint_2">@color/mainIconTint_2</item>
         <item name="mainIconTint_3">@color/mainIconTint_3</item>
         <item name="coinBackground">@color/coinBackground</item>
-
+        <item name="actionOverflowButtonStyle">@style/MyOverflowButtonStyle</item>
     </style>
+
+    <!-- Red application theme. -->
+    <style name="Theme.Randomizer_red" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorPrimary_red</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_red</item>
+        <item name="colorAccent">@color/colorAccent_red</item>
+        <item name="rippleColor">@color/rippleColor_red</item>
+        <item name="mainIconTint_1">@color/mainIconTint_1_red</item>
+        <item name="mainIconTint_2">@color/mainIconTint_2_red</item>
+        <item name="mainIconTint_3">@color/mainIconTint_3_red</item>
+        <item name="coinBackground">@color/coinBackground_red</item>
+        <item name="actionOverflowButtonStyle">@style/MyOverflowButtonStyle</item>
+    </style>
+
+    <!-- Orange application theme. -->
+    <style name="Theme.Randomizer_orange" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorPrimary_orange</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_orange</item>
+        <item name="colorAccent">@color/colorAccent_orange</item>
+        <item name="rippleColor">@color/rippleColor_orange</item>
+        <item name="mainIconTint_1">@color/mainIconTint_1_orange</item>
+        <item name="mainIconTint_2">@color/mainIconTint_2_orange</item>
+        <item name="mainIconTint_3">@color/mainIconTint_3_orange</item>
+        <item name="coinBackground">@color/coinBackground_orange</item>
+        <item name="actionOverflowButtonStyle">@style/MyOverflowButtonStyle</item>
+    </style>
+
+    <!-- Blue application theme. -->
+    <style name="Theme.Randomizer_blue" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorPrimary_blue</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_blue</item>
+        <item name="colorAccent">@color/colorAccent_blue</item>
+        <item name="rippleColor">@color/rippleColor_blue</item>
+        <item name="mainIconTint_1">@color/mainIconTint_1_blue</item>
+        <item name="mainIconTint_2">@color/mainIconTint_2_blue</item>
+        <item name="mainIconTint_3">@color/mainIconTint_3_blue</item>
+        <item name="coinBackground">@color/coinBackground_blue</item>
+        <item name="actionOverflowButtonStyle">@style/MyOverflowButtonStyle</item>
+    </style>
+
+    <!-- Yellow application theme. -->
+    <style name="Theme.Randomizer_yellow" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorPrimary_yellow</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_yellow</item>
+        <item name="colorAccent">@color/colorAccent_yellow</item>
+        <item name="rippleColor">@color/rippleColor_yellow</item>
+        <item name="mainIconTint_1">@color/mainIconTint_1_yellow</item>
+        <item name="mainIconTint_2">@color/mainIconTint_2_yellow</item>
+        <item name="mainIconTint_3">@color/mainIconTint_3_yellow</item>
+        <item name="coinBackground">@color/coinBackground_yellow</item>
+        <item name="actionOverflowButtonStyle">@style/MyOverflowButtonStyle</item>
+    </style>
+
+    <!-- Purple application theme. -->
+    <style name="Theme.Randomizer_purple" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorPrimary_purple</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_purple</item>
+        <item name="colorAccent">@color/colorAccent_purple</item>
+        <item name="rippleColor">@color/rippleColor_purple</item>
+        <item name="mainIconTint_1">@color/mainIconTint_1_purple</item>
+        <item name="mainIconTint_2">@color/mainIconTint_2_purple</item>
+        <item name="mainIconTint_3">@color/mainIconTint_3_purple</item>
+        <item name="coinBackground">@color/coinBackground_purple</item>
+        <item name="actionOverflowButtonStyle">@style/MyOverflowButtonStyle</item>
+    </style>
+
+    <!-- Blue_l application theme. -->
+    <style name="Theme.Randomizer_blue_l" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorPrimary_blue_l</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_blue_l</item>
+        <item name="colorAccent">@color/colorAccent_blue_l</item>
+        <item name="rippleColor">@color/rippleColor_blue_l</item>
+        <item name="mainIconTint_1">@color/mainIconTint_1_blue_l</item>
+        <item name="mainIconTint_2">@color/mainIconTint_2_blue_l</item>
+        <item name="mainIconTint_3">@color/mainIconTint_3_blue_l</item>
+        <item name="coinBackground">@color/coinBackground_blue_l</item>
+        <item name="actionOverflowButtonStyle">@style/MyOverflowButtonStyle</item>
+    </style>
+
+
+    <style name="MyOverflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">#fafafa</item>
+    </style>
+
 </resources>
