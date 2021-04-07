@@ -28,9 +28,7 @@ class CreateEditListDialog private constructor() : DialogFragment() {
     private val listOfDeletedItems = mutableListOf<String>()
     private var currentTitle: String? = null
     private lateinit var listTitleEt: TextInputEditText
-
-    @Inject
-    lateinit var mRepo: Repo
+    @Inject lateinit var mRepo: Repo
 
     companion object {
         const val TITLE_ARG_KEY = "TITLE_ARG_KEY"

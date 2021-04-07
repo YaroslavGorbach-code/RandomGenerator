@@ -14,10 +14,11 @@ import androidx.core.animation.doOnEnd
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
 import com.example.yaroslavgorbach.randomizer.sounds.SoundManager
+import javax.inject.Inject
 
-class MatchesAnimations(context: Context) {
+class MatchesAnimations(private val soundManager: SoundManager) {
     private val mMatches = mutableListOf<MatchModel>()
-    private val mSoundManager = SoundManager(context)
+
 
     private fun animateMatch(matchModel: MatchModel) {
         ValueAnimator.ofFloat(0f, -200f).apply {
@@ -28,7 +29,7 @@ class MatchesAnimations(context: Context) {
 
                 if ((it.animatedValue as Float).toInt() in -200..-150 && matchModel.isBurned) {
                     matchModel.imageView.setImageResource(R.drawable.ic_match_burned)
-                    mSoundManager.matchSoundPlay()
+                    soundManager.matchSoundPlay()
                 }
             }
             duration = 500

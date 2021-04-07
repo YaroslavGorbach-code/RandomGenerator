@@ -15,6 +15,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.yaroslavgorbach.randomizer.MyApplication
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.list.Database.Repo
+import com.example.yaroslavgorbach.randomizer.setIconMusicOff
+import com.example.yaroslavgorbach.randomizer.setIconMusicOn
+import com.example.yaroslavgorbach.randomizer.sounds.SoundManager
+import com.example.yaroslavgorbach.randomizer.sounds.SoundPreferences
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import kotlinx.coroutines.*
 import javax.inject.Inject
@@ -27,8 +31,9 @@ class ListFragment : Fragment() {
     private lateinit var mGrid: GridLayout
     private lateinit var mToolbar: Toolbar
     private lateinit var mBackground: ConstraintLayout
-
-    @Inject lateinit var mRepo: Repo
+    @Inject lateinit var repo: Repo
+    @Inject lateinit var soundManager: SoundManager
+    @Inject lateinit var soundPreferences: SoundPreferences
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -45,7 +50,10 @@ class ListFragment : Fragment() {
         mBackground = view.findViewById(R.id.background)
         mFinalItem = view.findViewById(R.id.finalItem)
         mFinalTextView = view.findViewById(R.id.finalText)
-        mLIstAnimator = AnimatorList(mBackground, mFinalItem, mFinalTextView, requireContext())
+        mLIstAnimator = AnimatorList(mBackground, mFinalItem, mFinalTextView, soundManager)
+
+        if (soundPreferences.getState(SoundPreferences.LIST_SOUND_KEY)) mToolbar.setIconMusicOn()
+        else mToolbar.setIconMusicOff()
 
         mToolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
@@ -53,11 +61,22 @@ class ListFragment : Fragment() {
 
        GlobalScope.launch {
             val result = async {
-                mRepo.getItemsByTitle(ListFragmentArgs.fromBundle(requireArguments()).listTitle)
+                repo.getItemsByTitle(ListFragmentArgs.fromBundle(requireArguments()).listTitle)
             }
             withContext(Dispatchers.Main) {
                 mLIstAnimator.inflateItems(mGrid, mAnimateAllItems, listOfItems = result.await())
             }
+        }
+
+        mToolbar.setOnMenuItemClickListener {
+            if (soundPreferences.getState(SoundPreferences.LIST_SOUND_KEY)){
+                mToolbar.setIconMusicOff()
+                soundPreferences.disallowSound(SoundPreferences.LIST_SOUND_KEY)
+            }else{
+                mToolbar.setIconMusicOn()
+                soundPreferences.allowSound(SoundPreferences.LIST_SOUND_KEY)
+            }
+            true
         }
 
         mAnimateAllItems.setOnClickListener {

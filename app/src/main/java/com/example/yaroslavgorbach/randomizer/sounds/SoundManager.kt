@@ -4,8 +4,10 @@ import android.content.Context
 import android.media.AudioAttributes
 import android.media.SoundPool
 import com.example.yaroslavgorbach.randomizer.R
+import javax.inject.Inject
 
-class SoundManager(context: Context) {
+
+class SoundManager @Inject constructor(context: Context, soundPreferences: SoundPreferences) {
 
     private var mSoundPool: SoundPool
     private var mSoundFlipCoin = 0
@@ -14,8 +16,7 @@ class SoundManager(context: Context) {
     private var mSoundNumberSwipe = 0
     private var mSoundListBell = 0
     private var mSoundMatch = 0
-
-
+    private val mSoundPreferences = soundPreferences
 
     init {
         val audioAttributes = AudioAttributes.Builder()
@@ -38,26 +39,32 @@ class SoundManager(context: Context) {
 
 
     fun flipCoinSoundPlay() {
+        if (mSoundPreferences.getState(SoundPreferences.COIN_SOUND_KEY))
         mSoundPool.play(mSoundFlipCoin, 1f, 1f, 1, 0, 1f)
     }
 
     fun fallCoinSoundPlay() {
-        mSoundPool.play(mSoundFallCoin, 1f, 1f, 1, 0, 1f)
+        if (mSoundPreferences.getState(SoundPreferences.COIN_SOUND_KEY))
+            mSoundPool.play(mSoundFallCoin, 1f, 1f, 1, 0, 1f)
     }
 
     fun rollAllDicesSoundPlay() {
-        mSoundPool.play(mSoundRollAllDices, 1f, 1f, 1, 0, 1f)
+        if (mSoundPreferences.getState(SoundPreferences.DICE_SOUND_KEY))
+            mSoundPool.play(mSoundRollAllDices, 1f, 1f, 1, 0, 1f)
     }
 
     fun numberSwipeSoundPlay() {
+        if (mSoundPreferences.getState(SoundPreferences.NUMBER_SOUND_KEY))
         mSoundPool.play(mSoundNumberSwipe, 1f, 1f, 1, 0, 1f)
     }
 
     fun listBellSoundPlay() {
+        if (mSoundPreferences.getState(SoundPreferences.LIST_SOUND_KEY))
         mSoundPool.play(mSoundListBell, 1f, 1f, 1, 0, 1f)
     }
 
     fun matchSoundPlay(){
+        if (mSoundPreferences.getState(SoundPreferences.MATCHES_SOUND_KEY))
         mSoundPool.play(mSoundMatch, 1f, 1f, 1, 0, 1f)
     }
 }

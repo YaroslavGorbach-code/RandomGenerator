@@ -14,7 +14,6 @@ class AppThemeStorage(context: Context): ThemeStorage {
         Context.MODE_PRIVATE
     )
 
-
     override fun changeTheme(color: Int) {
         if (color == ContextCompat.getColor(mContext, R.color.colorAccent)) {
             mSharedPreferences.edit {

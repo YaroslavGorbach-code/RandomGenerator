@@ -1,6 +1,5 @@
 package com.example.yaroslavgorbach.randomizer.list
 
-import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -12,14 +11,14 @@ import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.sounds.SoundManager
 
 
-class AnimatorList(background: ConstraintLayout, finalItem: ScrollView, finalItemTextView: TextView, context: Context){
+class AnimatorList(background: ConstraintLayout, finalItem: ScrollView, finalItemTextView: TextView, soundManager: SoundManager){
     private val mItems = mutableListOf<ListItemModel>()
     private val mBackground = background
     private val mFinalItem = finalItem
     private val mFinalItemTextView = finalItemTextView
     private var mFinalItemIsOnScreen = false
     private val mAnimationsList = AnimationsList()
-    private val mSoundManager = SoundManager(context)
+    private val mSoundManager = soundManager
 
 
     private fun showResult(item: ListItemModel){

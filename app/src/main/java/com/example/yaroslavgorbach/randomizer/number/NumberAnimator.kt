@@ -16,9 +16,8 @@ import com.example.yaroslavgorbach.randomizer.sounds.SoundManager
 import kotlinx.coroutines.delay
 
 
-class NumberAnimator(context: Context) {
-    private val mSoundManager = SoundManager(context)
-
+class NumberAnimator(soundManager: SoundManager) {
+    private val mSoundManager = soundManager
 
     fun animateNumber(view: TextView, parent: ViewGroup, button: View, minValue: Long, maxValue: Long, numberOfResults: Int){
         animate(view, parent, minValue, maxValue, numberOfResults)

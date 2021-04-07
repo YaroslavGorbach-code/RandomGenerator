@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="Dice"
+        app:menu="@menu/dice_menu"
         app:navigationIcon="@drawable/ic_arrow_back"
         app:titleTextColor="#fafafa"
         android:background="?colorPrimary"

@@ -15,53 +15,15 @@ import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
 import com.example.yaroslavgorbach.randomizer.sounds.SoundManager
 
-class AnimatorDice(context: Context){
+class AnimatorDice(private val soundManager: SoundManager){
     private val mDices = mutableListOf<DiceModel>()
     private val _mSum: MutableLiveData<Int> = MutableLiveData(0)
     private val mSum: LiveData<Int> = _mSum
-    private val mSoundManager: SoundManager = SoundManager(context)
 
     init {
         // i did it to play it for the firs time. Without delay sound does not play
-        android.os.Handler().postDelayed({  mSoundManager.rollAllDicesSoundPlay() }, 200)
+        android.os.Handler().postDelayed({  soundManager.rollAllDicesSoundPlay() }, 200)
     }
-
-//    private fun animateDice(dice: DiceModel, rotateAllDice: View) {
-//        rotateDice(dice.imageView, rotateAllDice)
-//        _mSum.value  = _mSum.value!! - dice.points
-//        when ((1..6).random()) {
-//            1 -> {
-//                android.os.Handler().postDelayed({ dice.imageView.setImageResource(R.drawable.ic_dice_1)
-//                    _mSum.value  = _mSum.value!! +1
-//                    dice.points = 1}, 500)
-//            }
-//            2 -> {
-//                android.os.Handler().postDelayed({ dice.imageView.setImageResource(R.drawable.ic_dice_2)
-//                    _mSum.value  = _mSum.value!! +2
-//                    dice.points = 2}, 500)
-//            }
-//            3 -> {
-//                android.os.Handler().postDelayed({ dice.imageView.setImageResource(R.drawable.ic_dice_3)
-//                    _mSum.value  = _mSum.value!! +3
-//                    dice.points = 3}, 500)
-//            }
-//            4 -> {
-//                android.os.Handler().postDelayed({ dice.imageView.setImageResource(R.drawable.ic_dice_4)
-//                    _mSum.value  = _mSum.value!! +4
-//                    dice.points = 4}, 500)
-//            }
-//            5 -> {
-//                android.os.Handler().postDelayed({ dice.imageView.setImageResource(R.drawable.ic_dice_5)
-//                    _mSum.value  = _mSum.value!! +5
-//                    dice.points = 5}, 500)
-//            }
-//            6 -> {
-//                android.os.Handler().postDelayed({ dice.imageView.setImageResource(R.drawable.ic_dice_6)
-//                    _mSum.value  = _mSum.value!! +6
-//                    dice.points = 6}, 500)
-//            }
-//        }
-//    }
 
     private fun changeDiceSide(dice: DiceModel) {
         _mSum.value = _mSum.value!! - dice.points
@@ -99,7 +61,7 @@ class AnimatorDice(context: Context){
         }
     }
     private fun rotateDice(dice: DiceModel, rotateAllDice: View) {
-        mSoundManager.rollAllDicesSoundPlay()
+        soundManager.rollAllDicesSoundPlay()
          ValueAnimator.ofFloat(-740f, 0f).apply {
 
              addUpdateListener {

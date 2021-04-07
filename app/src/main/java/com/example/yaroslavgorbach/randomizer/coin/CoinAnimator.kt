@@ -9,8 +9,9 @@ import androidx.core.animation.doOnStart
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
 import com.example.yaroslavgorbach.randomizer.sounds.SoundManager
+import javax.inject.Inject
 
-class CoinAnimator(coinImage: ImageView, fonImage: ImageView) {
+class CoinAnimator(coinImage: ImageView, fonImage: ImageView, soundManager: SoundManager) {
 
      private enum class CoinSide {
         FRONT, BACK
@@ -20,16 +21,17 @@ class CoinAnimator(coinImage: ImageView, fonImage: ImageView) {
     private val mFonImage: ImageView = fonImage
     private var mCoinSide: CoinSide = CoinSide.FRONT
     private var mCoinState: Int = (0..1).random()
-    private val mSoundManager: SoundManager = SoundManager(coinImage.context)
+    private val mSoundManager = soundManager
+
 
     fun animate() {
         mSoundManager.flipCoinSoundPlay()
         mCoinState = (0..1).random()
         when ((1..4).random()) {
-            1 -> rotateAnimSlowlyTwo() // norm
-            2 -> rotateAnimNormalTwo() //норм
-            3-> rotateAnimSlowlyOne()
-            4 -> rotateAnimNormalOne() // нори
+            1 -> rotateAnimSlowlyTwo()
+            2 -> rotateAnimNormalTwo()
+            3 -> rotateAnimSlowlyOne()
+            4 -> rotateAnimNormalOne()
         }
 
         scaleFon()
@@ -267,6 +269,4 @@ class CoinAnimator(coinImage: ImageView, fonImage: ImageView) {
             CoinSide.BACK
         }
     }
-
-
 }
