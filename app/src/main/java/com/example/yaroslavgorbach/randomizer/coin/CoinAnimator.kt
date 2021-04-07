@@ -5,8 +5,10 @@ import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
 import android.widget.ImageView
+import androidx.core.animation.doOnStart
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
+import com.example.yaroslavgorbach.randomizer.sounds.SoundManager
 
 class CoinAnimator(coinImage: ImageView, fonImage: ImageView) {
 
@@ -18,16 +20,16 @@ class CoinAnimator(coinImage: ImageView, fonImage: ImageView) {
     private val mFonImage: ImageView = fonImage
     private var mCoinSide: CoinSide = CoinSide.FRONT
     private var mCoinState: Int = (0..1).random()
+    private val mSoundManager: SoundManager = SoundManager(coinImage.context)
 
     fun animate() {
+        mSoundManager.flipCoinSoundPlay()
         mCoinState = (0..1).random()
         when ((1..4).random()) {
-            3 -> rotateAnimSlowlyTwo() // norm
-            4 -> rotateAnimNormalTwo() //норм
-            //3 -> rotateAnimFast()
-            5-> rotateAnimSlowlyOne()
-            2 -> rotateAnimNormalOne() // нори
-            1 -> rotateAnimSlowlyOne()//норм
+            1 -> rotateAnimSlowlyTwo() // norm
+            2 -> rotateAnimNormalTwo() //норм
+            3-> rotateAnimSlowlyOne()
+            4 -> rotateAnimNormalOne() // нори
         }
 
         scaleFon()
@@ -63,7 +65,14 @@ class CoinAnimator(coinImage: ImageView, fonImage: ImageView) {
         val tX = ObjectAnimator.ofFloat(
             mCoinImage, View.TRANSLATION_X, 1f, -10f, -10f, 10f, 10f, -10f, -10f, 10f,
             10f, -10f, -10f, 10f, 10f, 1f
-        )
+        ).also {
+            it.addListener(object : AnimatorListenerAdapter(){
+                override fun onAnimationStart(animation: Animator?) {
+                    super.onAnimationStart(animation)
+                    mSoundManager.fallCoinSoundPlay()
+                }
+            })
+        }
         val tY = ObjectAnimator.ofFloat(mCoinImage, View.TRANSLATION_Y, 1f, -5f, -5f, 5f, 5f, 1f)
 
         AnimatorSet().apply {
@@ -158,7 +167,6 @@ class CoinAnimator(coinImage: ImageView, fonImage: ImageView) {
     }
 
 
-    // TODO: 4/5/2021 переделать или удалить
     private fun rotateAnimSlowlyOne() {
         ValueAnimator.ofFloat(-740f, 0f).apply {
             addUpdateListener { animation ->
@@ -223,50 +231,6 @@ class CoinAnimator(coinImage: ImageView, fonImage: ImageView) {
         }
     }
 
-    private fun rotateAnimFast() {
-        ValueAnimator.ofFloat(-1800f, 0f).apply {
-            addUpdateListener { animation ->
-                mCoinImage.rotationX = animation.animatedValue as Float
-                Log.v("dd", (((animation.animatedValue) as Float).toInt()).toString())
-                if (mCoinSide == CoinSide.FRONT) {
-                    when ((animation.animatedValue as Float).toInt()) {
-                        in -1800..-1718 -> setFrontImage()
-                        in -1780..-1530 -> setBackImage()
-                        in -1530..-1340 -> {
-                            setCoinSide()
-                            setFrontImage()
-                        }
-                        in -1340..-1165 -> setBackImage()
-                        in -1165..-450 -> setFrontImage()
-                        in -450..-260 -> setBackImage()
-                        in -260..-90 -> setFrontImage()
-                        in -90..-0 -> setBackImage()
-                    }
-
-                } else {
-                    when ((animation.animatedValue as Float).toInt()) {
-                        in -1800..-1718 -> setBackImage()
-                        in -1780..-1530 -> setFrontImage()
-                        in -1530..-1340 -> {
-                            setCoinSide()
-                            setBackImage()
-                        }
-                        in -1340..-1165 -> setFrontImage()
-                        in -1165..-450 -> setBackImage()
-                        in -450..-260  -> setFrontImage()
-                        in -260..-90 -> setBackImage()
-                        in -90..-0 -> setFrontImage()
-                    }
-                }
-            }
-
-            duration = 1400
-            interpolator = InterpolatorRotateFast()
-            disableViewDuringAnimation(mCoinImage)
-            startDelay = 150
-            start()
-        }
-    }
 
     private fun setBackImage() {
         mCoinImage.setImageResource(R.drawable.ic_coin_back)

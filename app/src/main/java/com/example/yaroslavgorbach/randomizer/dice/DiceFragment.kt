@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.findNavController
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.dice.DiceFragmentArgs.fromBundle
+import com.example.yaroslavgorbach.randomizer.sounds.SoundManager
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 class DiceFragment : Fragment() {
@@ -24,7 +25,7 @@ class DiceFragment : Fragment() {
         mAnimateAllDicesBt = view.findViewById(R.id.animateAllDices)
         mToolbar = view.findViewById(R.id.materialToolbar)
         mGrid = view.findViewById(R.id.grid)
-        mDiceAnimator = AnimatorDice()
+        mDiceAnimator = AnimatorDice(requireContext())
         mDiceAnimator.inflateDice(mGrid, fromBundle(requireArguments()).numberOfDice, mAnimateAllDicesBt)
 
         mAnimateAllDicesBt.setOnClickListener{

@@ -24,9 +24,8 @@ class NumberFragment : Fragment() {
     private var mMaxValue: Long = 10
     private var mMinValue: Long = 0
     private var mNumberOfResults: Int = 1
+    private lateinit var mNumberAnimator: NumberAnimator
 
-
-    private val mNumberAnimator: NumberAnimator = NumberAnimator()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_number, container, false)
@@ -35,6 +34,7 @@ class NumberFragment : Fragment() {
         mRefreshNumber = view.findViewById(R.id.refreshNumber)
         mNumberParent = view.findViewById(R.id.numberParent)
 
+        mNumberAnimator = NumberAnimator(requireContext())
         mMaxValue = NumberFragmentArgs.fromBundle(requireArguments()).maxValue
         mMinValue = NumberFragmentArgs.fromBundle(requireArguments()).minValue
         mNumberOfResults = NumberFragmentArgs.fromBundle(requireArguments()).numberOfResults

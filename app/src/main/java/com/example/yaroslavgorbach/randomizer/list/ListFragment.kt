@@ -27,6 +27,7 @@ class ListFragment : Fragment() {
     private lateinit var mGrid: GridLayout
     private lateinit var mToolbar: Toolbar
     private lateinit var mBackground: ConstraintLayout
+
     @Inject lateinit var mRepo: Repo
 
     override fun onAttach(context: Context) {
@@ -44,7 +45,7 @@ class ListFragment : Fragment() {
         mBackground = view.findViewById(R.id.background)
         mFinalItem = view.findViewById(R.id.finalItem)
         mFinalTextView = view.findViewById(R.id.finalText)
-        mLIstAnimator = AnimatorList(mBackground, mFinalItem, mFinalTextView)
+        mLIstAnimator = AnimatorList(mBackground, mFinalItem, mFinalTextView, requireContext())
 
         mToolbar.setNavigationOnClickListener {
             findNavController().popBackStack()

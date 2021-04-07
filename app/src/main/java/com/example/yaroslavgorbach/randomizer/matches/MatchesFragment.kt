@@ -17,7 +17,7 @@ class MatchesFragment : Fragment() {
     private lateinit var mToolbar: Toolbar
     private lateinit var mParent: LinearLayout
     private lateinit var mRefreshMatchesButton: ExtendedFloatingActionButton
-    private val mAnimator: MatchesAnimations = MatchesAnimations()
+    private lateinit var mAnimator: MatchesAnimations
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
@@ -25,6 +25,8 @@ class MatchesFragment : Fragment() {
         mToolbar = view.findViewById(R.id.materialToolbar)
         mParent = view.findViewById(R.id.matchesParent)
         mRefreshMatchesButton = view.findViewById(R.id.refreshMatches)
+
+        mAnimator = MatchesAnimations(requireContext())
         mAnimator.inflateMatches(mParent, MatchesFragmentArgs.fromBundle(requireArguments()).numberMatches,
             MatchesFragmentArgs.fromBundle(requireArguments()).numberBurned)
 

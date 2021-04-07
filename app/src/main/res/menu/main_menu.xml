@@ -5,10 +5,12 @@
         android:title="Change theme" />
     <item
         android:id="@+id/rate"
-        android:title="Rate" />
+        android:title="Rate"
+        android:visible="false"/>
     <item
         android:id="@+id/share"
-        android:title="Share app" />
+        android:title="Share app"
+        android:visible="false"/>
     <item
         android:id="@+id/removeAd"
         android:visible="false"

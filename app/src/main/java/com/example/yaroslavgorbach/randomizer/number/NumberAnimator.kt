@@ -2,14 +2,23 @@ package com.example.yaroslavgorbach.randomizer.number
 
 import android.animation.*
 import android.annotation.SuppressLint
+import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.*
 import android.widget.TextView
+import androidx.core.animation.doOnStart
+import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
+import com.example.yaroslavgorbach.randomizer.sounds.SoundManager
+import kotlinx.coroutines.delay
 
 
-class NumberAnimator {
+class NumberAnimator(context: Context) {
+    private val mSoundManager = SoundManager(context)
+
 
     fun animateNumber(view: TextView, parent: ViewGroup, button: View, minValue: Long, maxValue: Long, numberOfResults: Int){
         animate(view, parent, minValue, maxValue, numberOfResults)
@@ -29,6 +38,9 @@ class NumberAnimator {
     private fun animate(view: TextView, parent: ViewGroup, minValue: Long,
                         maxValue: Long, numberOfResults: Int ){
         val hide = ValueAnimator.ofFloat( -NumberUtils.getScreenHeight(view.context).toFloat()).apply {
+            doOnStart {
+            Handler(Looper.getMainLooper()).postDelayed({ mSoundManager.numberSwipeSoundPlay() }, 100)
+            }
             addUpdateListener {
                 parent.translationX = animatedValue as Float
                 if((animatedValue as Float).toInt() == -NumberUtils.getScreenHeight(view.context)){
@@ -38,6 +50,7 @@ class NumberAnimator {
         }
 
         val show = ValueAnimator.ofFloat(NumberUtils.getScreenHeight(view.context).toFloat(), 0f).apply {
+            doOnStart { mSoundManager.numberSwipeSoundPlay() }
             addUpdateListener {
                 parent.translationX = animatedValue as Float
             }

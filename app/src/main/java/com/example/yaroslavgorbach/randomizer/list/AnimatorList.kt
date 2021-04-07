@@ -1,5 +1,6 @@
 package com.example.yaroslavgorbach.randomizer.list
 
+import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -8,15 +9,17 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.yaroslavgorbach.randomizer.R
+import com.example.yaroslavgorbach.randomizer.sounds.SoundManager
 
 
-class AnimatorList(background: ConstraintLayout, finalItem: ScrollView, finalItemTextView: TextView){
+class AnimatorList(background: ConstraintLayout, finalItem: ScrollView, finalItemTextView: TextView, context: Context){
     private val mItems = mutableListOf<ListItemModel>()
     private val mBackground = background
     private val mFinalItem = finalItem
     private val mFinalItemTextView = finalItemTextView
     private var mFinalItemIsOnScreen = false
     private val mAnimationsList = AnimationsList()
+    private val mSoundManager = SoundManager(context)
 
 
     private fun showResult(item: ListItemModel){
@@ -37,6 +40,7 @@ class AnimatorList(background: ConstraintLayout, finalItem: ScrollView, finalIte
     }
 
     private fun showFinalItem(item: ListItemModel){
+        mSoundManager.listBellSoundPlay()
         mAnimationsList.showFinalItemAnimation(mFinalItem, onAnimationStart = {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M && !mFinalItemIsOnScreen) {
                 mAnimationsList.setDarkForeground(mBackground)
