@@ -2,13 +2,13 @@ package com.example.yaroslavgorbach.randomizer.dice
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
+import androidx.core.animation.doOnEnd
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.yaroslavgorbach.randomizer.R
@@ -26,39 +26,49 @@ class AnimatorDice(private val soundManager: SoundManager){
     }
 
     private fun changeDiceSide(dice: DiceModel) {
-        _mSum.value = _mSum.value!! - dice.points
-        when ((1..6).random()) {
-            1 -> {
-                dice.imageView.setImageResource(R.drawable.ic_dice_1)
-                dice.points = 1
-                _mSum.value = _mSum.value!! + 1
-            }
-            2 -> {
-                dice.imageView.setImageResource(R.drawable.ic_dice_2)
-                dice.points = 2
-                _mSum.value = _mSum.value!! + 2
-            }
-            3 -> {
-                dice.imageView.setImageResource(R.drawable.ic_dice_3)
-                dice.points = 3
-                _mSum.value = _mSum.value!! + 3
-            }
-            4 -> {
-                dice.imageView.setImageResource(R.drawable.ic_dice_4)
-                dice.points = 4
-                _mSum.value = _mSum.value!! + 4
-            }
-            5 -> {
-                dice.imageView.setImageResource(R.drawable.ic_dice_5)
-                dice.points = 5
-                _mSum.value = _mSum.value!! + 5
-            }
-            6 -> {
-                dice.imageView.setImageResource(R.drawable.ic_dice_6)
-                dice.points = 6
-                _mSum.value = _mSum.value!! + 6
+        if (!dice.sideIsChanged){
+            _mSum.value = _mSum.value!! - dice.points
+            when ((1..6).random()) {
+                1 -> {
+                    dice.imageView.setImageResource(R.drawable.ic_dice_1)
+                    dice.points = 1
+                    _mSum.value = _mSum.value!! + 1
+                    dice.sideIsChanged = true
+                }
+                2 -> {
+                    dice.imageView.setImageResource(R.drawable.ic_dice_2)
+                    dice.points = 2
+                    _mSum.value = _mSum.value!! + 2
+                    dice.sideIsChanged = true
+                }
+                3 -> {
+                    dice.imageView.setImageResource(R.drawable.ic_dice_3)
+                    dice.points = 3
+                    _mSum.value = _mSum.value!! + 3
+                    dice.sideIsChanged = true
+                }
+                4 -> {
+                    dice.imageView.setImageResource(R.drawable.ic_dice_4)
+                    dice.points = 4
+                    _mSum.value = _mSum.value!! + 4
+                    dice.sideIsChanged = true
+                }
+                5 -> {
+                    dice.imageView.setImageResource(R.drawable.ic_dice_5)
+                    dice.points = 5
+                    _mSum.value = _mSum.value!! + 5
+                    dice.sideIsChanged = true
+                }
+                6 -> {
+                    dice.imageView.setImageResource(R.drawable.ic_dice_6)
+                    dice.points = 6
+                    _mSum.value = _mSum.value!! + 6
+                    dice.sideIsChanged = true
+                }
+
             }
         }
+
     }
     private fun rotateDice(dice: DiceModel, rotateAllDice: View) {
         soundManager.rollAllDicesSoundPlay()
@@ -67,8 +77,13 @@ class AnimatorDice(private val soundManager: SoundManager){
              addUpdateListener {
                  dice.imageView.rotationY = it.animatedValue as Float
 
-                 if ((it.animatedValue as Float).toInt() == -80)
-                 changeDiceSide(dice)
+                 if ((it.animatedValue as Float).toInt() in -80..0){
+                     changeDiceSide(dice)
+                 }
+
+                 doOnEnd {
+                     dice.sideIsChanged = false
+                 }
              }
 
             duration = 700
