@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Генератор случайностей</string>
+
+    <!--    chose_list_dialog-->
+    <string name="chose_list">Выберете список</string>
+    <string name="crete_list">Создать список</string>
+
+    <!--    chose_dices_dialog-->
+    <string name="number_of_dice">Количество кубиков(1 – 50)</string>
+
+    <!--    create_list_dialog-->
+    <string name="list_title">Название списка</string>
+    <string name="item">Элемент</string>
+    <string name="add">ДОБАВИТЬ</string>
+
+    <!--    create_matches_dialog-->
+    <string name="number_of_matches">Количество спичек</string>
+    <string name="number_of_burned">Количество сгоревших спичек</string>
+
+    <!--    create_number_dialog-->
+    <string name="max">Максимум</string>
+    <string name="min">Минимум</string>
+    <string name="number_of_results">Количество результатов(1 – 100)</string>
+    <string name="generate">ГЕНЕРИРОВАТЬ</string>
+
+    <!--    dialog_color_picker-->
+    <string name="night_mode">Ночной режим</string>
+
+    <!--    fragment_coin-->
+    <string name="coin">Монетка</string>
+
+    <!--    fragment_dice-->
+    <string name="dice">Игральные кости</string>
+    <string name="total">Сума:</string>
+
+    <!--    fragment_list-->
+    <string name="list">Список</string>
+
+    <!--    fragment_matches-->
+    <string name="matches">Спички</string>
+
+    <!--    fragment_number-->
+    <string name="number">Число</string>
+
+    <!--    fragment_random_list-->
+    <string name="coin_u">МОНЕТКА</string>
+    <string name="dice_u">КОСТИ</string>
+    <string name="list_u">СПИСОК</string>
+    <string name="matches_u">СПИЧКИ</string>
+    <string name="number_u">ЧИСЛО</string>
+
+    <!--    input_filters-->
+    <string name="dice_value">Значение должно быть от 1 до 50</string>
+    <string name="number_max_min">Неверное значение</string>
+    <string name="number_min_bigger_then_max">Минимальное значение не может быть больше максимального</string>
+    <string name="number_results_too_large">Значение не может быть меньше 1 или больше 100</string>
+    <string name="matches_empty">Это поле не может быть пустым или меньше 1</string>
+    <string name="number_of_burned_invalid">Это поле не может быть пустым или меньше 0</string>
+    <string name="number_of_matches_too_large">Значение не может быть больше 500</string>
+    <string name="number_of_burned_too_large">Значение не может быть больше количества спичек</string>
+    <string name="dialog_title_empty">Это поле не может быть пустым</string>
+    <string name="item_empty">Это поле не может быть пустым</string>
+
+    <string name="create">СОЗДАТЬ</string>
+    <string name="fon">Фон</string>
+    <string name="delete">Удалить</string>
+    <string name="edit">Редактировать</string>
+
+
+</resources>

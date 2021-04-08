@@ -22,6 +22,7 @@ class CoinFragment : Fragment() {
     private lateinit var mCoinImage: ImageView
     private lateinit var mDeckFon: ImageView
     private lateinit var mCoinAnimatorAnimation: CoinAnimator
+
     @Inject lateinit var soundManager: SoundManager
     @Inject lateinit var soundPreferences: SoundPreferences
 

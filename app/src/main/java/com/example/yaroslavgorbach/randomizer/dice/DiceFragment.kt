@@ -48,7 +48,7 @@ class DiceFragment : Fragment() {
         }
 
         mDiceAnimator.getSum().observe(viewLifecycleOwner,{
-            mToolbar.title ="Total: $it"
+            mToolbar.title = getString(R.string.total) + " $it"
         })
 
         mToolbar.setNavigationOnClickListener {

@@ -22,7 +22,7 @@
             android:id="@+id/maxValue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Max"
+            android:hint="@string/max"
             android:maxLength="19"
             android:text="10"
             android:imeOptions="actionDone"
@@ -48,7 +48,7 @@
             android:id="@+id/minValue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Min"
+            android:hint="@string/min"
             android:text="0"
             android:maxLength="19"
             android:imeOptions="actionDone"
@@ -73,7 +73,7 @@
             android:id="@+id/numberOfResults"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Number of results (1 - 100)"
+            android:hint="@string/number_of_results"
             android:imeOptions="actionDone"
             android:inputType="numberSigned"
             android:maxLength="19"
@@ -89,7 +89,7 @@
         android:layout_height="wrap_content"
 
         android:layout_marginEnd="16dp"
-        android:text="GENERATE"
+        android:text="@string/generate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/outlinedTextField3" />
 

@@ -2,12 +2,13 @@
 
 <ImageView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/match"
     android:paddingTop="200dp"
     android:paddingEnd="8dp"
     android:paddingStart="8dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:src="@drawable/ic_match">
-
+    android:src="@drawable/ic_match"
+    tools:ignore="ContentDescription">
 </ImageView>

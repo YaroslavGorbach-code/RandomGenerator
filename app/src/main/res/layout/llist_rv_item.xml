@@ -28,6 +28,7 @@
         android:src="@drawable/ic_delete"
         app:layout_constraintBottom_toBottomOf="@+id/itemTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/itemTitle" />
+        app:layout_constraintTop_toTopOf="@+id/itemTitle"
+        android:contentDescription="@string/delete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

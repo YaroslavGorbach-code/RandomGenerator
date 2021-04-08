@@ -24,7 +24,8 @@
             android:id="@+id/number_matches"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Number of matches"
+            android:maxLength="3"
+            android:hint="@string/number_of_matches"
             android:imeOptions="actionDone"
             android:inputType="number"
 
@@ -48,7 +49,8 @@
             android:id="@+id/number_burned"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Number of burned"
+            android:maxLength="3"
+            android:hint="@string/number_of_burned"
             android:imeOptions="actionDone"
             android:inputType="number"
 
@@ -61,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:text="CREATE"
+        android:text="@string/create"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/outlinedTextField1" />
 

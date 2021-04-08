@@ -67,7 +67,7 @@ class RandomListFragment : Fragment() {
                     val themeStorage: ThemeStorage = AppThemeStorage(requireContext())
                     val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_color_picker, null)
                     val colorPicker: ColorPicker = ScrollColorPicker(dialogView.findViewById(R.id.colors))
-                    val nightModCb: CheckBox = dialogView.findViewById(R.id.night_mod)
+                    val nightModCb: CheckBox = dialogView.findViewById(R.id.night_mode)
                     nightModCb.isChecked = themeStorage.getNightMode()
                     MaterialAlertDialogBuilder(requireContext())
                         .setTitle("Chose theme")

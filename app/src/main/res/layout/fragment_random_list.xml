@@ -81,7 +81,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
-                        android:text="COIN"
+                        android:text="@string/coin_u"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:textColor="?mainIconTint_1"
                         android:textSize="20dp"
@@ -132,7 +132,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
-                        android:text="DICE"
+                        android:text="@string/dice_u"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:textColor="?mainIconTint_1"
                         android:textSize="20dp"
@@ -184,7 +184,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
-                        android:text="LIST"
+                        android:text="@string/list_u"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:textColor="?mainIconTint_2"
                         android:textSize="20dp"
@@ -192,7 +192,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+                        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+                        tools:ignore="SpUsage" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -234,7 +235,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
-                        android:text="MATCHES"
+                        android:text="@string/matches_u"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:textColor="?mainIconTint_2"
                         android:textSize="20dp"
@@ -242,7 +243,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+                        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+                        tools:ignore="SpUsage" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -287,7 +289,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
-                        android:text="NUMBER"
+                        android:text="@string/number_u"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:textColor="?mainIconTint_3"
                         android:textSize="20dp"
@@ -295,7 +297,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+                        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+                        tools:ignore="SpUsage" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>

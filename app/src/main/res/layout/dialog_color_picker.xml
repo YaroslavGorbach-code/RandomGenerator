@@ -23,11 +23,11 @@
     </HorizontalScrollView>
 
     <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/night_mod"
+        android:id="@+id/night_mode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Night mod"
+        android:text="@string/night_mode"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
 

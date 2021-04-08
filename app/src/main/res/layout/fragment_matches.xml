@@ -11,7 +11,7 @@
         style="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="Matches"
+        app:title="@string/matches"
         app:menu="@menu/matches_menu"
         app:navigationIcon="@drawable/ic_arrow_back"
         app:titleTextColor="#fafafa"
