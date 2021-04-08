@@ -5,7 +5,4 @@
     <attr name="mainIconTint_2" format="reference"/>
     <attr name="mainIconTint_3" format="reference"/>
     <attr name="coinBackground" format="reference"/>
-
-
-
 </resources>
