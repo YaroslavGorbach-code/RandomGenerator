@@ -7,7 +7,7 @@ import androidx.core.content.edit
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.themes.themeStorage.ThemeStorage
 
-class AppThemeStorage(context: Context): ThemeStorage {
+class ThemeStorageImp(context: Context): ThemeStorage {
     private val mContext: Context = context
     private val mSharedPreferences = context.getSharedPreferences(
         "THEME_PREF_KEY",

@@ -7,13 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.yaroslavgorbach.randomizer.*
 import com.example.yaroslavgorbach.randomizer.sounds.SoundManager
 import com.example.yaroslavgorbach.randomizer.sounds.SoundPreferences
-import com.example.yaroslavgorbach.randomizer.sounds.SoundPreferencesStorage
 import javax.inject.Inject
 
 

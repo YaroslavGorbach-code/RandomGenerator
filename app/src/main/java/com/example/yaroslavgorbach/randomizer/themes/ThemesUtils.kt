@@ -6,7 +6,7 @@ import android.content.Intent
 import android.util.TypedValue
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.yaroslavgorbach.randomizer.R
-import com.example.yaroslavgorbach.randomizer.themes.themeStorage.AppThemeStorage
+import com.example.yaroslavgorbach.randomizer.themes.themeStorage.ThemeStorageImp
 
 class ThemesUtils {
 
@@ -25,12 +25,12 @@ class ThemesUtils {
         }
 
         fun setCurrentTheme(activity: Activity) {
-            if (AppThemeStorage(activity).getNightMode()) {
+            if (ThemeStorageImp(activity).getNightMode()) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
-            activity.setTheme(AppThemeStorage(activity).getTheme())
+            activity.setTheme(ThemeStorageImp(activity).getTheme())
         }
     }
 

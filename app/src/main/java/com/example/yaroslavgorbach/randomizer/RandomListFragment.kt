@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.yaroslavgorbach.randomizer.list.CreateEditListDialog
 import com.example.yaroslavgorbach.randomizer.list.Database.Repo
 import com.example.yaroslavgorbach.randomizer.list.ListTitlesAdapter
-import com.example.yaroslavgorbach.randomizer.themes.themeStorage.AppThemeStorage
+import com.example.yaroslavgorbach.randomizer.themes.themeStorage.ThemeStorageImp
 import com.example.yaroslavgorbach.randomizer.themes.ThemesUtils
 import com.example.yaroslavgorbach.randomizer.themes.colorPicker.ColorPicker
 import com.example.yaroslavgorbach.randomizer.themes.colorPicker.ScrollColorPicker
@@ -64,7 +64,7 @@ class RandomListFragment : Fragment() {
         mToolbar.setOnMenuItemClickListener { item->
             when(item.itemId){
                 R.id.changeTheme -> {
-                    val themeStorage: ThemeStorage = AppThemeStorage(requireContext())
+                    val themeStorage: ThemeStorage = ThemeStorageImp(requireContext())
                     val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_color_picker, null)
                     val colorPicker: ColorPicker = ScrollColorPicker(dialogView.findViewById(R.id.colors))
                     val nightModCb: CheckBox = dialogView.findViewById(R.id.night_mode)

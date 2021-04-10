@@ -50,6 +50,8 @@
             android:layout_width="160dp"
             android:layout_height="160dp"
             android:src="@drawable/ic_coin_front"
+            android:background="@drawable/coin_bg_oval"
+            android:elevation="15dp"
             app:layout_constraintBottom_toBottomOf="@+id/wood"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"

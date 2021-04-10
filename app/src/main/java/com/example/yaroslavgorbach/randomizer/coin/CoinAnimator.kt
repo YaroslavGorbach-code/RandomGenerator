@@ -1,18 +1,18 @@
 package com.example.yaroslavgorbach.randomizer.coin
 
 import android.animation.*
-import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
 import android.widget.ImageView
-import androidx.core.animation.doOnStart
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
 import com.example.yaroslavgorbach.randomizer.sounds.SoundManager
-import javax.inject.Inject
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 class CoinAnimator(coinImage: ImageView, fonImage: ImageView, soundManager: SoundManager) {
-
      private enum class CoinSide {
         FRONT, BACK
     }
@@ -25,7 +25,6 @@ class CoinAnimator(coinImage: ImageView, fonImage: ImageView, soundManager: Soun
 
 
     fun animate() {
-        mSoundManager.flipCoinSoundPlay()
         mCoinState = (0..1).random()
         when ((1..4).random()) {
             1 -> rotateAnimSlowlyTwo()
@@ -34,12 +33,25 @@ class CoinAnimator(coinImage: ImageView, fonImage: ImageView, soundManager: Soun
             4 -> rotateAnimNormalOne()
         }
 
-        scaleFon()
-        scaleCoin()
-        shake()
+        AnimatorSet().apply {
+            playTogether(scaleFon(), scaleCoin())
+            GlobalScope.launch {
+                delay(70)
+                mSoundManager.flipCoinSoundPlay()
+                mCoinImage.elevation = 0f
+            }
+
+            GlobalScope.launch {
+                delay(1500)
+                mSoundManager.fallCoinSoundPlay()
+                mCoinImage.elevation = 15f
+            }
+            shake().start()
+            start()
+        }
     }
 
-    private fun scaleFon() {
+    private fun scaleFon(): AnimatorSet {
         val scaleX = ObjectAnimator.ofFloat(mFonImage, View.SCALE_X, 1.5f).apply {
             repeatCount = 1
             repeatMode = ObjectAnimator.REVERSE
@@ -50,42 +62,37 @@ class CoinAnimator(coinImage: ImageView, fonImage: ImageView, soundManager: Soun
             repeatMode = ObjectAnimator.REVERSE
         }
 
-        AnimatorSet().apply {
-            playTogether(scaleX, scaleY)
-            interpolator = FonScaleInterpolator()
-            duration = 900
-            start()
+       return AnimatorSet().apply {
+           playTogether(scaleX, scaleY)
+           interpolator = FonScaleInterpolator()
+           duration = 900
         }
 
     }
 
-    private fun shake() {
-        val scaleX = ObjectAnimator.ofFloat(mCoinImage, "scaleX", 1f, 1.15f, 1f, 1.15f, 1f, 1.15f, 1f)
-        val scaleY = ObjectAnimator.ofFloat(mCoinImage, "scaleY", 1f, 1.15f, 1f, 1.15f, 1f, 1.15f, 1f)
-        val rotation = ObjectAnimator.ofFloat(mCoinImage, "rotation",0f, 10f, -10f, 10f, -10f, 10f, -10f, 10f, -0f
-        )
-        val tX = ObjectAnimator.ofFloat(
-            mCoinImage, View.TRANSLATION_X, 1f, -10f, -10f, 10f, 10f, -10f, -10f, 10f,
-            10f, -10f, -10f, 10f, 10f, 1f
-        ).also {
-            it.addListener(object : AnimatorListenerAdapter(){
-                override fun onAnimationStart(animation: Animator?) {
-                    super.onAnimationStart(animation)
-                    mSoundManager.fallCoinSoundPlay()
-                }
-            })
-        }
-        val tY = ObjectAnimator.ofFloat(mCoinImage, View.TRANSLATION_Y, 1f, -5f, -5f, 5f, 5f, 1f)
+    private fun shake():AnimatorSet {
+        val scaleX = ObjectAnimator.ofFloat(mCoinImage, View.SCALE_X, 1f, 1.08f, 1f, 1.05f, 1f, 1.03f, 1f)
+        val scaleY = ObjectAnimator.ofFloat(mCoinImage, View.SCALE_Y, 1f, 1.08f, 1f, 1.05f, 1f, 1.03f, 1f)
 
-        AnimatorSet().apply {
-            playTogether(tX, tY, scaleX, scaleY, rotation)
-            startDelay = 1400
+        return AnimatorSet().apply {
+            if (Random.nextBoolean()){
+                play(ObjectAnimator.ofFloat(mCoinImage, View.ROTATION_X,0f, -15f, 0f))
+                    .with(ObjectAnimator.ofFloat(mCoinImage, View.ROTATION_Y,0f, -5f, 0f))
+                    .with(ObjectAnimator.ofFloat(mCoinImage, View.ROTATION,0f, -10f, 10f, 0f))
+                    .with(scaleX)
+                    .with(scaleY)
+            }else{
+                play(ObjectAnimator.ofFloat(mCoinImage, View.ROTATION_X,0f, -5f, 0f))
+                    .with(ObjectAnimator.ofFloat(mCoinImage, View.ROTATION_Y,0f, -5f, 0f))
+                    .with(ObjectAnimator.ofFloat(mCoinImage, View.ROTATION,0f, 10f, -10f, 0f))
+                    .with(scaleX)
+                    .with(scaleY)
+            }
             duration = 500
-            start()
+            startDelay = 1450
         }
     }
 
-    //-1980
     private fun rotateAnimNormalOne() {
         ValueAnimator.ofFloat(-1440f, 0f).apply {
             addUpdateListener { animation ->
@@ -118,8 +125,8 @@ class CoinAnimator(coinImage: ImageView, fonImage: ImageView, soundManager: Soun
             }
             duration = 1400
             interpolator = InterpolatorRotateNormalOne()
-            disableViewDuringAnimation(mCoinImage)
             startDelay = 100
+            disableViewDuringAnimation(mCoinImage)
             start()
         }
 
@@ -243,7 +250,7 @@ class CoinAnimator(coinImage: ImageView, fonImage: ImageView, soundManager: Soun
     }
 
 
-    private fun scaleCoin() {
+    private fun scaleCoin():AnimatorSet {
         val scaleX = ObjectAnimator.ofFloat(mCoinImage, View.SCALE_X, 1.4f).apply {
             repeatCount = 1
             repeatMode = ObjectAnimator.REVERSE
@@ -254,11 +261,10 @@ class CoinAnimator(coinImage: ImageView, fonImage: ImageView, soundManager: Soun
             repeatMode = ObjectAnimator.REVERSE
         }
 
-        AnimatorSet().apply {
+       return AnimatorSet().apply {
             playTogether(scaleX, scaleY)
             duration = 700
             interpolator = LinearInterpolator()
-            start()
         }
     }
 
