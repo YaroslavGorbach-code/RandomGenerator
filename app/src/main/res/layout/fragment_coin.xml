@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?coinBackground"
-    tools:context=".coin.CoinFragment">
+    tools:context=".screen.coin.CoinFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/materialToolbar"

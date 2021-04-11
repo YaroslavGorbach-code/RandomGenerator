@@ -1,8 +1,8 @@
 package com.example.yaroslavgorbach.randomizer.di
 
 import android.content.Context
-import com.example.yaroslavgorbach.randomizer.sounds.SoundManager
-import com.example.yaroslavgorbach.randomizer.sounds.SoundPreferences
+import com.example.yaroslavgorbach.randomizer.component.SoundManager
+import com.example.yaroslavgorbach.randomizer.data.SoundPref.SoundPreferences
 import dagger.Module
 import dagger.Provides
 

@@ -2,7 +2,7 @@ package com.example.yaroslavgorbach.randomizer
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.yaroslavgorbach.randomizer.themes.ThemesUtils
+import com.example.yaroslavgorbach.randomizer.util.ThemesUtils
 
 
 class MainActivity : AppCompatActivity(){

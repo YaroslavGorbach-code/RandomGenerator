@@ -1,13 +1,13 @@
 package com.example.yaroslavgorbach.randomizer.di
 
 import android.content.Context
-import com.example.yaroslavgorbach.randomizer.list.CreateEditListDialog
-import com.example.yaroslavgorbach.randomizer.RandomListFragment
-import com.example.yaroslavgorbach.randomizer.coin.CoinFragment
-import com.example.yaroslavgorbach.randomizer.dice.DiceFragment
-import com.example.yaroslavgorbach.randomizer.list.ListFragment
-import com.example.yaroslavgorbach.randomizer.matches.MatchesFragment
-import com.example.yaroslavgorbach.randomizer.number.NumberFragment
+import com.example.yaroslavgorbach.randomizer.screen.list.CreateEditListDialog
+import com.example.yaroslavgorbach.randomizer.screen.RandomListFragment
+import com.example.yaroslavgorbach.randomizer.screen.coin.CoinFragment
+import com.example.yaroslavgorbach.randomizer.screen.dice.DiceFragment
+import com.example.yaroslavgorbach.randomizer.screen.list.ListFragment
+import com.example.yaroslavgorbach.randomizer.screen.matches.MatchesFragment
+import com.example.yaroslavgorbach.randomizer.screen.number.NumberFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
