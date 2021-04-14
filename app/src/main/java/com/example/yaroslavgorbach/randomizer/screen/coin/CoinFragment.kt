@@ -10,8 +10,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.yaroslavgorbach.randomizer.*
-import com.example.yaroslavgorbach.randomizer.component.SoundManager
-import com.example.yaroslavgorbach.randomizer.data.SoundPref.SoundPreferences
+import com.example.yaroslavgorbach.randomizer.feature.SoundManager
+import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPreferences
 import javax.inject.Inject
 
 

@@ -1,4 +1,4 @@
-package com.example.yaroslavgorbach.randomizer.component.colorPicker
+package com.example.yaroslavgorbach.randomizer.feature.colorPicker
 
 import android.content.Context
 

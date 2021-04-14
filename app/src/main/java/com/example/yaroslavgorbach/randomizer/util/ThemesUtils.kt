@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.TypedValue
 import androidx.appcompat.app.AppCompatDelegate
-import com.example.yaroslavgorbach.randomizer.data.ThemePref.ThemeStorageImp
+import com.example.yaroslavgorbach.randomizer.data.themePref.ThemeStorageImp
 import com.example.yaroslavgorbach.randomizer.R
 
 class ThemesUtils {

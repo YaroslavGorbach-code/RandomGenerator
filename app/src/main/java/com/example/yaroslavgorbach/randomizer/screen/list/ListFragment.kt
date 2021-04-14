@@ -14,11 +14,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.fragment.findNavController
 import com.example.yaroslavgorbach.randomizer.MyApplication
 import com.example.yaroslavgorbach.randomizer.R
-import com.example.yaroslavgorbach.randomizer.data.Database.Repo
+import com.example.yaroslavgorbach.randomizer.data.database.Repo
 import com.example.yaroslavgorbach.randomizer.setIconMusicOff
 import com.example.yaroslavgorbach.randomizer.setIconMusicOn
-import com.example.yaroslavgorbach.randomizer.component.SoundManager
-import com.example.yaroslavgorbach.randomizer.data.SoundPref.SoundPreferences
+import com.example.yaroslavgorbach.randomizer.feature.SoundManager
+import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPreferences
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import kotlinx.coroutines.*
 import javax.inject.Inject

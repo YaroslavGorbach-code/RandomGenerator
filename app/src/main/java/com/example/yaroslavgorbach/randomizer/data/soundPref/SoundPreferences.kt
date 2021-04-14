@@ -1,4 +1,4 @@
-package com.example.yaroslavgorbach.randomizer.data.SoundPref
+package com.example.yaroslavgorbach.randomizer.data.soundPref
 
 interface SoundPreferences {
     companion object{

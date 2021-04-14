@@ -1,4 +1,4 @@
-package com.example.yaroslavgorbach.randomizer.data.ThemePref
+package com.example.yaroslavgorbach.randomizer.data.themePref
 
 interface ThemeStorage {
     fun changeTheme(color: Int)

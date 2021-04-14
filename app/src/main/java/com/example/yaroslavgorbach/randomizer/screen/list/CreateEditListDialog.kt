@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.yaroslavgorbach.randomizer.InputFilters
 import com.example.yaroslavgorbach.randomizer.MyApplication
 import com.example.yaroslavgorbach.randomizer.R
-import com.example.yaroslavgorbach.randomizer.data.Database.ListItemEntity
-import com.example.yaroslavgorbach.randomizer.data.Database.Repo
+import com.example.yaroslavgorbach.randomizer.data.database.ListItemEntity
+import com.example.yaroslavgorbach.randomizer.data.database.Repo
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText

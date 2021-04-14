@@ -1,4 +1,4 @@
-package com.example.yaroslavgorbach.randomizer.data.ThemePref
+package com.example.yaroslavgorbach.randomizer.data.themePref
 
 import android.content.Context
 import androidx.core.content.ContextCompat

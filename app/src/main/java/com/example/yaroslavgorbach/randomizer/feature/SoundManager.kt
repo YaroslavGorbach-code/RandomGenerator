@@ -1,9 +1,9 @@
-package com.example.yaroslavgorbach.randomizer.component
+package com.example.yaroslavgorbach.randomizer.feature
 
 import android.content.Context
 import android.media.AudioAttributes
 import android.media.SoundPool
-import com.example.yaroslavgorbach.randomizer.data.SoundPref.SoundPreferences
+import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPreferences
 import com.example.yaroslavgorbach.randomizer.R
 import javax.inject.Inject
 

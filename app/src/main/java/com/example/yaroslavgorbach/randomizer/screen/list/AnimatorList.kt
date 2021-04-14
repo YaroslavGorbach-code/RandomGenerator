@@ -8,7 +8,7 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.yaroslavgorbach.randomizer.R
-import com.example.yaroslavgorbach.randomizer.component.SoundManager
+import com.example.yaroslavgorbach.randomizer.feature.SoundManager
 
 
 class AnimatorList(background: ConstraintLayout, finalItem: ScrollView, finalItemTextView: TextView, soundManager: SoundManager){

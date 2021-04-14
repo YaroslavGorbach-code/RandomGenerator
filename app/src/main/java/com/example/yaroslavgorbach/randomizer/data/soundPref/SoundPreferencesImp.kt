@@ -1,4 +1,4 @@
-package com.example.yaroslavgorbach.randomizer.data.SoundPref
+package com.example.yaroslavgorbach.randomizer.data.soundPref
 
 import android.content.Context
 import androidx.core.content.edit

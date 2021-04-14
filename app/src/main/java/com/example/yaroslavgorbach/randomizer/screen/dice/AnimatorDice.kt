@@ -12,7 +12,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
-import com.example.yaroslavgorbach.randomizer.component.SoundManager
+import com.example.yaroslavgorbach.randomizer.feature.SoundManager
 
 class AnimatorDice(private val soundManager: SoundManager){
     private val mDices = mutableListOf<DiceModel>()

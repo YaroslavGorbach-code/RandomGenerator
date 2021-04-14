@@ -13,8 +13,8 @@ import com.example.yaroslavgorbach.randomizer.MyApplication
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.setIconMusicOff
 import com.example.yaroslavgorbach.randomizer.setIconMusicOn
-import com.example.yaroslavgorbach.randomizer.component.SoundManager
-import com.example.yaroslavgorbach.randomizer.data.SoundPref.SoundPreferences
+import com.example.yaroslavgorbach.randomizer.feature.SoundManager
+import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPreferences
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import javax.inject.Inject
 

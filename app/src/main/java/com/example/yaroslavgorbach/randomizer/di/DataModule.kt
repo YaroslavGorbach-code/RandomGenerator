@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.yaroslavgorbach.randomizer.data.Database.Database
+import com.example.yaroslavgorbach.randomizer.data.database.Database
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

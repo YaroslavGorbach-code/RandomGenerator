@@ -1,4 +1,4 @@
-package com.example.yaroslavgorbach.randomizer.data.Database
+package com.example.yaroslavgorbach.randomizer.data.database
 
 import androidx.lifecycle.LiveData
 import javax.inject.Inject
