@@ -11,7 +11,7 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.navigation.fragment.findNavController
+import androidx.core.os.bundleOf
 import com.example.yaroslavgorbach.randomizer.MyApplication
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.data.database.Repo
@@ -19,6 +19,7 @@ import com.example.yaroslavgorbach.randomizer.setIconMusicOff
 import com.example.yaroslavgorbach.randomizer.setIconMusicOn
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
 import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPreferences
+import com.example.yaroslavgorbach.randomizer.screen.number.NumberFragment
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import kotlinx.coroutines.*
 import javax.inject.Inject
@@ -31,9 +32,16 @@ class ListFragment : Fragment() {
     private lateinit var mGrid: GridLayout
     private lateinit var mToolbar: Toolbar
     private lateinit var mBackground: ConstraintLayout
+
     @Inject lateinit var repo: Repo
     @Inject lateinit var soundManager: SoundManager
     @Inject lateinit var soundPreferences: SoundPreferences
+
+    companion object Args {
+        fun argsOf(title: String)
+                = bundleOf("title" to title)
+        private val ListFragment.title get() = requireArguments()["title"] as String
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -56,12 +64,12 @@ class ListFragment : Fragment() {
         else mToolbar.setIconMusicOff()
 
         mToolbar.setNavigationOnClickListener {
-            findNavController().popBackStack()
+
         }
 
        GlobalScope.launch {
             val result = async {
-                repo.getItemsByTitle(ListFragmentArgs.fromBundle(requireArguments()).listTitle)
+                repo.getItemsByTitle(title)
             }
             withContext(Dispatchers.Main) {
                 mLIstAnimator.inflateItems(mGrid, mAnimateAllItems, listOfItems = result.await())

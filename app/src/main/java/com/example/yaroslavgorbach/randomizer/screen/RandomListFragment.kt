@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yaroslavgorbach.randomizer.InputFilters
@@ -23,6 +22,8 @@ import com.example.yaroslavgorbach.randomizer.util.ThemesUtils
 import com.example.yaroslavgorbach.randomizer.feature.colorPicker.ColorPicker
 import com.example.yaroslavgorbach.randomizer.feature.colorPicker.ScrollColorPicker
 import com.example.yaroslavgorbach.randomizer.data.themePref.ThemeStorage
+import com.example.yaroslavgorbach.randomizer.util.toInt
+import com.example.yaroslavgorbach.randomizer.util.toLong
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -105,16 +106,13 @@ class RandomListFragment : Fragment() {
                     .show()
             positiveButton.setOnClickListener {
                         if (InputFilters.diceFilter(numberOfDiceEt)){
-                            findNavController().navigate(
-                                RandomListFragmentDirections.actionRandomListFragmentToDicesFragment()
-                                    .setNumberOfDice(Integer.valueOf(numberOfDiceEt.text.toString()))
-                            )
+                            nav.openDice(numberOfDiceEt.toInt())
                             dialog.dismiss()
                         }
             }
         }
         mStartCoin.setOnClickListener{
-            findNavController().navigate(RandomListFragmentDirections.actionRandomListFragmentToCoinFragment())
+            nav.openCoin()
         }
 
         mStartNumber.setOnClickListener{
@@ -136,12 +134,7 @@ class RandomListFragment : Fragment() {
                         && InputFilters.numberMinBiggerThenMaxFilter(minValue, maxValue)
                         && InputFilters.numberOfResultsFilter(numberOfResult)
                 ){
-                            findNavController().navigate(
-                                RandomListFragmentDirections.actionRandomListFragmentToNumberFragment()
-                                    .setMaxValue(maxValue.text.toString().toLong())
-                                    .setMinValue(minValue.text.toString().toLong())
-                                    .setNumberOfResults(numberOfResult.text.toString().toInt())
-                            )
+                    nav.openNumber(maxValue.toLong(), minValue.toLong(), numberOfResult.toLong())
                     dialog.dismiss()
                 }
             }
@@ -159,11 +152,7 @@ class RandomListFragment : Fragment() {
                     .show()
 
             val titleAdapter = ListTitlesAdapter(onItemClick = {
-                findNavController().navigate(
-                    RandomListFragmentDirections.actionRandomListFragmentToListFragment(
-                        it
-                    )
-                )
+                nav.openList(it)
                 listDialog.dismiss()
             }, onEditClick = {
                 CreateEditListDialog.newInstance(title = it)
@@ -215,15 +204,10 @@ class RandomListFragment : Fragment() {
 
             createListButton.setOnClickListener {
                 if(InputFilters.matchesFieldsFilter(numberOfMatchesEt, numberOfBurnedEt)){
-                        findNavController().navigate(
-                            RandomListFragmentDirections.actionRandomListFragmentToMatchesFragment()
-                                .setNumberBurned(numberOfBurnedEt.text.toString().toInt())
-                                .setNumberMatches(numberOfMatchesEt.text.toString().toInt())
-                        )
+                        nav.openMatches(numberOfMatchesEt.toInt(), numberOfBurnedEt.toInt())
                         dialog.dismiss()
                 }
             }
         }
     }
-
 }

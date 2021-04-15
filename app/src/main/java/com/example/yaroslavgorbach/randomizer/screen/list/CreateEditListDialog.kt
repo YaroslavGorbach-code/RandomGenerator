@@ -56,7 +56,7 @@ class CreateEditListDialog private constructor() : DialogFragment() {
         val itemsRv = createListDialog.findViewById<RecyclerView>(R.id.recyclerView)
         val itemAdapter = ListItemsAdapter()
         currentTitle = requireArguments().getString(TITLE_ARG_KEY)
-        listTitleEt = createListDialog.findViewById<TextInputEditText>(R.id.listTitle)
+        listTitleEt = createListDialog.findViewById(R.id.listTitle)
 
         itemAdapter.addDeleteListener {
             listOfDeletedItems.add(listOfItems[it])

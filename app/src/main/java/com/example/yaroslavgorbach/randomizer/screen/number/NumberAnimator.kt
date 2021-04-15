@@ -16,7 +16,7 @@ import com.example.yaroslavgorbach.randomizer.feature.SoundManager
 class NumberAnimator(soundManager: SoundManager) {
     private val mSoundManager = soundManager
 
-    fun animateNumber(view: TextView, parent: ViewGroup, button: View, minValue: Long, maxValue: Long, numberOfResults: Int){
+    fun animateNumber(view: TextView, parent: ViewGroup, button: View, minValue: Long, maxValue: Long, numberOfResults: Long){
         animate(view, parent, minValue, maxValue, numberOfResults)
         animateButton(button)
     }
@@ -32,7 +32,7 @@ class NumberAnimator(soundManager: SoundManager) {
 
 
     private fun animate(view: TextView, parent: ViewGroup, minValue: Long,
-                        maxValue: Long, numberOfResults: Int ){
+                        maxValue: Long, numberOfResults: Long ){
         val hide = ValueAnimator.ofFloat( -NumberUtils.getScreenHeight(view.context).toFloat()).apply {
             doOnStart {
             Handler(Looper.getMainLooper()).postDelayed({ mSoundManager.numberSwipeSoundPlay() }, 100)
@@ -75,7 +75,7 @@ class NumberAnimator(soundManager: SoundManager) {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun generateValue(textView: TextView, minValue: Long, maxValue: Long, numberOfResults: Int){
+    private fun generateValue(textView: TextView, minValue: Long, maxValue: Long, numberOfResults: Long){
         var value: String = (minValue..maxValue).random().toString()
         for (i in 2..numberOfResults){
             value += ", ${(minValue..maxValue).random()}"

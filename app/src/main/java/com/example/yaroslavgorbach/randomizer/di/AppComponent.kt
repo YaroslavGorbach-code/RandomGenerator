@@ -1,6 +1,8 @@
 package com.example.yaroslavgorbach.randomizer.di
 
 import android.content.Context
+import androidx.fragment.app.Fragment
+import com.example.yaroslavgorbach.randomizer.screen.Navigation
 import com.example.yaroslavgorbach.randomizer.screen.list.CreateEditListDialog
 import com.example.yaroslavgorbach.randomizer.screen.RandomListFragment
 import com.example.yaroslavgorbach.randomizer.screen.coin.CoinFragment
@@ -28,6 +30,5 @@ interface AppComponent {
     fun inject(diceFragment: DiceFragment)
     fun inject(matchesFragment: MatchesFragment)
     fun inject(numberFragment: NumberFragment)
-
 
 }

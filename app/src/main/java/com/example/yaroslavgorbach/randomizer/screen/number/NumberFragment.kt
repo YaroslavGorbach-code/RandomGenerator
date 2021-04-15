@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.navigation.fragment.findNavController
+import androidx.core.os.bundleOf
 import com.example.yaroslavgorbach.randomizer.MyApplication
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.setIconMusicOff
@@ -25,12 +25,17 @@ class NumberFragment : Fragment() {
     private lateinit var mNumberParent: ConstraintLayout
     private lateinit var mToolbar: Toolbar
     private lateinit var mRefreshNumber: ExtendedFloatingActionButton
-    private var mMaxValue: Long = 10
-    private var mMinValue: Long = 0
-    private var mNumberOfResults: Int = 1
     private lateinit var mNumberAnimator: NumberAnimator
     @Inject lateinit var soundManager: SoundManager
     @Inject lateinit var soundPreferences: SoundPreferences
+
+    companion object Args {
+        fun argsOf(max: Long, min: Long, results: Long)
+        = bundleOf("max" to max, "min" to min, "results" to results)
+        private val NumberFragment.max get() = requireArguments()["max"] as Long
+        private val NumberFragment.min get() = requireArguments()["min"] as Long
+        private val NumberFragment.results get() = requireArguments()["results"] as Long
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -49,10 +54,7 @@ class NumberFragment : Fragment() {
         else mToolbar.setIconMusicOff()
 
         mNumberAnimator = NumberAnimator(soundManager)
-        mMaxValue = NumberFragmentArgs.fromBundle(requireArguments()).maxValue
-        mMinValue = NumberFragmentArgs.fromBundle(requireArguments()).minValue
-        mNumberOfResults = NumberFragmentArgs.fromBundle(requireArguments()).numberOfResults
-        mNumberAnimator.animateNumber(mNumberTv, mNumberParent, mRefreshNumber, mMinValue, mMaxValue, mNumberOfResults)
+        mNumberAnimator.animateNumber(mNumberTv, mNumberParent, mRefreshNumber, min, max, results)
         return view
     }
 
@@ -61,11 +63,11 @@ class NumberFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mToolbar.setNavigationOnClickListener {
-            findNavController().popBackStack()
+
         }
 
         mRefreshNumber.setOnClickListener { button ->
-            mNumberAnimator.animateNumber(mNumberTv, mNumberParent, button, mMinValue, mMaxValue, mNumberOfResults)
+            mNumberAnimator.animateNumber(mNumberTv, mNumberParent, button, min, max, results)
         }
 
         mToolbar.setOnMenuItemClickListener {

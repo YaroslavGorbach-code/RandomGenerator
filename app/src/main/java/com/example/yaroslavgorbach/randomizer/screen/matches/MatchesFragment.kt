@@ -8,13 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.appcompat.widget.Toolbar
-import androidx.navigation.fragment.findNavController
+import androidx.core.os.bundleOf
 import com.example.yaroslavgorbach.randomizer.MyApplication
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.setIconMusicOff
 import com.example.yaroslavgorbach.randomizer.setIconMusicOn
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
 import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPreferences
+import com.example.yaroslavgorbach.randomizer.screen.dice.DiceFragment
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import javax.inject.Inject
 
@@ -25,6 +26,14 @@ class MatchesFragment : Fragment() {
     private lateinit var mAnimator: MatchesAnimations
     @Inject lateinit var soundManager: SoundManager
     @Inject lateinit var soundPreferences: SoundPreferences
+
+    companion object Args {
+        fun argsOf(number: Int, burned: Int) =
+            bundleOf("number" to number, "burned" to burned)
+        private val MatchesFragment.number get() = requireArguments()["number"] as Int
+        private val MatchesFragment.burned get() = requireArguments()["burned"] as Int
+
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -42,15 +51,14 @@ class MatchesFragment : Fragment() {
         else mToolbar.setIconMusicOff()
 
         mAnimator = MatchesAnimations(soundManager)
-        mAnimator.inflateMatches(mParent, MatchesFragmentArgs.fromBundle(requireArguments()).numberMatches,
-            MatchesFragmentArgs.fromBundle(requireArguments()).numberBurned)
+        mAnimator.inflateMatches(mParent, number, burned)
 
         mRefreshMatchesButton.setOnClickListener {
             mAnimator.refreshMatches(mRefreshMatchesButton)
         }
 
         mToolbar.setNavigationOnClickListener {
-            findNavController().popBackStack()
+
         }
 
         mToolbar.setOnMenuItemClickListener {

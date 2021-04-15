@@ -8,14 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
 import androidx.appcompat.widget.Toolbar
-import androidx.navigation.fragment.findNavController
+import androidx.core.os.bundleOf
 import com.example.yaroslavgorbach.randomizer.MyApplication
 import com.example.yaroslavgorbach.randomizer.R
-import com.example.yaroslavgorbach.randomizer.screen.dice.DiceFragmentArgs.fromBundle
 import com.example.yaroslavgorbach.randomizer.setIconMusicOff
 import com.example.yaroslavgorbach.randomizer.setIconMusicOn
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
 import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPreferences
+import com.example.yaroslavgorbach.randomizer.screen.list.ListFragment
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import javax.inject.Inject
 
@@ -26,6 +26,13 @@ class DiceFragment : Fragment() {
     private lateinit var mToolbar: Toolbar
     @Inject lateinit var soundManager: SoundManager
     @Inject lateinit var soundPreferences: SoundPreferences
+
+
+    companion object Args {
+        fun argsOf(number: Int)
+                = bundleOf("number" to number)
+        private val DiceFragment.number get() = requireArguments()["number"] as Int
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -39,7 +46,8 @@ class DiceFragment : Fragment() {
         mToolbar = view.findViewById(R.id.materialToolbar)
         mGrid = view.findViewById(R.id.grid)
         mDiceAnimator = AnimatorDice(soundManager)
-        mDiceAnimator.inflateDice(mGrid, fromBundle(requireArguments()).numberOfDice, mAnimateAllDicesBt)
+        mDiceAnimator.inflateDice(mGrid, number, mAnimateAllDicesBt)
+
         if (soundPreferences.getState(SoundPreferences.DICE_SOUND_KEY)) mToolbar.setIconMusicOn()
         else mToolbar.setIconMusicOff()
 
@@ -52,7 +60,7 @@ class DiceFragment : Fragment() {
         })
 
         mToolbar.setNavigationOnClickListener {
-            findNavController().popBackStack()
+
         }
 
         mToolbar.setOnMenuItemClickListener {
