@@ -19,7 +19,7 @@ import com.example.yaroslavgorbach.randomizer.screen.dice.DiceFragment
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import javax.inject.Inject
 
-class MatchesFragment : Fragment() {
+class MatchesFragment : Fragment(R.layout.fragment_matches) {
     private lateinit var mToolbar: Toolbar
     private lateinit var mParent: LinearLayout
     private lateinit var mRefreshMatchesButton: ExtendedFloatingActionButton
@@ -40,9 +40,8 @@ class MatchesFragment : Fragment() {
         (requireActivity().application as MyApplication).appComponent.inject(this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_matches, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         mToolbar = view.findViewById(R.id.materialToolbar)
         mParent = view.findViewById(R.id.matchesParent)
         mRefreshMatchesButton = view.findViewById(R.id.refreshMatches)
@@ -72,7 +71,6 @@ class MatchesFragment : Fragment() {
             true
         }
 
-        return view
     }
 
 }

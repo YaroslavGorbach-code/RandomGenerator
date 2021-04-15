@@ -20,7 +20,7 @@ import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPreferences
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import javax.inject.Inject
 
-class NumberFragment : Fragment() {
+class NumberFragment : Fragment(R.layout.fragment_number) {
     private lateinit var mNumberTv: TextView
     private lateinit var mNumberParent: ConstraintLayout
     private lateinit var mToolbar: Toolbar
@@ -42,9 +42,10 @@ class NumberFragment : Fragment() {
         (requireActivity().application as MyApplication).appComponent.inject(this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_number, container, false)
+
+    @SuppressLint("SetTextI18n")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         mNumberTv = view.findViewById(R.id.number)
         mToolbar = view.findViewById(R.id.materialToolbar)
         mRefreshNumber = view.findViewById(R.id.refreshNumber)
@@ -55,12 +56,6 @@ class NumberFragment : Fragment() {
 
         mNumberAnimator = NumberAnimator(soundManager)
         mNumberAnimator.animateNumber(mNumberTv, mNumberParent, mRefreshNumber, min, max, results)
-        return view
-    }
-
-    @SuppressLint("SetTextI18n")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         mToolbar.setNavigationOnClickListener {
 

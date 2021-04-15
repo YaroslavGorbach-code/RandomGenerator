@@ -19,7 +19,7 @@ import com.example.yaroslavgorbach.randomizer.screen.list.ListFragment
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import javax.inject.Inject
 
-class DiceFragment : Fragment() {
+class DiceFragment : Fragment(R.layout.fragment_dices) {
     private lateinit var mDiceAnimator: AnimatorDice
     private lateinit var mAnimateAllDicesBt: ExtendedFloatingActionButton
     private lateinit var mGrid: GridLayout
@@ -39,9 +39,8 @@ class DiceFragment : Fragment() {
         (requireActivity().application as MyApplication).appComponent.inject(this)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_dices, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         mAnimateAllDicesBt = view.findViewById(R.id.animateAllDices)
         mToolbar = view.findViewById(R.id.materialToolbar)
         mGrid = view.findViewById(R.id.grid)
@@ -73,8 +72,6 @@ class DiceFragment : Fragment() {
             }
             true
         }
-
-        return view
     }
 }
 

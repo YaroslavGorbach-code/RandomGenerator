@@ -14,7 +14,7 @@ import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPreferences
 import javax.inject.Inject
 
 
-class CoinFragment : Fragment() {
+class CoinFragment : Fragment(R.layout.fragment_coin) {
     private lateinit var mToolbar: Toolbar
     private lateinit var mCoinImage: ImageView
     private lateinit var mDeckFon: ImageView
@@ -28,22 +28,15 @@ class CoinFragment : Fragment() {
        (requireActivity().application as MyApplication).appComponent.inject(this)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_coin, container, false)
         mToolbar = view.findViewById(R.id.materialToolbar)
         mCoinImage = view.findViewById(R.id.coin)
         mDeckFon = view.findViewById(R.id.wood)
         mCoinAnimatorAnimation = CoinAnimator(mCoinImage, mDeckFon, soundManager)
         if (soundPreferences.getState(SoundPreferences.COIN_SOUND_KEY)) mToolbar.setIconMusicOn()
         else mToolbar.setIconMusicOff()
-
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         mToolbar.setOnMenuItemClickListener {
             if (soundPreferences.getState(SoundPreferences.COIN_SOUND_KEY)){

@@ -24,7 +24,7 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
-class ListFragment : Fragment() {
+class ListFragment : Fragment(R.layout.fragment_list) {
     private lateinit var mLIstAnimator: AnimatorList
     private lateinit var mAnimateAllItems: ExtendedFloatingActionButton
     private lateinit var mFinalTextView: TextView
@@ -48,10 +48,8 @@ class ListFragment : Fragment() {
         (activity?.application as MyApplication).appComponent.inject(this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_list, container, false)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         mAnimateAllItems = view.findViewById(R.id.animateAllItems)
         mToolbar = view.findViewById(R.id.materialToolbar)
         mGrid = view.findViewById(R.id.grid)
@@ -67,7 +65,7 @@ class ListFragment : Fragment() {
 
         }
 
-       GlobalScope.launch {
+        GlobalScope.launch {
             val result = async {
                 repo.getItemsByTitle(title)
             }
@@ -98,7 +96,5 @@ class ListFragment : Fragment() {
         mGrid.setOnClickListener {
             mLIstAnimator.hideFinalItem()
         }
-        return view
     }
-
 }

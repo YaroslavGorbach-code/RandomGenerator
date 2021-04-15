@@ -32,7 +32,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class RandomListFragment : Fragment() {
+class RandomListFragment : Fragment(R.layout.fragment_random_list) {
     private lateinit var mStartDice: MaterialCardView
     private lateinit var mStartCoin: MaterialCardView
     private lateinit var mStartNumber: MaterialCardView
@@ -47,23 +47,15 @@ class RandomListFragment : Fragment() {
         (activity?.application as MyApplication).appComponent.inject(this)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_random_list, container, false)
+    @SuppressLint("CutPasteId")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         mStartDice = view.findViewById(R.id.startDice)
         mStartCoin = view.findViewById(R.id.startCoin)
         mStartNumber = view.findViewById(R.id.startNumber)
         mStartList = view.findViewById(R.id.startList)
         mStartMatches = view.findViewById(R.id.startMatches)
         mToolbar = view.findViewById(R.id.mainToolbar)
-        return view
-    }
-
-    @SuppressLint("CutPasteId")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         mToolbar.setOnMenuItemClickListener { item->
             when(item.itemId){
