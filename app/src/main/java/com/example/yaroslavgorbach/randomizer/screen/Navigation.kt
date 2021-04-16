@@ -8,6 +8,11 @@ interface Navigation {
     fun openNumber(max: Long, min: Long, results: Long)
     fun openDice(number: Int)
     fun openMatches(number: Int, burned: Int)
-
+    fun showMatchesDialog()
+    fun showNumberDialog()
+    fun showDicesDialog()
+    fun showChangeThemeDialog()
+    fun showChoseListDialog()
+    fun showCreateEditListDialog(title: String?)
 }
 val Fragment.nav get() = activity as Navigation

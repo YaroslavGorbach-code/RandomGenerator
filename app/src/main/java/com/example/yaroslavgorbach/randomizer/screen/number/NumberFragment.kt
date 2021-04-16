@@ -4,28 +4,20 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import com.example.yaroslavgorbach.randomizer.MyApplication
 import com.example.yaroslavgorbach.randomizer.R
-import com.example.yaroslavgorbach.randomizer.setIconMusicOff
-import com.example.yaroslavgorbach.randomizer.setIconMusicOn
+import com.example.yaroslavgorbach.randomizer.component.NumberAnimator
+import com.example.yaroslavgorbach.randomizer.util.setIconMusicOff
+import com.example.yaroslavgorbach.randomizer.util.setIconMusicOn
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
 import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPreferences
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.example.yaroslavgorbach.randomizer.databinding.FragmentNumberBinding
+import com.example.yaroslavgorbach.randomizer.di.appComponent
 import javax.inject.Inject
 
 class NumberFragment : Fragment(R.layout.fragment_number) {
-    private lateinit var mNumberTv: TextView
-    private lateinit var mNumberParent: ConstraintLayout
-    private lateinit var mToolbar: Toolbar
-    private lateinit var mRefreshNumber: ExtendedFloatingActionButton
-    private lateinit var mNumberAnimator: NumberAnimator
     @Inject lateinit var soundManager: SoundManager
     @Inject lateinit var soundPreferences: SoundPreferences
 
@@ -39,42 +31,38 @@ class NumberFragment : Fragment(R.layout.fragment_number) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireActivity().application as MyApplication).appComponent.inject(this)
+        appComponent.inject(this)
     }
-
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mNumberTv = view.findViewById(R.id.number)
-        mToolbar = view.findViewById(R.id.materialToolbar)
-        mRefreshNumber = view.findViewById(R.id.refreshNumber)
-        mNumberParent = view.findViewById(R.id.numberParent)
 
-        if (soundPreferences.getState(SoundPreferences.NUMBER_SOUND_KEY)) mToolbar.setIconMusicOn()
-        else mToolbar.setIconMusicOff()
+        with(FragmentNumberBinding.bind(view)){
+            if (soundPreferences.getState(SoundPreferences.NUMBER_SOUND_KEY)) toolbarNumber.setIconMusicOn()
+            else toolbarNumber.setIconMusicOff()
 
-        mNumberAnimator = NumberAnimator(soundManager)
-        mNumberAnimator.animateNumber(mNumberTv, mNumberParent, mRefreshNumber, min, max, results)
+            val animatorNumber = NumberAnimator(soundManager)
+            animatorNumber.animateNumber(number, numberParent, animateNumber, min, max, results)
 
-        mToolbar.setNavigationOnClickListener {
+            toolbarNumber.setNavigationOnClickListener {
 
-        }
-
-        mRefreshNumber.setOnClickListener { button ->
-            mNumberAnimator.animateNumber(mNumberTv, mNumberParent, button, min, max, results)
-        }
-
-        mToolbar.setOnMenuItemClickListener {
-            if (soundPreferences.getState(SoundPreferences.NUMBER_SOUND_KEY)){
-                mToolbar.setIconMusicOff()
-                soundPreferences.disallowSound(SoundPreferences.NUMBER_SOUND_KEY)
-            }else{
-                mToolbar.setIconMusicOn()
-                soundPreferences.allowSound(SoundPreferences.NUMBER_SOUND_KEY)
             }
-            true
-        }
 
+            animateNumber.setOnClickListener { button ->
+                animatorNumber.animateNumber(number, numberParent, button, min, max, results)
+            }
+
+            toolbarNumber.setOnMenuItemClickListener {
+                if (soundPreferences.getState(SoundPreferences.NUMBER_SOUND_KEY)){
+                    toolbarNumber.setIconMusicOff()
+                    soundPreferences.disallowSound(SoundPreferences.NUMBER_SOUND_KEY)
+                }else{
+                    toolbarNumber.setIconMusicOn()
+                    soundPreferences.allowSound(SoundPreferences.NUMBER_SOUND_KEY)
+                }
+                true
+            }
+        }
     }
 }

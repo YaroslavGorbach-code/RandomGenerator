@@ -1,4 +1,4 @@
-package com.example.yaroslavgorbach.randomizer.screen.coin
+package com.example.yaroslavgorbach.randomizer.component
 
 import android.animation.*
 import android.view.View
@@ -7,6 +7,7 @@ import android.widget.ImageView
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
+import com.example.yaroslavgorbach.randomizer.screen.coin.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

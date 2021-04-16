@@ -2,59 +2,55 @@ package com.example.yaroslavgorbach.randomizer.screen.coin
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.example.yaroslavgorbach.randomizer.*
+import com.example.yaroslavgorbach.randomizer.component.CoinAnimator
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
 import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPreferences
+import com.example.yaroslavgorbach.randomizer.databinding.FragmentCoinBinding
+import com.example.yaroslavgorbach.randomizer.di.appComponent
+import com.example.yaroslavgorbach.randomizer.util.setIconMusicOff
+import com.example.yaroslavgorbach.randomizer.util.setIconMusicOn
 import javax.inject.Inject
 
 
 class CoinFragment : Fragment(R.layout.fragment_coin) {
-    private lateinit var mToolbar: Toolbar
-    private lateinit var mCoinImage: ImageView
-    private lateinit var mDeckFon: ImageView
-    private lateinit var mCoinAnimatorAnimation: CoinAnimator
-
     @Inject lateinit var soundManager: SoundManager
     @Inject lateinit var soundPreferences: SoundPreferences
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-       (requireActivity().application as MyApplication).appComponent.inject(this)
+        appComponent.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        with(FragmentCoinBinding.bind(view)){
+            val animatorCoin = CoinAnimator(coin, fon, soundManager)
 
-        mToolbar = view.findViewById(R.id.materialToolbar)
-        mCoinImage = view.findViewById(R.id.coin)
-        mDeckFon = view.findViewById(R.id.wood)
-        mCoinAnimatorAnimation = CoinAnimator(mCoinImage, mDeckFon, soundManager)
-        if (soundPreferences.getState(SoundPreferences.COIN_SOUND_KEY)) mToolbar.setIconMusicOn()
-        else mToolbar.setIconMusicOff()
+            if (soundPreferences.getState(SoundPreferences.COIN_SOUND_KEY)) toolbarCoin.setIconMusicOn()
+            else toolbarCoin.setIconMusicOff()
 
-        mToolbar.setOnMenuItemClickListener {
-            if (soundPreferences.getState(SoundPreferences.COIN_SOUND_KEY)){
-                mToolbar.setIconMusicOff()
-                soundPreferences.disallowSound(SoundPreferences.COIN_SOUND_KEY)
-            }else{
-                mToolbar.setIconMusicOn()
-                soundPreferences.allowSound(SoundPreferences.COIN_SOUND_KEY)
+            toolbarCoin.setOnMenuItemClickListener {
+                if (soundPreferences.getState(SoundPreferences.COIN_SOUND_KEY)){
+                    toolbarCoin.setIconMusicOff()
+                    soundPreferences.disallowSound(SoundPreferences.COIN_SOUND_KEY)
+                }else{
+                    toolbarCoin.setIconMusicOn()
+                    soundPreferences.allowSound(SoundPreferences.COIN_SOUND_KEY)
+                }
+                true
             }
-            true
-        }
 
-        mCoinImage.setOnClickListener {
-            mCoinAnimatorAnimation.animate()
-        }
+            toolbarCoin.setNavigationOnClickListener {
 
-        mToolbar.setNavigationOnClickListener {
+            }
 
+            coin.setOnClickListener {
+                animatorCoin.animate()
+            }
         }
     }
+
 }

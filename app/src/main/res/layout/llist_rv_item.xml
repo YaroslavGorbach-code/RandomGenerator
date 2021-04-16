@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
-        android:id="@+id/itemTitle"
+        android:id="@+id/item_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -26,9 +26,9 @@
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_delete"
-        app:layout_constraintBottom_toBottomOf="@+id/itemTitle"
+        app:layout_constraintBottom_toBottomOf="@+id/item_title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/itemTitle"
+        app:layout_constraintTop_toTopOf="@+id/item_title"
         android:contentDescription="@string/delete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

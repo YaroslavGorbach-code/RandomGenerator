@@ -7,7 +7,7 @@
     tools:context=".screen.matches.MatchesFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/materialToolbar"
+        android:id="@+id/toolbar_matches"
         style="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <ImageView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -30,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.135"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialToolbar"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_matches"
         app:layout_constraintVertical_bias="0.78" />
 
     <HorizontalScrollView
@@ -44,7 +43,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline7">
 
         <LinearLayout
-            android:id="@+id/matchesParent"
+            android:id="@+id/matches_parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -55,7 +54,7 @@
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/refreshMatches"
+        android:id="@+id/animate_matches"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
@@ -80,7 +79,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.15" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

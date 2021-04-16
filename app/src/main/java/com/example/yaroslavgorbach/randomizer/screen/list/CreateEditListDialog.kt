@@ -6,6 +6,7 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,8 @@ import com.example.yaroslavgorbach.randomizer.MyApplication
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.data.database.ListItemEntity
 import com.example.yaroslavgorbach.randomizer.data.database.Repo
+import com.example.yaroslavgorbach.randomizer.databinding.DialogCreateListBinding
+import com.example.yaroslavgorbach.randomizer.di.appComponent
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
@@ -22,41 +25,31 @@ import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
-class CreateEditListDialog private constructor() : DialogFragment() {
+class CreateEditListDialog: DialogFragment() {
     private val listOfItems = LinkedList<String>()
     private val listOfNewItems = mutableListOf<String>()
     private val listOfDeletedItems = mutableListOf<String>()
-    private var currentTitle: String? = null
-    private lateinit var listTitleEt: TextInputEditText
     @Inject lateinit var mRepo: Repo
 
-    companion object {
-        const val TITLE_ARG_KEY = "TITLE_ARG_KEY"
-        fun newInstance(title: String?): CreateEditListDialog {
-            val arg = Bundle()
-            arg.putString(TITLE_ARG_KEY, title)
-            val dialog = CreateEditListDialog()
-            dialog.arguments = arg
 
-            return dialog
-        }
+    companion object Args {
+        fun argsOf(title: String?)
+                = bundleOf("title" to title)
+        private val CreateEditListDialog.title get() = requireArguments()["title"] as String?
     }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (activity?.application as MyApplication).appComponent.inject(this)
+        appComponent.inject(this)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val createListDialog: View =
-            LayoutInflater.from(context).inflate(R.layout.create_list_dialog, null)
-        val itemTextEt = createListDialog.findViewById<TextInputEditText>(R.id.listItem)
-        val createButton = createListDialog.findViewById<MaterialButton>(R.id.createButton)
-        val addItemButton = createListDialog.findViewById<MaterialButton>(R.id.addItem)
-        val itemsRv = createListDialog.findViewById<RecyclerView>(R.id.recyclerView)
+        val binding = DialogCreateListBinding.inflate(LayoutInflater.from(requireContext()))
+        val dialog = MaterialAlertDialogBuilder(requireContext())
+            .setView(binding.root)
+            .create()
         val itemAdapter = ListItemsAdapter()
-        currentTitle = requireArguments().getString(TITLE_ARG_KEY)
-        listTitleEt = createListDialog.findViewById(R.id.listTitle)
 
         itemAdapter.addDeleteListener {
             listOfDeletedItems.add(listOfItems[it])
@@ -66,7 +59,7 @@ class CreateEditListDialog private constructor() : DialogFragment() {
         }
 
         // if != null update list
-        currentTitle?.let {
+        title?.let {
             GlobalScope.launch {
                 mRepo.getItemsByTitle(it).also { items ->
                     repeat(items.size) { index ->
@@ -75,66 +68,63 @@ class CreateEditListDialog private constructor() : DialogFragment() {
                 }
             }
 
-            listTitleEt.setText(it)
+            binding.titleText.setText(it)
             itemAdapter.submitList(listOfItems)
-            createButton.text = "SAVE"
+            binding.createList.text = "SAVE"
         }
 
-        itemsRv.also {
+        binding.listItems.also {
             it.adapter = itemAdapter
             it.layoutManager = LinearLayoutManager(requireContext())
         }
 
-        addItemButton.setOnClickListener {
-            if (InputFilters.createListItemTestFilter(itemTextEt)) {
-                listOfItems.push(itemTextEt.text.toString())
-                listOfNewItems.add(itemTextEt.text.toString())
+        binding.addItem.setOnClickListener {
+            if (InputFilters.createListItemTestFilter(binding.itemText)) {
+                listOfItems.push(binding.itemText.text.toString())
+                listOfNewItems.add(binding.itemText.text.toString())
                 itemAdapter.submitList(listOfItems)
                 itemAdapter.notifyDataSetChanged()
-                itemTextEt.text = null
+                binding.itemText.text = null
             }
         }
 
-        createButton.setOnClickListener {
-            if (InputFilters.createListDialogTitleFilter(listTitleEt)) {
+        binding.createList.setOnClickListener {
+            if (InputFilters.createListDialogTitleFilter(binding.titleText)) {
                 // if title == null it means create new list
                 // if title != null it means update current list
-                if (currentTitle == null) {
+                if (title == null) {
                     listOfItems.forEach {
                         GlobalScope.launch {
-                            mRepo.addItem(ListItemEntity(null, it, listTitleEt.text.toString()))
+                            mRepo.addItem(ListItemEntity(null, it, binding.titleText.text.toString()))
                         }
                     }
                 } else {
-                    changeListItems(listOfNewItems, listTitleEt, listOfDeletedItems)
+                    changeListItems(listOfNewItems, binding.titleText, listOfDeletedItems)
                 }
-                changeListTitle(currentTitle, listTitleEt)
+                changeListTitle(title, binding.titleText)
                 this.dismiss()
             }
         }
 
-        return MaterialAlertDialogBuilder(requireContext())
-            .setView(createListDialog)
-            .create()
-    }
+        dialog.setOnCancelListener {
+            if (listOfNewItems.size > 0
+                || listOfDeletedItems.size > 0
+                || binding.titleText.text.toString().isNotEmpty() && listOfItems.isNotEmpty()
+                && title != binding.titleText.text.toString()
 
-    override fun onCancel(dialog: DialogInterface) {
-        super.onCancel(dialog)
-        if (listOfNewItems.size > 0
-            || listOfDeletedItems.size > 0
-            || listTitleEt.text.toString().isNotEmpty() && listOfItems.isNotEmpty()
-            && currentTitle != listTitleEt.text.toString()
-
-        ) {
-            MaterialAlertDialogBuilder(requireContext())
-                .setTitle("Save changes?")
-                .setPositiveButton("Yes") { _, _ ->
-                    changeListItems(listOfNewItems, listTitleEt, listOfDeletedItems)
-                    changeListTitle(currentTitle, listTitleEt)
-                }
-                .setNegativeButton("No") { _, _ -> }
-                .show()
+            ) {
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Save changes?")
+                    .setPositiveButton("Yes") { _, _ ->
+                        changeListItems(listOfNewItems, binding.titleText, listOfDeletedItems)
+                        changeListTitle(title, binding.titleText)
+                    }
+                    .setNegativeButton("No") { _, _ -> }
+                    .show()
+            }
         }
+
+        return dialog
     }
 
     private fun changeListItems(

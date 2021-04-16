@@ -25,6 +25,7 @@
 
     <!--    dialog_color_picker-->
     <string name="night_mode">Night mode</string>
+    <string name="chose_theme">Chose theme</string>
 
     <!--    fragment_coin-->
     <string name="coin">Coin</string>
@@ -66,6 +67,7 @@
     <string name="create">CREATE</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="apply">Apply</string>
 
 
 </resources>

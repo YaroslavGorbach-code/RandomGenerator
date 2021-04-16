@@ -12,13 +12,13 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:src="@drawable/ic_list"
-        app:layout_constraintBottom_toBottomOf="@+id/itemTitle"
+        app:layout_constraintBottom_toBottomOf="@+id/item_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/itemTitle"
+        app:layout_constraintTop_toTopOf="@+id/item_title"
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/itemTitle"
+        android:id="@+id/item_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -41,9 +41,9 @@
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_edit"
-        app:layout_constraintBottom_toBottomOf="@+id/itemTitle"
+        app:layout_constraintBottom_toBottomOf="@+id/item_title"
         app:layout_constraintEnd_toStartOf="@+id/delete"
-        app:layout_constraintTop_toTopOf="@+id/itemTitle"
+        app:layout_constraintTop_toTopOf="@+id/item_title"
         android:contentDescription="@string/edit" />
 
     <ImageButton
@@ -54,9 +54,9 @@
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_delete"
-        app:layout_constraintBottom_toBottomOf="@+id/itemTitle"
+        app:layout_constraintBottom_toBottomOf="@+id/item_title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/itemTitle"
+        app:layout_constraintTop_toTopOf="@+id/item_title"
         android:contentDescription="@string/delete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

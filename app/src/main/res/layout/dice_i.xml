@@ -9,6 +9,4 @@
     android:layout_gravity="center_horizontal"
     android:paddingBottom="12dp"
     android:paddingTop="12sp"
-    android:src="@drawable/ic_dice_1">
-
-</ImageView>
+    android:src="@drawable/ic_dice_1"/>

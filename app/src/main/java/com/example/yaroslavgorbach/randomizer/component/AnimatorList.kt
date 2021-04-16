@@ -1,4 +1,4 @@
-package com.example.yaroslavgorbach.randomizer.screen.list
+package com.example.yaroslavgorbach.randomizer.component
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -9,6 +9,10 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
+import com.example.yaroslavgorbach.randomizer.screen.list.AnimationsList
+import com.example.yaroslavgorbach.randomizer.screen.list.ListAnimationsManuallyListener
+import com.example.yaroslavgorbach.randomizer.screen.list.ListAnimationsRandomListener
+import com.example.yaroslavgorbach.randomizer.screen.list.ListItemModel
 
 
 class AnimatorList(background: ConstraintLayout, finalItem: ScrollView, finalItemTextView: TextView, soundManager: SoundManager){
@@ -75,7 +79,8 @@ class AnimatorList(background: ConstraintLayout, finalItem: ScrollView, finalIte
             itemV.setOnClickListener {
                 if (!mFinalItemIsOnScreen){
                     if (!listItem.isSelected){
-                        mAnimationsList.manuallyShowItemRotate(listItem.parent, button, object: ListAnimationsManuallyListener {
+                        mAnimationsList.manuallyShowItemRotate(listItem.parent, button, object:
+                            ListAnimationsManuallyListener {
                             override fun showItemText() {
                                 listItem.parent.text = listItem.text
                             }
@@ -107,7 +112,8 @@ class AnimatorList(background: ConstraintLayout, finalItem: ScrollView, finalIte
         val indexToShow = (mItems.indices).random()
         if(mItems.size<=9){
             for (i in mItems.indices){
-                mAnimationsList.autoShowItemRotate(mItems[i].parent, button, object : ListAnimationsRandomListener{
+                mAnimationsList.autoShowItemRotate(mItems[i].parent, button, object :
+                    ListAnimationsRandomListener {
                     override fun showAllItemsText() {
                         for (item in mItems.indices) {
                             mItems[item].parent.text = mItems[item].text
@@ -146,7 +152,7 @@ class AnimatorList(background: ConstraintLayout, finalItem: ScrollView, finalIte
             mItems.shuffle()
 
             mAnimationsList.manuallyShowItemRotate(mItems[indexToShow].parent, button,
-                    object: ListAnimationsManuallyListener{
+                    object: ListAnimationsManuallyListener {
                 override fun showItemText() {
                     mItems[indexToShow].parent.text = mItems[indexToShow].text
                 }

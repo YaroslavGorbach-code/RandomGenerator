@@ -26,6 +26,7 @@
 
     <!--    dialog_color_picker-->
     <string name="night_mode">Ночной режим</string>
+    <string name="chose_theme">Выберете тему</string>
 
     <!--    fragment_coin-->
     <string name="coin">Монетка</string>
@@ -66,6 +67,7 @@
     <string name="fon">Фон</string>
     <string name="delete">Удалить</string>
     <string name="edit">Редактировать</string>
+    <string name="apply">Применить</string>
 
 
 </resources>

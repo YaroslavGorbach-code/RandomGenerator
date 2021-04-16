@@ -40,7 +40,7 @@ class ListTitlesAdapter(onItemClick: (String) -> Unit,
              onEditClick: (String) -> Unit,
              onDeleteClick: (String) -> Unit) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.llist_rv_title, parent, false)) {
-        private val listTitleTv: TextView = itemView.findViewById(R.id.itemTitle)
+        private val listTitleTv: TextView = itemView.findViewById(R.id.item_title)
         private val editIcon: ImageButton = itemView.findViewById(R.id.edit)
         private val deleteIcon: ImageButton = itemView.findViewById(R.id.delete)
 

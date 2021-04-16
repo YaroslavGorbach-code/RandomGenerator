@@ -7,10 +7,10 @@
     tools:context=".screen.number.NumberFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/materialToolbar"
-        style="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
+        android:id="@+id/toolbar_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
         android:background="?colorPrimary"
         app:menu="@menu/number_menu"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,7 +21,7 @@
         app:titleTextColor="#fafafa" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/fon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
@@ -33,7 +33,7 @@
         android:contentDescription="@string/fon" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/numberParent"
+        android:id="@+id/number_parent"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
@@ -97,7 +97,7 @@
         app:layout_constraintGuide_percent="0.92" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/refreshNumber"
+        android:id="@+id/animate_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"

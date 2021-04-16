@@ -1,4 +1,4 @@
-package com.example.yaroslavgorbach.randomizer.screen.number
+package com.example.yaroslavgorbach.randomizer.component
 
 import android.animation.*
 import android.annotation.SuppressLint
@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.core.animation.doOnStart
 import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
+import com.example.yaroslavgorbach.randomizer.screen.number.NumberUtils
 
 
 class NumberAnimator(soundManager: SoundManager) {

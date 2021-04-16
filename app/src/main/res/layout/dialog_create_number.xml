@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/outlinedTextField"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
         android:paddingStart="24dp"
         android:paddingTop="24dp"
         android:paddingEnd="24dp"
@@ -21,20 +18,20 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/number_matches"
+            android:id="@+id/max_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLength="3"
-            android:hint="@string/number_of_matches"
+            android:hint="@string/max"
             android:imeOptions="actionDone"
-            android:inputType="number"
-
-            />
+            android:inputType="numberSigned"
+            android:maxLength="19"
+            android:text="10"
+            tools:ignore="HardcodedText" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/outlinedTextField1"
+        android:id="@+id/outlinedTextField2"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -46,25 +43,51 @@
         app:layout_constraintTop_toBottomOf="@+id/outlinedTextField">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/number_burned"
+            android:id="@+id/min_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLength="3"
-            android:hint="@string/number_of_burned"
+            android:hint="@string/min"
             android:imeOptions="actionDone"
-            android:inputType="number"
+            android:inputType="numberSigned"
+            android:maxLength="19"
+            android:text="0"
+            tools:ignore="HardcodedText" />
 
-            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/outlinedTextField3"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="24dp"
+        android:paddingTop="24dp"
+        android:paddingEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/outlinedTextField2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/results_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/number_of_results"
+            android:imeOptions="actionDone"
+            android:inputType="numberSigned"
+            android:maxLength="19"
+            android:text="1"
+            tools:ignore="HardcodedText" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/createButton"
+        android:id="@+id/generate_number"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:text="@string/create"
+        android:text="@string/generate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/outlinedTextField1" />
+        app:layout_constraintTop_toBottomOf="@+id/outlinedTextField3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.example.yaroslavgorbach.randomizer.screen.dice
+package com.example.yaroslavgorbach.randomizer.component
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
@@ -13,6 +13,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
+import com.example.yaroslavgorbach.randomizer.screen.dice.DiceModel
 
 class AnimatorDice(private val soundManager: SoundManager){
     private val mDices = mutableListOf<DiceModel>()
