@@ -39,10 +39,10 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         with(FragmentListBinding.bind(view)){
             val animatorList = AnimatorList(background, finalItem, finalText, soundManager)
 
-            if (soundPreferences.getState(SoundPreferences.LIST_SOUND_KEY)) toolbarList.setIconMusicOn()
-            else toolbarList.setIconMusicOff()
+            if (soundPreferences.getState(SoundPreferences.LIST_SOUND_KEY)) toolbar.setIconMusicOn()
+            else toolbar.setIconMusicOff()
 
-            toolbarList.setNavigationOnClickListener {
+            toolbar.setNavigationOnClickListener {
             }
 
             GlobalScope.launch {
@@ -50,22 +50,22 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                     repo.getItemsByTitle(title)
                 }
                 withContext(Dispatchers.Main) {
-                    animatorList.inflateItems(grid, animateList, listOfItems = result.await())
+                    animatorList.inflateItems(grid, animate, listOfItems = result.await())
                 }
             }
 
-            toolbarList.setOnMenuItemClickListener {
+            toolbar.setOnMenuItemClickListener {
                 if (soundPreferences.getState(SoundPreferences.LIST_SOUND_KEY)){
-                    toolbarList.setIconMusicOff()
+                    toolbar.setIconMusicOff()
                     soundPreferences.disallowSound(SoundPreferences.LIST_SOUND_KEY)
                 }else{
-                    toolbarList.setIconMusicOn()
+                    toolbar.setIconMusicOn()
                     soundPreferences.allowSound(SoundPreferences.LIST_SOUND_KEY)
                 }
                 true
             }
 
-            animateList.setOnClickListener {
+            animate.setOnClickListener {
                 animatorList.showResult(it)
             }
 

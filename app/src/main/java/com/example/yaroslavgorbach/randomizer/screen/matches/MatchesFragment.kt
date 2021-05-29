@@ -33,26 +33,26 @@ class MatchesFragment : Fragment(R.layout.fragment_matches) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(FragmentMatchesBinding.bind(view)){
-            if (soundPreferences.getState(SoundPreferences.MATCHES_SOUND_KEY)) toolbarMatches.setIconMusicOn()
-            else toolbarMatches.setIconMusicOff()
+            if (soundPreferences.getState(SoundPreferences.MATCHES_SOUND_KEY)) toolbar.setIconMusicOn()
+            else toolbar.setIconMusicOff()
 
             val animatorMatches = MatchesAnimations(soundManager)
             animatorMatches.inflateMatches(matchesParent, number, burned)
 
-            animateMatches.setOnClickListener {
+            animate.setOnClickListener {
                 animatorMatches.refreshMatches(it)
             }
 
-            toolbarMatches.setNavigationOnClickListener {
+            toolbar.setNavigationOnClickListener {
 
             }
 
-            toolbarMatches.setOnMenuItemClickListener {
+            toolbar.setOnMenuItemClickListener {
                 if (soundPreferences.getState(SoundPreferences.MATCHES_SOUND_KEY)){
-                    toolbarMatches.setIconMusicOff()
+                    toolbar.setIconMusicOff()
                     soundPreferences.disallowSound(SoundPreferences.MATCHES_SOUND_KEY)
                 }else{
-                    toolbarMatches.setIconMusicOn()
+                    toolbar.setIconMusicOn()
                     soundPreferences.allowSound(SoundPreferences.MATCHES_SOUND_KEY)
                 }
                 true

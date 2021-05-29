@@ -18,15 +18,13 @@ class ChangeThemeDialog: DialogFragment() {
         // TODO: 4/16/2021 inject it
         val binding = DialogChangeThemeBinding.inflate(LayoutInflater.from(requireContext()))
         val themeStorage: ThemeStorage = ThemeStorageImp(requireContext())
-        val colorPicker: ColorPicker = ScrollColorPicker(binding.colors)
-        binding.nightMode.isChecked = themeStorage.getNightMode()
+        val colorPicker: ColorPicker = ScrollColorPicker(binding.colorsParent)
 
         return MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.chose_theme))
             .setView(binding.root)
             .setPositiveButton(getString(R.string.apply)) { _, _ ->
                 themeStorage.changeTheme(colorPicker.getColor(requireContext()))
-                themeStorage.changeNightMode(binding.nightMode.isChecked)
                 ThemesUtils.animateThemeChange(requireActivity())
             }
             .show()

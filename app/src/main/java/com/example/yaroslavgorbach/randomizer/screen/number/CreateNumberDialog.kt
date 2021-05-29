@@ -19,7 +19,7 @@ class CreateNumberDialog : DialogFragment() {
             .setView(binding.root)
             .create()
 
-        binding.generateNumber.setOnClickListener {
+        binding.generate.setOnClickListener {
             if (InputFilters.numberMaxMinFilter(binding.maxNumber)
                 && InputFilters.numberMaxMinFilter(binding.minNumber)
                 && InputFilters.numberMinBiggerThenMaxFilter(binding.minNumber, binding.maxNumber)

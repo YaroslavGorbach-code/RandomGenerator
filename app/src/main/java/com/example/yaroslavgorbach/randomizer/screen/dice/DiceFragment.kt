@@ -34,28 +34,28 @@ class DiceFragment : Fragment(R.layout.fragment_dices) {
         super.onViewCreated(view, savedInstanceState)
         with(FragmentDicesBinding.bind(view)){
             val diceAnimator = AnimatorDice(soundManager)
-            diceAnimator.inflateDice(grid, number, animateDices)
+            diceAnimator.inflateDice(grid, number, animate)
 
-            if (soundPreferences.getState(SoundPreferences.DICE_SOUND_KEY)) toolbarDice.setIconMusicOn()
-            else toolbarDice.setIconMusicOff()
+            if (soundPreferences.getState(SoundPreferences.DICE_SOUND_KEY)) toolbar.setIconMusicOn()
+            else toolbar.setIconMusicOff()
 
-            animateDices.setOnClickListener{
+            animate.setOnClickListener{
                 diceAnimator.animateAllDice(it)
             }
 
             diceAnimator.getSum().observe(viewLifecycleOwner,{
-                toolbarDice.title = getString(R.string.total) + " $it"
+                toolbar.title = getString(R.string.total) + " $it"
             })
 
-            toolbarDice.setNavigationOnClickListener {
+            toolbar.setNavigationOnClickListener {
             }
 
-            toolbarDice.setOnMenuItemClickListener {
+            toolbar.setOnMenuItemClickListener {
                 if (soundPreferences.getState(SoundPreferences.DICE_SOUND_KEY)){
-                    toolbarDice.setIconMusicOff()
+                    toolbar.setIconMusicOff()
                     soundPreferences.disallowSound(SoundPreferences.DICE_SOUND_KEY)
                 }else{
-                    toolbarDice.setIconMusicOn()
+                    toolbar.setIconMusicOn()
                     soundPreferences.allowSound(SoundPreferences.DICE_SOUND_KEY)
                 }
                 true

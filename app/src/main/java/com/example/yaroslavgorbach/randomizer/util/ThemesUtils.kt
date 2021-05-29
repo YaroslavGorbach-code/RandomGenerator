@@ -23,15 +23,5 @@ class ThemesUtils {
             activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
             activity.startActivity(Intent(activity, activity.javaClass))
         }
-
-        fun setCurrentTheme(activity: Activity) {
-            if (ThemeStorageImp(activity).getNightMode()) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-            activity.setTheme(ThemeStorageImp(activity).getTheme())
-        }
     }
-
 }

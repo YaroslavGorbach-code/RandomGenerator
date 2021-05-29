@@ -55,7 +55,7 @@ class ChoseListDialog: DialogFragment(){
             titleAdapter.submitList(it)
         }
 
-        binding.listItems.apply {
+        binding.list.apply {
             adapter = titleAdapter
             layoutManager = LinearLayoutManager(
                 requireContext(),

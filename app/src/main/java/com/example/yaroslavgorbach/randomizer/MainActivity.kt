@@ -23,7 +23,6 @@ import com.example.yaroslavgorbach.randomizer.util.ThemesUtils
 class MainActivity : AppCompatActivity(), Navigation{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ThemesUtils.setCurrentTheme(this)
         setContentView(R.layout.activity_main)
 
         if (savedInstanceState == null) {

@@ -18,7 +18,7 @@ class CreateDicesDialog: DialogFragment() {
             .setView(binding.root)
             .create()
 
-        binding.createDices.setOnClickListener {
+        binding.create.setOnClickListener {
             if (InputFilters.diceFilter(binding.numberDices)){
                 nav.openDice(binding.numberDices.toInt())
                 dialog.dismiss()

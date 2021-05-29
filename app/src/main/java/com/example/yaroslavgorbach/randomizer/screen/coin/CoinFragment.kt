@@ -29,21 +29,21 @@ class CoinFragment : Fragment(R.layout.fragment_coin) {
         with(FragmentCoinBinding.bind(view)){
             val animatorCoin = CoinComponent(coin, fon, soundManager)
 
-            if (soundPreferences.getState(SoundPreferences.COIN_SOUND_KEY)) toolbarCoin.setIconMusicOn()
-            else toolbarCoin.setIconMusicOff()
+            if (soundPreferences.getState(SoundPreferences.COIN_SOUND_KEY)) toolbar.setIconMusicOn()
+            else toolbar.setIconMusicOff()
 
-            toolbarCoin.setOnMenuItemClickListener {
+            toolbar.setOnMenuItemClickListener {
                 if (soundPreferences.getState(SoundPreferences.COIN_SOUND_KEY)){
-                    toolbarCoin.setIconMusicOff()
+                    toolbar.setIconMusicOff()
                     soundPreferences.disallowSound(SoundPreferences.COIN_SOUND_KEY)
                 }else{
-                    toolbarCoin.setIconMusicOn()
+                    toolbar.setIconMusicOn()
                     soundPreferences.allowSound(SoundPreferences.COIN_SOUND_KEY)
                 }
                 true
             }
 
-            toolbarCoin.setNavigationOnClickListener {
+            toolbar.setNavigationOnClickListener {
 
             }
 

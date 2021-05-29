@@ -38,26 +38,25 @@ class NumberFragment : Fragment(R.layout.fragment_number) {
         super.onViewCreated(view, savedInstanceState)
 
         with(FragmentNumberBinding.bind(view)){
-            if (soundPreferences.getState(SoundPreferences.NUMBER_SOUND_KEY)) toolbarNumber.setIconMusicOn()
-            else toolbarNumber.setIconMusicOff()
+            if (soundPreferences.getState(SoundPreferences.NUMBER_SOUND_KEY)) toolbar.setIconMusicOn()
+            else toolbar.setIconMusicOff()
 
             val animatorNumber = NumberAnimator(soundManager)
-            animatorNumber.animateNumber(number, numberParent, animateNumber, min, max, results)
+            animatorNumber.animateNumber(number, numberParent, animate, min, max, results)
 
-            toolbarNumber.setNavigationOnClickListener {
-
+            toolbar.setNavigationOnClickListener {
             }
 
-            animateNumber.setOnClickListener { button ->
+            animate.setOnClickListener { button ->
                 animatorNumber.animateNumber(number, numberParent, button, min, max, results)
             }
 
-            toolbarNumber.setOnMenuItemClickListener {
+            toolbar.setOnMenuItemClickListener {
                 if (soundPreferences.getState(SoundPreferences.NUMBER_SOUND_KEY)){
-                    toolbarNumber.setIconMusicOff()
+                    toolbar.setIconMusicOff()
                     soundPreferences.disallowSound(SoundPreferences.NUMBER_SOUND_KEY)
                 }else{
-                    toolbarNumber.setIconMusicOn()
+                    toolbar.setIconMusicOn()
                     soundPreferences.allowSound(SoundPreferences.NUMBER_SOUND_KEY)
                 }
                 true

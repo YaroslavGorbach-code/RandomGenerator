@@ -11,13 +11,13 @@ import com.example.yaroslavgorbach.randomizer.util.ThemesUtils
 
 class ScrollColorPicker(content: ViewGroup) : ColorPicker {
     private val colors: IntArray = intArrayOf(
-        ContextCompat.getColor(content.context, R.color.colorAccent) ,
-        ContextCompat.getColor(content.context, R.color.colorAccent_red),
-        ContextCompat.getColor(content.context, R.color.colorAccent_orange),
-        ContextCompat.getColor(content.context, R.color.colorAccent_blue),
-        ContextCompat.getColor(content.context, R.color.colorAccent_yellow),
-        ContextCompat.getColor(content.context, R.color.colorAccent_purple),
-        ContextCompat.getColor(content.context, R.color.colorAccent_blue_l),
+//        ContextCompat.getColor(content.context, R.color.colorAccent) ,
+//        ContextCompat.getColor(content.context, R.color.colorAccent_red),
+//        ContextCompat.getColor(content.context, R.color.colorAccent_orange),
+//        ContextCompat.getColor(content.context, R.color.colorAccent_blue),
+//        ContextCompat.getColor(content.context, R.color.colorAccent_yellow),
+//        ContextCompat.getColor(content.context, R.color.colorAccent_purple),
+//        ContextCompat.getColor(content.context, R.color.colorAccent_blue_l),
     )
     private val marks: Array<View?> = arrayOfNulls(colors.size)
     private var mSelectedColor = 0

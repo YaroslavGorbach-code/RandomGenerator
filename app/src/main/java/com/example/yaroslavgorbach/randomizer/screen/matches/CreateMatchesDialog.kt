@@ -17,9 +17,9 @@ class CreateMatchesDialog: DialogFragment(){
         val dialog = MaterialAlertDialogBuilder(requireContext())
             .setView(binding.root)
             .create()
-        binding.createMatches.setOnClickListener {
-            if(InputFilters.matchesFieldsFilter(binding.numberMatches, binding.numberBurned)){
-                nav.openMatches(binding.numberMatches.toInt(), binding.numberBurned.toInt())
+        binding.create.setOnClickListener {
+            if(InputFilters.matchesFieldsFilter(binding.number, binding.burned)){
+                nav.openMatches(binding.burned.toInt(), binding.burned.toInt())
                 dialog.dismiss()
             }
         }
