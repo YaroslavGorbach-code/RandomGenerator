@@ -9,14 +9,14 @@ import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.util.setIconMusicOff
 import com.example.yaroslavgorbach.randomizer.util.setIconMusicOn
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
-import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPreferences
+import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPrefs
 import com.example.yaroslavgorbach.randomizer.databinding.FragmentMatchesBinding
 import com.example.yaroslavgorbach.randomizer.di.appComponent
 import javax.inject.Inject
 
 class MatchesFragment : Fragment(R.layout.fragment_matches) {
     @Inject lateinit var soundManager: SoundManager
-    @Inject lateinit var soundPreferences: SoundPreferences
+    @Inject lateinit var soundPrefs: SoundPrefs
 
     companion object Args {
         fun argsOf(number: Int, burned: Int) =
@@ -33,7 +33,7 @@ class MatchesFragment : Fragment(R.layout.fragment_matches) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(FragmentMatchesBinding.bind(view)){
-            if (soundPreferences.getState(SoundPreferences.MATCHES_SOUND_KEY)) toolbar.setIconMusicOn()
+            if (soundPrefs.getState(SoundPrefs.MATCHES_SOUND_KEY)) toolbar.setIconMusicOn()
             else toolbar.setIconMusicOff()
 
             val animatorMatches = MatchesAnimations(soundManager)
@@ -48,12 +48,12 @@ class MatchesFragment : Fragment(R.layout.fragment_matches) {
             }
 
             toolbar.setOnMenuItemClickListener {
-                if (soundPreferences.getState(SoundPreferences.MATCHES_SOUND_KEY)){
+                if (soundPrefs.getState(SoundPrefs.MATCHES_SOUND_KEY)){
                     toolbar.setIconMusicOff()
-                    soundPreferences.disallowSound(SoundPreferences.MATCHES_SOUND_KEY)
+                    soundPrefs.disallow(SoundPrefs.MATCHES_SOUND_KEY)
                 }else{
                     toolbar.setIconMusicOn()
-                    soundPreferences.allowSound(SoundPreferences.MATCHES_SOUND_KEY)
+                    soundPrefs.allow(SoundPrefs.MATCHES_SOUND_KEY)
                 }
                 true
             }

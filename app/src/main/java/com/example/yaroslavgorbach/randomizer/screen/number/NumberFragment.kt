@@ -11,14 +11,14 @@ import com.example.yaroslavgorbach.randomizer.component.NumberAnimator
 import com.example.yaroslavgorbach.randomizer.util.setIconMusicOff
 import com.example.yaroslavgorbach.randomizer.util.setIconMusicOn
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
-import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPreferences
+import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPrefs
 import com.example.yaroslavgorbach.randomizer.databinding.FragmentNumberBinding
 import com.example.yaroslavgorbach.randomizer.di.appComponent
 import javax.inject.Inject
 
 class NumberFragment : Fragment(R.layout.fragment_number) {
     @Inject lateinit var soundManager: SoundManager
-    @Inject lateinit var soundPreferences: SoundPreferences
+    @Inject lateinit var soundPrefs: SoundPrefs
 
     companion object Args {
         fun argsOf(max: Long, min: Long, results: Long)
@@ -38,7 +38,7 @@ class NumberFragment : Fragment(R.layout.fragment_number) {
         super.onViewCreated(view, savedInstanceState)
 
         with(FragmentNumberBinding.bind(view)){
-            if (soundPreferences.getState(SoundPreferences.NUMBER_SOUND_KEY)) toolbar.setIconMusicOn()
+            if (soundPrefs.getState(SoundPrefs.NUMBER_SOUND_KEY)) toolbar.setIconMusicOn()
             else toolbar.setIconMusicOff()
 
             val animatorNumber = NumberAnimator(soundManager)
@@ -52,12 +52,12 @@ class NumberFragment : Fragment(R.layout.fragment_number) {
             }
 
             toolbar.setOnMenuItemClickListener {
-                if (soundPreferences.getState(SoundPreferences.NUMBER_SOUND_KEY)){
+                if (soundPrefs.getState(SoundPrefs.NUMBER_SOUND_KEY)){
                     toolbar.setIconMusicOff()
-                    soundPreferences.disallowSound(SoundPreferences.NUMBER_SOUND_KEY)
+                    soundPrefs.disallow(SoundPrefs.NUMBER_SOUND_KEY)
                 }else{
                     toolbar.setIconMusicOn()
-                    soundPreferences.allowSound(SoundPreferences.NUMBER_SOUND_KEY)
+                    soundPrefs.allow(SoundPrefs.NUMBER_SOUND_KEY)
                 }
                 true
             }

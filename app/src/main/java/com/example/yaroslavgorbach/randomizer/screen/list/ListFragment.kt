@@ -11,7 +11,7 @@ import com.example.yaroslavgorbach.randomizer.data.database.Repo
 import com.example.yaroslavgorbach.randomizer.util.setIconMusicOff
 import com.example.yaroslavgorbach.randomizer.util.setIconMusicOn
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
-import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPreferences
+import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPrefs
 import com.example.yaroslavgorbach.randomizer.databinding.FragmentListBinding
 import com.example.yaroslavgorbach.randomizer.di.appComponent
 import kotlinx.coroutines.*
@@ -20,7 +20,7 @@ import javax.inject.Inject
 class ListFragment : Fragment(R.layout.fragment_list) {
     @Inject lateinit var repo: Repo
     @Inject lateinit var soundManager: SoundManager
-    @Inject lateinit var soundPreferences: SoundPreferences
+    @Inject lateinit var soundPrefs: SoundPrefs
 
     companion object Args {
         fun argsOf(title: String)
@@ -39,7 +39,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         with(FragmentListBinding.bind(view)){
             val animatorList = AnimatorList(background, finalItem, finalText, soundManager)
 
-            if (soundPreferences.getState(SoundPreferences.LIST_SOUND_KEY)) toolbar.setIconMusicOn()
+            if (soundPrefs.getState(SoundPrefs.LIST_SOUND_KEY)) toolbar.setIconMusicOn()
             else toolbar.setIconMusicOff()
 
             toolbar.setNavigationOnClickListener {
@@ -55,12 +55,12 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             }
 
             toolbar.setOnMenuItemClickListener {
-                if (soundPreferences.getState(SoundPreferences.LIST_SOUND_KEY)){
+                if (soundPrefs.getState(SoundPrefs.LIST_SOUND_KEY)){
                     toolbar.setIconMusicOff()
-                    soundPreferences.disallowSound(SoundPreferences.LIST_SOUND_KEY)
+                    soundPrefs.disallow(SoundPrefs.LIST_SOUND_KEY)
                 }else{
                     toolbar.setIconMusicOn()
-                    soundPreferences.allowSound(SoundPreferences.LIST_SOUND_KEY)
+                    soundPrefs.allow(SoundPrefs.LIST_SOUND_KEY)
                 }
                 true
             }

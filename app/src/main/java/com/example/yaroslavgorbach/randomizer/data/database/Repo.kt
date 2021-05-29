@@ -1,38 +1,52 @@
 package com.example.yaroslavgorbach.randomizer.data.database
 
 import androidx.lifecycle.LiveData
+import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPrefs
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class Repo @Inject constructor(database: Database) {
-    private val dao: Dao = database.dao()
+class Repo @Inject constructor(database: Database, soundPrefs: SoundPrefs) {
+    private val mListDao: Dao = database.dao()
+    private val mSoundPrefs: SoundPrefs = soundPrefs;
 
     fun getTitles():LiveData<List<String>>{
-        return dao.getTitles()
+        return mListDao.getTitles()
     }
 
     suspend fun addItem(listItemEntity: ListItemEntity){
-        dao.insert(listItemEntity)
+        mListDao.insert(listItemEntity)
     }
 
     suspend fun getItemsByTitle(title: String): MutableList<String> {
-        return dao.getItemsByTitle(title)
+        return mListDao.getItemsByTitle(title)
     }
 
     suspend fun changeTitle(oldTitle: String, newTitle: String) {
-        dao.changeTitle(oldTitle, newTitle)
+        mListDao.changeTitle(oldTitle, newTitle)
     }
 
     suspend fun deleteItemsByTitle(title: String) {
-        dao.deleteListByTitle(title)
+        mListDao.deleteListByTitle(title)
     }
 
-    suspend  fun deleteItem(item: ListItemEntity) {
-        dao.delete(item)
+    suspend fun deleteItem(item: ListItemEntity) {
+        mListDao.delete(item)
     }
 
     suspend fun getItemByText(it: String): ListItemEntity {
-        return dao.getItemByText(it)
+        return mListDao.getItemByText(it)
+    }
+
+    fun getCoinSoundIsAllow(): Boolean {
+        return mSoundPrefs.getState(SoundPrefs.COIN_SOUND_KEY)
+    }
+
+    fun setCoinSoundIsAllow(b: Boolean) {
+        if (b){
+            mSoundPrefs.allow(SoundPrefs.COIN_SOUND_KEY)
+        }else{
+            mSoundPrefs.disallow(SoundPrefs.COIN_SOUND_KEY)
+        }
     }
 }

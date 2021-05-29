@@ -4,17 +4,18 @@ import android.content.Context
 import androidx.core.content.edit
 import javax.inject.Inject
 
-class SoundPreferencesImp @Inject constructor(context: Context): SoundPreferences {
-    private val mSharedPreferences = context.getSharedPreferences("SOUND_PREF_KEY", Context.MODE_PRIVATE)
+class SoundPrefsImp @Inject constructor(context: Context): SoundPrefs {
+    private val mSharedPreferences
+    = context.getSharedPreferences("com.example.yaroslavgorbach.randomizer", Context.MODE_PRIVATE)
 
 
-    override fun allowSound(key: String) {
+    override fun allow(key: String) {
         mSharedPreferences.edit {
             putBoolean(key, true)
         }
     }
 
-    override fun disallowSound(key: String) {
+    override fun disallow(key: String) {
         mSharedPreferences.edit {
             putBoolean(key, false)
         }

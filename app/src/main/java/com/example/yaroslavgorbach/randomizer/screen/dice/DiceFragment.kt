@@ -10,14 +10,14 @@ import com.example.yaroslavgorbach.randomizer.component.AnimatorDice
 import com.example.yaroslavgorbach.randomizer.util.setIconMusicOff
 import com.example.yaroslavgorbach.randomizer.util.setIconMusicOn
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
-import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPreferences
+import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPrefs
 import com.example.yaroslavgorbach.randomizer.databinding.FragmentDicesBinding
 import com.example.yaroslavgorbach.randomizer.di.appComponent
 import javax.inject.Inject
 
 class DiceFragment : Fragment(R.layout.fragment_dices) {
     @Inject lateinit var soundManager: SoundManager
-    @Inject lateinit var soundPreferences: SoundPreferences
+    @Inject lateinit var soundPrefs: SoundPrefs
 
     companion object Args {
         fun argsOf(number: Int)
@@ -36,7 +36,7 @@ class DiceFragment : Fragment(R.layout.fragment_dices) {
             val diceAnimator = AnimatorDice(soundManager)
             diceAnimator.inflateDice(grid, number, animate)
 
-            if (soundPreferences.getState(SoundPreferences.DICE_SOUND_KEY)) toolbar.setIconMusicOn()
+            if (soundPrefs.getState(SoundPrefs.DICE_SOUND_KEY)) toolbar.setIconMusicOn()
             else toolbar.setIconMusicOff()
 
             animate.setOnClickListener{
@@ -51,12 +51,12 @@ class DiceFragment : Fragment(R.layout.fragment_dices) {
             }
 
             toolbar.setOnMenuItemClickListener {
-                if (soundPreferences.getState(SoundPreferences.DICE_SOUND_KEY)){
+                if (soundPrefs.getState(SoundPrefs.DICE_SOUND_KEY)){
                     toolbar.setIconMusicOff()
-                    soundPreferences.disallowSound(SoundPreferences.DICE_SOUND_KEY)
+                    soundPrefs.disallow(SoundPrefs.DICE_SOUND_KEY)
                 }else{
                     toolbar.setIconMusicOn()
-                    soundPreferences.allowSound(SoundPreferences.DICE_SOUND_KEY)
+                    soundPrefs.allow(SoundPrefs.DICE_SOUND_KEY)
                 }
                 true
             }

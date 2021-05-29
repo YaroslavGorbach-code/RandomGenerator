@@ -1,6 +1,6 @@
 package com.example.yaroslavgorbach.randomizer.data.soundPref
 
-interface SoundPreferences {
+interface SoundPrefs {
     companion object{
         const val COIN_SOUND_KEY = "COIN_SOUND_KEY"
         const val DICE_SOUND_KEY = "DICE_SOUND_KEY"
@@ -8,7 +8,7 @@ interface SoundPreferences {
         const val NUMBER_SOUND_KEY = "NUMBER_SOUND_KEY"
         const val MATCHES_SOUND_KEY = "MATCHES_SOUND_KEY"
     }
-    fun allowSound(key: String)
-    fun disallowSound(key: String)
+    fun allow(key: String)
+    fun disallow(key: String)
     fun getState(key: String): Boolean
 }
