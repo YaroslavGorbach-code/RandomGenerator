@@ -26,8 +26,8 @@ class ScrollColorPicker(content: ViewGroup) : ColorPicker {
         val inflater = LayoutInflater.from(content.context)
         colors.indices.forEach {i->
             val item: View = inflater.inflate(R.layout.color_picker_i, content, false)
-            val bg = item.findViewById<ImageView>(R.id.i_color_bg)
-            val mark = item.findViewById<ImageView>(R.id.i_color_selected)
+            val bg = item.findViewById<ImageView>(R.id.color)
+            val mark = item.findViewById<ImageView>(R.id.mark)
             marks[i] = mark
             val color = colors[i]
             bg.setColorFilter(color)

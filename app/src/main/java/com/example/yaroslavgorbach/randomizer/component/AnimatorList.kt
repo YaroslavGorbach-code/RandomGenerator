@@ -70,7 +70,7 @@ class AnimatorList(background: ConstraintLayout, finalItem: ScrollView, finalIte
         listOfItems.shuffle()
         val inflater = LayoutInflater.from(parent.context)
         for (i in listOfItems.indices) {
-            val itemV: View = inflater.inflate(R.layout.list_i, parent, false)
+            val itemV: View = inflater.inflate(R.layout.item_list, parent, false)
             val listItemTv: TextView = itemV.findViewById(R.id.list_item)
             val color = Color.argb(255, (0..200).random(), (0..100).random(), (0..200).random())
             listItemTv.background.setTint(color)

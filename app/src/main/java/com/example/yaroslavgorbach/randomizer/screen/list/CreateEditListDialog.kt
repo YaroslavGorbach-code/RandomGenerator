@@ -2,22 +2,16 @@ package com.example.yaroslavgorbach.randomizer.screen.list
 
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.yaroslavgorbach.randomizer.InputFilters
-import com.example.yaroslavgorbach.randomizer.MyApplication
-import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.data.database.ListItemEntity
 import com.example.yaroslavgorbach.randomizer.data.database.Repo
 import com.example.yaroslavgorbach.randomizer.databinding.DialogCreateListBinding
 import com.example.yaroslavgorbach.randomizer.di.appComponent
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.GlobalScope

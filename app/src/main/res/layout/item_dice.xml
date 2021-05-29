@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ImageView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/dice_i"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dice"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingEnd="16dp"
@@ -9,4 +10,5 @@
     android:layout_gravity="center_horizontal"
     android:paddingBottom="12dp"
     android:paddingTop="12sp"
-    android:src="@drawable/ic_dice_1"/>
+    android:src="@drawable/ic_dice_1"
+    tools:ignore="ContentDescription" />

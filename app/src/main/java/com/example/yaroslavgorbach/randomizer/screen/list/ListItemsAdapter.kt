@@ -25,7 +25,7 @@ class ListItemsAdapter : ListAdapter<String, ListItemsAdapter.Vh>(DiffCallback()
     }
 
     class Vh(parent: ViewGroup, onItemDeleteCLick: ((Int) -> Unit)?) : RecyclerView.ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.llist_rv_item, parent, false)) {
+        LayoutInflater.from(parent.context).inflate(R.layout.item_llist_rv, parent, false)) {
         var listTitleTv: TextView = itemView.findViewById(R.id.item_title)
         var deleteItem: ImageButton = itemView.findViewById(R.id.delete)
         init {

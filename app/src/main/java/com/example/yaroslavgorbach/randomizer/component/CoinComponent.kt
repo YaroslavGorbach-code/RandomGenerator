@@ -13,7 +13,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
-class CoinAnimator(coinImage: ImageView, fonImage: ImageView, soundManager: SoundManager) {
+class CoinComponent(coinImage: ImageView, fonImage: ImageView, soundManager: SoundManager) {
      private enum class CoinSide {
         FRONT, BACK
     }

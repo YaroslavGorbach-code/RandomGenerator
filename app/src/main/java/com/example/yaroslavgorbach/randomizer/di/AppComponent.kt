@@ -1,9 +1,8 @@
 package com.example.yaroslavgorbach.randomizer.di
 
-import android.app.Activity
 import android.content.Context
 import androidx.fragment.app.Fragment
-import com.example.yaroslavgorbach.randomizer.MyApplication
+import com.example.yaroslavgorbach.randomizer.App
 import com.example.yaroslavgorbach.randomizer.screen.list.CreateEditListDialog
 import com.example.yaroslavgorbach.randomizer.screen.MainFragment
 import com.example.yaroslavgorbach.randomizer.screen.coin.CoinFragment
@@ -37,4 +36,4 @@ interface AppComponent {
 }
 
 val Fragment.appComponent get() =
-    (activity?.application as MyApplication).appComponent
+    (activity?.application as App).appComponent

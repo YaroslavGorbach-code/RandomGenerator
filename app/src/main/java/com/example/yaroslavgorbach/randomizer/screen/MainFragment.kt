@@ -3,24 +3,12 @@ package com.example.yaroslavgorbach.randomizer.screen
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.yaroslavgorbach.randomizer.MyApplication
 import com.example.yaroslavgorbach.randomizer.R
-import com.example.yaroslavgorbach.randomizer.screen.list.CreateEditListDialog
-import com.example.yaroslavgorbach.randomizer.data.database.Repo
-import com.example.yaroslavgorbach.randomizer.screen.list.ListTitlesAdapter
 import com.example.yaroslavgorbach.randomizer.databinding.FragmentRandomListBinding
 import com.example.yaroslavgorbach.randomizer.di.appComponent
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.fragment_random_list.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class MainFragment : Fragment(R.layout.fragment_random_list) {
 

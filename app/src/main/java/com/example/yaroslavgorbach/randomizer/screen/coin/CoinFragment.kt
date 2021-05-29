@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.yaroslavgorbach.randomizer.*
-import com.example.yaroslavgorbach.randomizer.component.CoinAnimator
+import com.example.yaroslavgorbach.randomizer.component.CoinComponent
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
 import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPreferences
 import com.example.yaroslavgorbach.randomizer.databinding.FragmentCoinBinding
@@ -27,7 +27,7 @@ class CoinFragment : Fragment(R.layout.fragment_coin) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(FragmentCoinBinding.bind(view)){
-            val animatorCoin = CoinAnimator(coin, fon, soundManager)
+            val animatorCoin = CoinComponent(coin, fon, soundManager)
 
             if (soundPreferences.getState(SoundPreferences.COIN_SOUND_KEY)) toolbarCoin.setIconMusicOn()
             else toolbarCoin.setIconMusicOff()

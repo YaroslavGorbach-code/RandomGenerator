@@ -50,7 +50,7 @@
             android:layout_width="160dp"
             android:layout_height="160dp"
             android:src="@drawable/ic_coin_front"
-            android:background="@drawable/coin_bg_oval"
+            android:background="@drawable/oval_bg"
             android:elevation="15dp"
             app:layout_constraintBottom_toBottomOf="@+id/fon"
             app:layout_constraintEnd_toEndOf="parent"

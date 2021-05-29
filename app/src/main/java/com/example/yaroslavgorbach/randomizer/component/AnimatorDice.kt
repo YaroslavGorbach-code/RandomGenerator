@@ -109,8 +109,8 @@ class AnimatorDice(private val soundManager: SoundManager){
     fun inflateDice(parent: ViewGroup, number: Int, rotateAllDice: View) {
         val inflater = LayoutInflater.from(parent.context)
         for (i in 1..number) {
-            val item: View = inflater.inflate(R.layout.dice_i, parent, false)
-            val diceImage: ImageView = item.findViewById(R.id.dice_i)
+            val item: View = inflater.inflate(R.layout.item_dice, parent, false)
+            val diceImage: ImageView = item.findViewById(R.id.dice)
             val dice = DiceModel(diceImage, 0)
             item.setOnClickListener {rotateDice(dice, rotateAllDice) }
             _mSum.value = _mSum.value!! + dice.points

@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Randomizer_standart" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Randomizer_standart" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -14,7 +14,7 @@
     </style>
 
     <!-- Red application theme. -->
-    <style name="Theme.Randomizer_red" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Randomizer_red" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary_red</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_red</item>
@@ -28,7 +28,7 @@
     </style>
 
     <!-- Orange application theme. -->
-    <style name="Theme.Randomizer_orange" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Randomizer_orange" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary_orange</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_orange</item>
@@ -42,7 +42,7 @@
     </style>
 
     <!-- Blue application theme. -->
-    <style name="Theme.Randomizer_blue" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Randomizer_blue" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary_blue</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_blue</item>
@@ -56,7 +56,7 @@
     </style>
 
     <!-- Yellow application theme. -->
-    <style name="Theme.Randomizer_yellow" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Randomizer_yellow" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary_yellow</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_yellow</item>
@@ -70,7 +70,7 @@
     </style>
 
     <!-- Purple application theme. -->
-    <style name="Theme.Randomizer_purple" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Randomizer_purple" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary_purple</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_purple</item>
@@ -84,7 +84,7 @@
     </style>
 
     <!-- Blue_l application theme. -->
-    <style name="Theme.Randomizer_blue_l" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Randomizer_blue_l" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary_blue_l</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_blue_l</item>
