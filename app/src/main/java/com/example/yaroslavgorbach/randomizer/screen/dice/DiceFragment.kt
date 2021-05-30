@@ -5,20 +5,19 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.core.os.bundleOf
+import androidx.lifecycle.Observer
 import com.example.yaroslavgorbach.randomizer.R
-import com.example.yaroslavgorbach.randomizer.component.AnimatorDice
-import com.example.yaroslavgorbach.randomizer.util.setIconMusicOff
-import com.example.yaroslavgorbach.randomizer.util.setIconMusicOn
+import com.example.yaroslavgorbach.randomizer.component.dice.DiceImp
+import com.example.yaroslavgorbach.randomizer.data.database.Repo
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
-import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPrefs
 import com.example.yaroslavgorbach.randomizer.databinding.FragmentDicesBinding
 import com.example.yaroslavgorbach.randomizer.di.appComponent
+import kotlinx.android.synthetic.main.item_dice.*
 import javax.inject.Inject
 
 class DiceFragment : Fragment(R.layout.fragment_dices) {
     @Inject lateinit var soundManager: SoundManager
-    @Inject lateinit var soundPrefs: SoundPrefs
-
+    @Inject lateinit var repo: Repo
     companion object Args {
         fun argsOf(number: Int)
                 = bundleOf("number" to number)
@@ -32,35 +31,41 @@ class DiceFragment : Fragment(R.layout.fragment_dices) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with(FragmentDicesBinding.bind(view)){
-            val diceAnimator = AnimatorDice(soundManager)
-            diceAnimator.inflateDice(grid, number, animate)
 
-            if (soundPrefs.getState(SoundPrefs.DICE_SOUND_KEY)) toolbar.setIconMusicOn()
-            else toolbar.setIconMusicOff()
+        // init component
+        val diceComponent = DiceImp(soundManager, repo)
 
-            animate.setOnClickListener{
-                diceAnimator.animateAllDice(it)
+        // init view
+        val v = DiceView(FragmentDicesBinding.bind(view), number, object :DiceView.Callback{
+            override fun onBack() {
+
             }
 
-            diceAnimator.getSum().observe(viewLifecycleOwner,{
-                toolbar.title = getString(R.string.total) + " $it"
-            })
-
-            toolbar.setNavigationOnClickListener {
+            override fun onDiceClick(dice: DiceImp.DiceModel) {
+                diceComponent.animate(dice)
             }
 
-            toolbar.setOnMenuItemClickListener {
-                if (soundPrefs.getState(SoundPrefs.DICE_SOUND_KEY)){
-                    toolbar.setIconMusicOff()
-                    soundPrefs.disallow(SoundPrefs.DICE_SOUND_KEY)
-                }else{
-                    toolbar.setIconMusicOn()
-                    soundPrefs.allow(SoundPrefs.DICE_SOUND_KEY)
-                }
-                true
+            override fun onDiceInflated(dice: DiceImp.DiceModel, button: View) {
+                diceComponent.onDiceInflated(dice)
+                diceComponent.animate(dice)
+                diceComponent.animateButton(button)
             }
-        }
+
+            override fun onButtonAnimate(button: View){
+                diceComponent.animateAll()
+                diceComponent.animateButton(button)
+            }
+
+            override fun onSoundDisallow() {
+                diceComponent.disallowSound()
+            }
+
+            override fun onSoundAllow() {
+                diceComponent.allowSound()
+            }
+        })
+        diceComponent.getSoundIsAllow().observe(viewLifecycleOwner, v::setSoundIsAllow)
+        diceComponent.sum.observe(viewLifecycleOwner, v::setSum)
     }
 }
 

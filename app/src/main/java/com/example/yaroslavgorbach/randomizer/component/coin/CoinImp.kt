@@ -16,22 +16,20 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
-class CoinImp(soundManager: SoundManager, repo: Repo): Coin{
+class CoinImp( private val soundManager: SoundManager, private val repo: Repo): Coin{
     private enum class CoinSide { FRONT, BACK }
 
     private var mCoinSide: CoinSide = CoinSide.FRONT
-    private val mSoundManager = soundManager
-    private val mRepo = repo
-    private val coinSound = MutableLiveData(mRepo.getCoinSoundIsAllow())
+    private val coinSound = MutableLiveData(repo.getCoinSoundIsAllow())
 
 
     override fun getSoundIsAllow() = coinSound
     override fun disallowSound(){
-        mRepo.setCoinSoundIsAllow(false)
+        repo.setCoinSoundIsAllow(false)
         coinSound.value = false
     }
     override fun allowSound(){
-        mRepo.setCoinSoundIsAllow(true)
+        repo.setCoinSoundIsAllow(true)
         coinSound.value = true
     }
 
@@ -47,13 +45,13 @@ class CoinImp(soundManager: SoundManager, repo: Repo): Coin{
             playTogether(scaleFon(fon), scaleCoin(coin))
             GlobalScope.launch {
                 delay(70)
-                mSoundManager.flipCoinSoundPlay()
+                soundManager.flipCoinSoundPlay()
                 coin.elevation = 0f
             }
 
             GlobalScope.launch {
                 delay(1500)
-                mSoundManager.fallCoinSoundPlay()
+                soundManager.fallCoinSoundPlay()
                 coin.elevation = 15f
             }
             shake(coin).start()

@@ -1,6 +1,6 @@
 
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="?rippleColor">
+    android:color="?colorPrimarySurface">
   <item>
     <vector
         android:width="144.88dp"
