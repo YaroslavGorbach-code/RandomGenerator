@@ -10,7 +10,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.data.database.Repo
-import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
+import com.example.yaroslavgorbach.randomizer.util.disableViewDuringAnimation
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
 
 class DiceImp(private val soundManager: SoundManager, private val repo: Repo) : Dice {

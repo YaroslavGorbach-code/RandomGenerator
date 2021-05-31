@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import com.example.yaroslavgorbach.randomizer.R
-import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
+import com.example.yaroslavgorbach.randomizer.util.disableViewDuringAnimation
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
 
 class MatchesAnimations(private val soundManager: SoundManager) {

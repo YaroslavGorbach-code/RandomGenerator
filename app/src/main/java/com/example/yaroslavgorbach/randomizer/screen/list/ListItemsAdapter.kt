@@ -12,7 +12,7 @@ import com.example.yaroslavgorbach.randomizer.R
 class ListItemsAdapter : ListAdapter<String, ListItemsAdapter.Vh>(DiffCallback()) {
     private var mOnItemDeleteCLick: ((Int) -> Unit)? = null
 
-    fun addDeleteListener(onItemDeleteCLick:(Int) -> Unit){
+    fun addDeleteListener(onItemDeleteCLick: (Int) -> Unit) {
         mOnItemDeleteCLick = onItemDeleteCLick
     }
 
@@ -25,14 +25,17 @@ class ListItemsAdapter : ListAdapter<String, ListItemsAdapter.Vh>(DiffCallback()
     }
 
     class Vh(parent: ViewGroup, onItemDeleteCLick: ((Int) -> Unit)?) : RecyclerView.ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.item_llist_rv, parent, false)) {
+        LayoutInflater.from(parent.context).inflate(R.layout.item_llist_rv, parent, false)
+    ) {
         var listTitleTv: TextView = itemView.findViewById(R.id.item_title)
         var deleteItem: ImageButton = itemView.findViewById(R.id.delete)
+
         init {
             deleteItem.setOnClickListener {
                 onItemDeleteCLick?.let { onItemDeleteCLick(adapterPosition) }
             }
         }
+
         fun bindTo(item: String?) {
             listTitleTv.text = item
         }

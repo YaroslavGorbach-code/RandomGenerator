@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.yaroslavgorbach.randomizer.data.database.Repo
@@ -12,22 +11,21 @@ import com.example.yaroslavgorbach.randomizer.databinding.DialogChoseListBinding
 import com.example.yaroslavgorbach.randomizer.di.appComponent
 import com.example.yaroslavgorbach.randomizer.screen.nav
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ChoseListDialog: DialogFragment(){
+class ChoseListDialog : DialogFragment() {
     @Inject
     lateinit var repo: Repo
-
+    private lateinit var binding: DialogChoseListBinding
     override fun onAttach(context: Context) {
         super.onAttach(context)
         appComponent.inject(this)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val binding = DialogChoseListBinding.inflate(LayoutInflater.from(requireContext()))
+        binding = DialogChoseListBinding.inflate(LayoutInflater.from(requireContext()))
         val dialog = MaterialAlertDialogBuilder(requireContext())
             .setView(binding.root)
             .show()
@@ -51,7 +49,7 @@ class ChoseListDialog: DialogFragment(){
         })
 
         // TODO: 4/16/2021 fix it
-        repo.getTitles().observeForever{
+        repo.getTitles().observeForever {
             titleAdapter.submitList(it)
         }
 

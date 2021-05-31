@@ -18,7 +18,7 @@ class Repo @Inject constructor(database: Database, soundPrefs: SoundPrefs) {
         mListDao.insert(listItemEntity)
     }
 
-    suspend fun getItemsByTitle(title: String): MutableList<String> {
+    suspend fun getItemsByTitle(title: String): List<String> {
         return mListDao.getItemsByTitle(title)
     }
 
@@ -59,6 +59,18 @@ class Repo @Inject constructor(database: Database, soundPrefs: SoundPrefs) {
             mSoundPrefs.allow(SoundPrefs.DICE_SOUND_KEY)
         }else{
             mSoundPrefs.disallow(SoundPrefs.DICE_SOUND_KEY)
+        }
+    }
+
+    fun getListSoundIsAllow(): Boolean {
+        return mSoundPrefs.getState(SoundPrefs.LIST_SOUND_KEY)
+    }
+
+    fun setListSoundIsAllow(b: Boolean) {
+        if (b){
+            mSoundPrefs.allow(SoundPrefs.LIST_SOUND_KEY)
+        }else{
+            mSoundPrefs.disallow(SoundPrefs.LIST_SOUND_KEY)
         }
     }
 }

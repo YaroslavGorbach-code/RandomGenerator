@@ -10,7 +10,7 @@
     tools:text="f"
     android:ellipsize="end"
     android:lines="2"
-    android:textColor="?rippleColor"
+    android:textColor="?colorPrimarySurface"
     android:textSize="15sp"
     android:clickable="false"
     android:focusable="false"

@@ -2,29 +2,29 @@ package com.example.yaroslavgorbach.randomizer.screen.list
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.ScrollView
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.yaroslavgorbach.randomizer.R
-import com.example.yaroslavgorbach.randomizer.component.AnimatorList
+import com.example.yaroslavgorbach.randomizer.component.list.ListComp
+import com.example.yaroslavgorbach.randomizer.component.list.ListCompImp
 import com.example.yaroslavgorbach.randomizer.data.database.Repo
-import com.example.yaroslavgorbach.randomizer.util.setIconMusicOff
-import com.example.yaroslavgorbach.randomizer.util.setIconMusicOn
-import com.example.yaroslavgorbach.randomizer.feature.SoundManager
-import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPrefs
 import com.example.yaroslavgorbach.randomizer.databinding.FragmentListBinding
 import com.example.yaroslavgorbach.randomizer.di.appComponent
-import kotlinx.coroutines.*
+import com.example.yaroslavgorbach.randomizer.feature.SoundManager
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ListFragment : Fragment(R.layout.fragment_list) {
     @Inject lateinit var repo: Repo
     @Inject lateinit var soundManager: SoundManager
-    @Inject lateinit var soundPrefs: SoundPrefs
 
     companion object Args {
-        fun argsOf(title: String)
-                = bundleOf("title" to title)
+        fun argsOf(title: String) = bundleOf("title" to title)
         private val ListFragment.title get() = requireArguments()["title"] as String
     }
 
@@ -36,46 +36,24 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(FragmentListBinding.bind(view)){
-            val animatorList = AnimatorList(background, finalItem, finalText, soundManager)
+        // init component
+        val listComp: ListComp = ListCompImp(repo, title, lifecycleScope)
 
-            if (soundPrefs.getState(SoundPrefs.LIST_SOUND_KEY)) toolbar.setIconMusicOn()
-            else toolbar.setIconMusicOff()
-
-            toolbar.setNavigationOnClickListener {
+        // init view
+        val v = ListView(FragmentListBinding.bind(view), soundManager, object : ListView.Callback {
+            override fun onSoundDisallow() {
+                listComp.disallowSound()
             }
 
-            GlobalScope.launch {
-                val result = async {
-                    repo.getItemsByTitle(title)
-                }
-                withContext(Dispatchers.Main) {
-                    animatorList.inflateItems(grid, animate, listOfItems = result.await())
-                }
+            override fun onSoundAllow() {
+                listComp.allowSound()
             }
 
-            toolbar.setOnMenuItemClickListener {
-                if (soundPrefs.getState(SoundPrefs.LIST_SOUND_KEY)){
-                    toolbar.setIconMusicOff()
-                    soundPrefs.disallow(SoundPrefs.LIST_SOUND_KEY)
-                }else{
-                    toolbar.setIconMusicOn()
-                    soundPrefs.allow(SoundPrefs.LIST_SOUND_KEY)
-                }
-                true
-            }
+            override fun onBack() {
 
-            animate.setOnClickListener {
-                animatorList.showResult(it)
             }
-
-            background.setOnClickListener {
-                animatorList.hideFinalItem()
-            }
-
-            grid.setOnClickListener {
-                animatorList.hideFinalItem()
-            }
-        }
+        })
+        listComp.getSoundIsAllow().observe(viewLifecycleOwner, v::setSoundIsAllow)
+        lifecycleScope.launch { v.inflateItems(listComp.words.await()) }
     }
 }

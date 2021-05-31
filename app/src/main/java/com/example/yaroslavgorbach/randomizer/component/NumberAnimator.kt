@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.view.animation.*
 import android.widget.TextView
 import androidx.core.animation.doOnStart
-import com.example.yaroslavgorbach.randomizer.disableViewDuringAnimation
+import com.example.yaroslavgorbach.randomizer.util.disableViewDuringAnimation
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
 import com.example.yaroslavgorbach.randomizer.screen.number.NumberUtils
 

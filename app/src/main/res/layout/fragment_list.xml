@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".screen.dice.DiceFragment">
@@ -21,47 +20,15 @@
         app:title="@string/list"
         app:titleTextColor="#fafafa" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <include
+        android:id="@+id/final_item"
+        layout="@layout/layout_list_final_item"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:elevation="10dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="@+id/guideline2">
-
-        <ScrollView
-            android:id="@+id/final_item"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/number_bg"
-            android:fillViewport="true"
-            android:scrollbars="none"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            tools:visibility="visible">
-
-            <TextView
-                android:id="@+id/final_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:minHeight="200dp"
-                android:textColorHighlight="@color/material_on_surface_disabled"
-                android:textIsSelectable="true"
-                android:padding="10dp"
-                android:text="000"
-                android:textColor="#fafafa"
-                android:textSize="25sp"
-                tools:ignore="HardcodedText" />
-        </ScrollView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/background"
@@ -87,6 +54,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <ScrollView
+            android:id="@+id/scroll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scrollbars="none"
