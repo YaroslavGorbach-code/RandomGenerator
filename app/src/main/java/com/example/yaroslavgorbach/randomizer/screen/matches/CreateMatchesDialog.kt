@@ -19,7 +19,7 @@ class CreateMatchesDialog: DialogFragment(){
             .create()
         binding.create.setOnClickListener {
             if(InputFilters.matchesFieldsFilter(binding.number, binding.burned)){
-                nav.openMatches(binding.burned.toInt(), binding.burned.toInt())
+                nav.openMatches(binding.number.toInt(), binding.burned.toInt())
                 dialog.dismiss()
             }
         }

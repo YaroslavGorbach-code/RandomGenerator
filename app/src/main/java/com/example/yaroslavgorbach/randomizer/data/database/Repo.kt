@@ -73,4 +73,16 @@ class Repo @Inject constructor(database: Database, soundPrefs: SoundPrefs) {
             mSoundPrefs.disallow(SoundPrefs.LIST_SOUND_KEY)
         }
     }
+
+    fun setMatchesSoundIsAllow(b: Boolean) {
+        if (b){
+            mSoundPrefs.allow(SoundPrefs.MATCHES_SOUND_KEY)
+        }else{
+            mSoundPrefs.disallow(SoundPrefs.MATCHES_SOUND_KEY)
+        }
+    }
+
+    fun getMatchesSoundIsAllow(): Boolean {
+        return mSoundPrefs.getState(SoundPrefs.MATCHES_SOUND_KEY)
+    }
 }

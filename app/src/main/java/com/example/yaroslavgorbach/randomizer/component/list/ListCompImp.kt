@@ -12,20 +12,20 @@ class ListCompImp(
     private val title: String,
     private val scope: CoroutineScope
 ) : ListComp {
-    private val diceSound = MutableLiveData(repo.getListSoundIsAllow())
+    private val sound = MutableLiveData(repo.getListSoundIsAllow())
 
     override fun getSoundIsAllow(): LiveData<Boolean> {
-        return diceSound
+        return sound
     }
 
     override fun disallowSound() {
         repo.setListSoundIsAllow(false)
-        diceSound.value = false
+        sound.value = false
     }
 
     override fun allowSound() {
         repo.setListSoundIsAllow(true)
-        diceSound.value = true
+        sound.value = true
     }
 
     override val words: Deferred<List<String>>

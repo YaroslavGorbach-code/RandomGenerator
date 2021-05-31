@@ -15,7 +15,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class ChangeThemeDialog: DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        // TODO: 4/16/2021 inject it
         val binding = DialogChangeThemeBinding.inflate(LayoutInflater.from(requireContext()))
         val themeStorage: ThemeStorage = ThemeStorageImp(requireContext())
         val colorPicker: ColorPicker = ScrollColorPicker(binding.colorsParent)
