@@ -3,6 +3,7 @@ package com.example.yaroslavgorbach.randomizer.screen.list
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
 import com.example.yaroslavgorbach.randomizer.R
@@ -49,6 +50,7 @@ class ListView(
             hideFinalItem()
         }
         binding.grid.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_UP)
             hideFinalItem()
             true
         }

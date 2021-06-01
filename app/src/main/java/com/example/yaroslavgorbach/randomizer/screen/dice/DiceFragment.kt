@@ -33,27 +33,11 @@ class DiceFragment : Fragment(R.layout.fragment_dices) {
         super.onViewCreated(view, savedInstanceState)
 
         // init component
-        val diceComponent = DiceImp(soundManager, repo)
+        val diceComponent = DiceImp(repo)
 
         // init view
-        val v = DiceView(FragmentDicesBinding.bind(view), number, object :DiceView.Callback{
+        val v = DiceView(FragmentDicesBinding.bind(view), number, soundManager, object :DiceView.Callback{
             override fun onBack() {
-
-            }
-
-            override fun onDiceClick(dice: DiceImp.DiceModel) {
-                diceComponent.animate(dice)
-            }
-
-            override fun onDiceInflated(dice: DiceImp.DiceModel, button: View) {
-                diceComponent.onDiceInflated(dice)
-                diceComponent.animate(dice)
-                diceComponent.animateButton(button)
-            }
-
-            override fun onButtonAnimate(button: View){
-                diceComponent.animateAll()
-                diceComponent.animateButton(button)
             }
 
             override fun onSoundDisallow() {
@@ -65,7 +49,6 @@ class DiceFragment : Fragment(R.layout.fragment_dices) {
             }
         })
         diceComponent.getSoundIsAllow().observe(viewLifecycleOwner, v::setSoundIsAllow)
-        diceComponent.sum.observe(viewLifecycleOwner, v::setSum)
     }
 }
 
