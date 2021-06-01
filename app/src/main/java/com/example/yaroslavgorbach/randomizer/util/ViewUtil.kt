@@ -1,5 +1,6 @@
 package com.example.yaroslavgorbach.randomizer.util
 
+import android.content.Context
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.res.ResourcesCompat
 import com.example.yaroslavgorbach.randomizer.R
@@ -11,10 +12,12 @@ fun TextInputEditText.toLong(): Long =
 fun TextInputEditText.toInt(): Int =
     text.toString().toInt()
 
-fun Toolbar.setIconMusicOn(){
+fun Toolbar.setIconMusicOn() {
     menu.getItem(0).icon = ResourcesCompat.getDrawable(resources, R.drawable.ic_music_note, null)
 }
 
-fun Toolbar.setIconMusicOff(){
+fun Toolbar.setIconMusicOff() {
     menu.getItem(0).icon = ResourcesCompat.getDrawable(resources, R.drawable.ic_music_off, null)
 }
+
+fun Context.getScreenHeight() = resources.displayMetrics.heightPixels

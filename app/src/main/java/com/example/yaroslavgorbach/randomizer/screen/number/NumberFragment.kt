@@ -7,18 +7,17 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.core.os.bundleOf
 import com.example.yaroslavgorbach.randomizer.R
-import com.example.yaroslavgorbach.randomizer.component.NumberAnimator
-import com.example.yaroslavgorbach.randomizer.util.setIconMusicOff
-import com.example.yaroslavgorbach.randomizer.util.setIconMusicOn
+import com.example.yaroslavgorbach.randomizer.component.number.NumberCom
+import com.example.yaroslavgorbach.randomizer.component.number.NumberComImp
+import com.example.yaroslavgorbach.randomizer.data.database.Repo
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
-import com.example.yaroslavgorbach.randomizer.data.soundPref.SoundPrefs
 import com.example.yaroslavgorbach.randomizer.databinding.FragmentNumberBinding
 import com.example.yaroslavgorbach.randomizer.di.appComponent
 import javax.inject.Inject
 
 class NumberFragment : Fragment(R.layout.fragment_number) {
     @Inject lateinit var soundManager: SoundManager
-    @Inject lateinit var soundPrefs: SoundPrefs
+    @Inject lateinit var repo: Repo
 
     companion object Args {
         fun argsOf(max: Long, min: Long, results: Long)
@@ -37,30 +36,27 @@ class NumberFragment : Fragment(R.layout.fragment_number) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(FragmentNumberBinding.bind(view)){
-            if (soundPrefs.getState(SoundPrefs.NUMBER_SOUND_KEY)) toolbar.setIconMusicOn()
-            else toolbar.setIconMusicOff()
+        // init comp
+        val number: NumberCom = NumberComImp(repo, max, min, results)
 
-            val animatorNumber = NumberAnimator(soundManager)
-            animatorNumber.animateNumber(number, numberParent, animate, min, max, results)
-
-            toolbar.setNavigationOnClickListener {
+        // init v
+        val v = NumberView(FragmentNumberBinding.bind(view), soundManager, object :NumberView.Callback{
+            override fun onSoundDisallow() {
+                number.disallowSound()
             }
 
-            animate.setOnClickListener { button ->
-                animatorNumber.animateNumber(number, numberParent, button, min, max, results)
+            override fun onBack() {
             }
 
-            toolbar.setOnMenuItemClickListener {
-                if (soundPrefs.getState(SoundPrefs.NUMBER_SOUND_KEY)){
-                    toolbar.setIconMusicOff()
-                    soundPrefs.disallow(SoundPrefs.NUMBER_SOUND_KEY)
-                }else{
-                    toolbar.setIconMusicOn()
-                    soundPrefs.allow(SoundPrefs.NUMBER_SOUND_KEY)
-                }
-                true
+            override fun onSoundAllow() {
+                number.allowSound()
             }
-        }
+
+            override fun onGenerateValue() {
+                number.onGenerateValue()
+            }
+        })
+        number.getSoundIsAllow().observe(viewLifecycleOwner, v::setSoundIsAllow)
+        number.value.observe(viewLifecycleOwner, v::setValue)
     }
 }
