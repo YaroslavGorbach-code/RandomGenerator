@@ -4,6 +4,8 @@
     <!--    chose_list_dialog-->
     <string name="chose_list">Select a list</string>
     <string name="crete_list">Create a list</string>
+    <string name="delete_list">Delete list?</string>
+    <string name="can_not_undo">This action cannot be undone</string>
 
     <!--    chose_dice_dialog-->
     <string name="number_of_dice">Number of dice (1 – 50)</string>
@@ -68,6 +70,10 @@
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
     <string name="apply">Apply</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
+    <string name="save_changes">Save changes?</string>
+    <string name="no">No</string>
 
 
 </resources>

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.data.local.Repo
 import com.example.yaroslavgorbach.randomizer.databinding.DialogChoseListBinding
 import com.example.yaroslavgorbach.randomizer.di.appComponent
@@ -37,14 +38,14 @@ class ChoseListDialog : DialogFragment() {
             nav.showCreateEditListDialog(title = it)
         }, onDeleteClick = {
             MaterialAlertDialogBuilder(requireContext())
-                .setTitle("Delete list?")
-                .setMessage("This action cannot be undone") // TODO: 4/11/2021 translate
-                .setPositiveButton("yes") { _, _ ->
+                .setTitle(getString(R.string.delete_list))
+                .setMessage(getString(R.string.can_not_undo))
+                .setPositiveButton(getString(R.string.yes)) { _, _ ->
                     GlobalScope.launch {
                         repo.deleteItemsByTitle(title = it)
                     }
                 }
-                .setNegativeButton("cancel") { _, _ -> }
+                .setNegativeButton(getString(R.string.cancel)) { _, _ -> }
                 .show()
         })
 

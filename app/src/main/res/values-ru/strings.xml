@@ -5,6 +5,10 @@
     <!--    chose_list_dialog-->
     <string name="chose_list">Выберете список</string>
     <string name="crete_list">Создать список</string>
+    <string name="delete_list">Удалить список?</string>
+    <string name="can_not_undo">"Это действие нельзя будет отменить</string>
+
+
 
     <!--    chose_dices_dialog-->
     <string name="number_of_dice">Количество кубиков(1 – 50)</string>
@@ -68,6 +72,11 @@
     <string name="delete">Удалить</string>
     <string name="edit">Редактировать</string>
     <string name="apply">Применить</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="cancel">Отмена</string>
+    <string name="save_changes">Сохранить изменения</string>
+
 
 
 </resources>

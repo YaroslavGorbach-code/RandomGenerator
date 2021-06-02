@@ -2,7 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/changeTheme"
-        android:title="Change theme" />
+        android:title="Change theme"
+        android:visible="false"
+        />
     <item
         android:id="@+id/rate"
         android:title="Rate"

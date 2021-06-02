@@ -2,6 +2,7 @@ package com.example.yaroslavgorbach.randomizer.screen.list
 
 import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.core.os.bundleOf
@@ -9,6 +10,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.yaroslavgorbach.randomizer.InputFilters
+import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.data.local.ListItemEntity
 import com.example.yaroslavgorbach.randomizer.data.local.Repo
 import com.example.yaroslavgorbach.randomizer.databinding.DialogCreateListBinding
@@ -24,6 +26,7 @@ class CreateEditListDialog: DialogFragment() {
     private val listOfItems = LinkedList<String>()
     private val listOfNewItems = mutableListOf<String>()
     private val listOfDeletedItems = mutableListOf<String>()
+    private lateinit var binding: DialogCreateListBinding
     @Inject lateinit var mRepo: Repo
 
 
@@ -40,7 +43,7 @@ class CreateEditListDialog: DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val binding = DialogCreateListBinding.inflate(LayoutInflater.from(requireContext()))
+        binding = DialogCreateListBinding.inflate(LayoutInflater.from(requireContext()))
         val dialog = MaterialAlertDialogBuilder(requireContext())
             .setView(binding.root)
             .create()
@@ -100,40 +103,40 @@ class CreateEditListDialog: DialogFragment() {
                 this.dismiss()
             }
         }
-
-        dialog.setOnCancelListener {
-            if (listOfNewItems.size > 0
-                || listOfDeletedItems.size > 0
-                || binding.titleText.text.toString().isNotEmpty() && listOfItems.isNotEmpty()
-                && title != binding.titleText.text.toString()
-
-            ) {
-                MaterialAlertDialogBuilder(requireContext())
-                    .setTitle("Save changes?")
-                    .setPositiveButton("Yes") { _, _ ->
-                        changeListItems(listOfNewItems, binding.titleText, listOfDeletedItems)
-                        changeListTitle(title, binding.titleText)
-                    }
-                    .setNegativeButton("No") { _, _ -> }
-                    .show()
-            }
-        }
-
         return dialog
     }
 
+    override fun onCancel(dialog: DialogInterface) {
+        super.onCancel(dialog)
+        if (listOfNewItems.size > 0
+            || listOfDeletedItems.size > 0
+            || binding.titleText.text.toString().isNotEmpty() && listOfItems.isNotEmpty()
+            && title != binding.titleText.text.toString()
+
+        ) {
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(getString(R.string.save_changes))
+                .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                    changeListItems(listOfNewItems, binding.titleText, listOfDeletedItems)
+                    changeListTitle(title, binding.titleText)
+                }
+                .setNegativeButton(getString(R.string.no)) { _, _ -> }
+                .show()
+        }
+
+    }
     private fun changeListItems(
         listOfNewItems: MutableList<String>,
         listTitleEt: TextInputEditText,
         listOfDeletedItems: MutableList<String>
     ) {
         listOfNewItems.forEach {
-            GlobalScope.launch {
+            lifecycleScope.launch {
                 mRepo.addItem(ListItemEntity(null, it, listTitleEt.text.toString()))
             }
         }
         listOfDeletedItems.forEach {
-            GlobalScope.launch {
+            lifecycleScope.launch {
                 mRepo.deleteItem(mRepo.getItemByText(it))
             }
         }
@@ -144,7 +147,7 @@ class CreateEditListDialog: DialogFragment() {
         listTitleEt: TextInputEditText
     ) {
         if (currentTitle != null && currentTitle != listTitleEt.text.toString()) {
-            GlobalScope.launch {
+            lifecycleScope.launch {
                 mRepo.changeTitle(oldTitle = currentTitle, newTitle = listTitleEt.text.toString())
             }
         }
