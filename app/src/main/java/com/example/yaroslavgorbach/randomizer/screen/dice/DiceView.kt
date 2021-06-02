@@ -2,6 +2,8 @@ package com.example.yaroslavgorbach.randomizer.screen.dice
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -71,7 +73,8 @@ class DiceView(
     }
 
     private fun rotateDice(dice: DiceModel) {
-        soundManager.rollAllDicesSoundPlay()
+        Handler(Looper.getMainLooper()).postDelayed({ soundManager.rollAllDicesSoundPlay() }, 100)
+
         ValueAnimator.ofFloat(-740f, 0f).apply {
 
             addUpdateListener {
