@@ -20,7 +20,7 @@
     <!--    create_number_dialog-->
     <string name="max">Max</string>
     <string name="min">Min</string>
-    <string name="number_of_results">Number of results(1 – 100)</string>
+    <string name="number_of_results">Number of results(1 – 1000)</string>
     <string name="generate">GENERATE</string>
 
     <!--    dialog_color_picker-->
@@ -54,7 +54,7 @@
     <string name="dice_value">Value must be between 1 and 50</string>
     <string name="number_max_min">Incorrect value</string>
     <string name="number_min_bigger_then_max">Min value cannot be more then max</string>
-    <string name="number_results_too_large">Value cannot be less than 1 or more than 100</string>
+    <string name="number_results_too_large">Value cannot be less than 1 or more than 1000</string>
     <string name="matches_empty">This field cannot be empty or less than 1</string>
     <string name="number_of_burned_invalid">This field cannot be empty or less than 0</string>
     <string name="number_of_matches_too_large">Value cannot be bigger than 500</string>

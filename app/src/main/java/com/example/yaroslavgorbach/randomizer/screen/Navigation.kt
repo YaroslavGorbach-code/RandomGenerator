@@ -11,7 +11,6 @@ interface Navigation {
     fun showMatchesDialog()
     fun showNumberDialog()
     fun showDicesDialog()
-    fun showChangeThemeDialog()
     fun showChoseListDialog()
     fun showCreateEditListDialog(title: String?)
 }

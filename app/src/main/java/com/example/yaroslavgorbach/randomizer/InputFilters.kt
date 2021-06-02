@@ -37,7 +37,7 @@ class InputFilters {
 
         fun numberOfResultsFilter(et: TextInputEditText): Boolean {
             if (et.text.toString().trim().isEmpty()
-                || et.text.toString().toLong() > 100
+                || et.text.toString().toLong() > 1000
                 || et.text.toString().toLong() < 1
             ) {
                 et.error = et.context.getString(R.string.number_results_too_large)

@@ -15,14 +15,14 @@
     <string name="add">ДОБАВИТЬ</string>
 
     <!--    create_matches_dialog-->
-    <string name="number_of_matches">Количество спичек</string>
-    <string name="number_of_burned">Количество сгоревших спичек</string>
+    <string name="number_of_matches">Спичек(1 – 500)</string>
+    <string name="number_of_burned">Сгоревших(1 – 500)</string>
 
     <!--    create_number_dialog-->
     <string name="max">Максимум</string>
     <string name="min">Минимум</string>
-    <string name="number_of_results">Количество результатов(1 – 100)</string>
-    <string name="generate">ГЕНЕРИРОВАТЬ</string>
+    <string name="number_of_results">Количество результатов(1 – 1000)</string>
+    <string name="generate">СГЕНЕРИРОВАТЬ</string>
 
     <!--    dialog_color_picker-->
     <string name="night_mode">Ночной режим</string>
@@ -55,7 +55,7 @@
     <string name="dice_value">Значение должно быть от 1 до 50</string>
     <string name="number_max_min">Неверное значение</string>
     <string name="number_min_bigger_then_max">Минимальное значение не может быть больше максимального</string>
-    <string name="number_results_too_large">Значение не может быть меньше 1 или больше 100</string>
+    <string name="number_results_too_large">Значение не может быть меньше 1 или больше 1000</string>
     <string name="matches_empty">Это поле не может быть пустым или меньше 1</string>
     <string name="number_of_burned_invalid">Это поле не может быть пустым или меньше 0</string>
     <string name="number_of_matches_too_large">Значение не может быть больше 500</string>

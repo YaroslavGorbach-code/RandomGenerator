@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
-import com.example.yaroslavgorbach.randomizer.screen.ChangeThemeDialog
 import com.example.yaroslavgorbach.randomizer.screen.Navigation
 import com.example.yaroslavgorbach.randomizer.screen.MainFragment
 import com.example.yaroslavgorbach.randomizer.screen.coin.CoinFragment
@@ -17,7 +16,6 @@ import com.example.yaroslavgorbach.randomizer.screen.matches.CreateMatchesDialog
 import com.example.yaroslavgorbach.randomizer.screen.matches.MatchesFragment
 import com.example.yaroslavgorbach.randomizer.screen.number.CreateNumberDialog
 import com.example.yaroslavgorbach.randomizer.screen.number.NumberFragment
-import com.example.yaroslavgorbach.randomizer.util.ThemesUtils
 
 
 class MainActivity : AppCompatActivity(), Navigation{
@@ -82,10 +80,6 @@ class MainActivity : AppCompatActivity(), Navigation{
 
     override fun showDicesDialog() {
         CreateDicesDialog().show(supportFragmentManager, null)
-    }
-
-    override fun showChangeThemeDialog() {
-        ChangeThemeDialog().show(supportFragmentManager, null)
     }
 
     override fun showChoseListDialog() {

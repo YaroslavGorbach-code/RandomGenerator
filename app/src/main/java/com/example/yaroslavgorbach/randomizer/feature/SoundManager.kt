@@ -5,10 +5,11 @@ import android.media.AudioAttributes
 import android.media.SoundPool
 import com.example.yaroslavgorbach.randomizer.data.local.soundPref.SoundPrefs
 import com.example.yaroslavgorbach.randomizer.R
+import com.example.yaroslavgorbach.randomizer.data.local.Repo
 import javax.inject.Inject
 
 
-class SoundManager @Inject constructor(context: Context, soundPrefs: SoundPrefs) {
+class SoundManager @Inject constructor(context: Context, private val repo: Repo) {
 
     private var mSoundPool: SoundPool
     private var mSoundFlipCoin = 0
@@ -17,7 +18,6 @@ class SoundManager @Inject constructor(context: Context, soundPrefs: SoundPrefs)
     private var mSoundNumberSwipe = 0
     private var mSoundListBell = 0
     private var mSoundMatch = 0
-    private val mSoundPreferences = soundPrefs
 
     init {
         val audioAttributes = AudioAttributes.Builder()
@@ -40,32 +40,32 @@ class SoundManager @Inject constructor(context: Context, soundPrefs: SoundPrefs)
 
 
     fun flipCoinSoundPlay() {
-        if (mSoundPreferences.getState(SoundPrefs.COIN_SOUND_KEY))
+        if (repo.getCoinSoundIsAllow())
         mSoundPool.play(mSoundFlipCoin, 1f, 1f, 1, 0, 1f)
     }
 
     fun fallCoinSoundPlay() {
-        if (mSoundPreferences.getState(SoundPrefs.COIN_SOUND_KEY))
+        if (repo.getCoinSoundIsAllow())
             mSoundPool.play(mSoundFallCoin, 1f, 1f, 1, 0, 1f)
     }
 
     fun rollAllDicesSoundPlay() {
-        if (mSoundPreferences.getState(SoundPrefs.DICE_SOUND_KEY))
+        if (repo.getDiceSoundIsAllow())
             mSoundPool.play(mSoundRollAllDices, 1f, 1f, 1, 0, 1f)
     }
 
     fun numberSwipeSoundPlay() {
-        if (mSoundPreferences.getState(SoundPrefs.NUMBER_SOUND_KEY))
+        if (repo.getNumberSoundIsAllow())
         mSoundPool.play(mSoundNumberSwipe, 1f, 1f, 1, 0, 1f)
     }
 
     fun listBellSoundPlay() {
-        if (mSoundPreferences.getState(SoundPrefs.LIST_SOUND_KEY))
+        if (repo.getListSoundIsAllow())
         mSoundPool.play(mSoundListBell, 1f, 1f, 1, 0, 1f)
     }
 
     fun matchSoundPlay(){
-        if (mSoundPreferences.getState(SoundPrefs.MATCHES_SOUND_KEY))
+        if (repo.getMatchesSoundIsAllow())
         mSoundPool.play(mSoundMatch, 1f, 1f, 1, 0, 1f)
     }
 }

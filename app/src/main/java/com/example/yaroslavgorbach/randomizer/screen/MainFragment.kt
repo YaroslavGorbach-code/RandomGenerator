@@ -25,7 +25,7 @@ class MainFragment : Fragment(R.layout.fragment_random_list) {
         toolbar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.changeTheme -> {
-                    nav.showChangeThemeDialog()
+
                 }
                 R.id.rate -> {
                 }

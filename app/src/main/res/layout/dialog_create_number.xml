@@ -76,7 +76,7 @@
             android:hint="@string/number_of_results"
             android:imeOptions="actionDone"
             android:inputType="numberSigned"
-            android:maxLength="19"
+            android:maxLength="4"
             android:text="1"
             tools:ignore="HardcodedText" />
 
