@@ -5,14 +5,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.component.matches.Matches
 import com.example.yaroslavgorbach.randomizer.component.matches.MatchesImp
-import com.example.yaroslavgorbach.randomizer.data.database.Repo
+import com.example.yaroslavgorbach.randomizer.data.local.Repo
 import com.example.yaroslavgorbach.randomizer.databinding.FragmentMatchesBinding
 import com.example.yaroslavgorbach.randomizer.di.appComponent
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
+import com.example.yaroslavgorbach.randomizer.util.onBackPressed
 import javax.inject.Inject
 
 class MatchesFragment : Fragment(R.layout.fragment_matches) {
@@ -46,6 +46,7 @@ class MatchesFragment : Fragment(R.layout.fragment_matches) {
             soundManager,
             object : MatchesView.Callback {
                 override fun onBack() {
+                    onBackPressed()
                 }
 
                 override fun onSoundDisallow() {

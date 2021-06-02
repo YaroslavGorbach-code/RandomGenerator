@@ -6,10 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.yaroslavgorbach.randomizer.InputFilters
-import com.example.yaroslavgorbach.randomizer.data.database.ListItemEntity
-import com.example.yaroslavgorbach.randomizer.data.database.Repo
+import com.example.yaroslavgorbach.randomizer.data.local.ListItemEntity
+import com.example.yaroslavgorbach.randomizer.data.local.Repo
 import com.example.yaroslavgorbach.randomizer.databinding.DialogCreateListBinding
 import com.example.yaroslavgorbach.randomizer.di.appComponent
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -54,7 +55,7 @@ class CreateEditListDialog: DialogFragment() {
 
         // if != null update list
         title?.let {
-            GlobalScope.launch {
+            lifecycleScope.launch {
                 mRepo.getItemsByTitle(it).also { items ->
                     repeat(items.size) { index ->
                         listOfItems.push(items[index])

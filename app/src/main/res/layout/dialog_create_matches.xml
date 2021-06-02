@@ -23,7 +23,9 @@
             android:hint="@string/number_of_matches"
             android:imeOptions="actionDone"
             android:inputType="number"
-            android:maxLength="3" />
+            android:maxLength="3" >
+            <requestFocus/>
+        </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
 
 

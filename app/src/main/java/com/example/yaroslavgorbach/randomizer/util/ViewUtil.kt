@@ -1,6 +1,8 @@
 package com.example.yaroslavgorbach.randomizer.util
 
 import android.content.Context
+import android.view.Window
+import android.view.WindowManager
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.res.ResourcesCompat
 import com.example.yaroslavgorbach.randomizer.R
@@ -21,3 +23,6 @@ fun Toolbar.setIconMusicOff() {
 }
 
 fun Context.getScreenHeight() = resources.displayMetrics.heightPixels
+
+fun Window.showKeyBoard() = setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+

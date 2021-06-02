@@ -2,7 +2,7 @@ package com.example.yaroslavgorbach.randomizer.component.number
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.yaroslavgorbach.randomizer.data.database.Repo
+import com.example.yaroslavgorbach.randomizer.data.local.Repo
 
 class NumberComImp(
     private val repo: Repo,

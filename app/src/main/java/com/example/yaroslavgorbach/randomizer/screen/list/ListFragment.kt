@@ -3,19 +3,17 @@ package com.example.yaroslavgorbach.randomizer.screen.list
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.ScrollView
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.component.list.ListComp
 import com.example.yaroslavgorbach.randomizer.component.list.ListCompImp
-import com.example.yaroslavgorbach.randomizer.data.database.Repo
+import com.example.yaroslavgorbach.randomizer.data.local.Repo
 import com.example.yaroslavgorbach.randomizer.databinding.FragmentListBinding
 import com.example.yaroslavgorbach.randomizer.di.appComponent
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
+import com.example.yaroslavgorbach.randomizer.util.onBackPressed
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -50,7 +48,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             }
 
             override fun onBack() {
-
+                onBackPressed()
             }
         })
         listComp.getSoundIsAllow().observe(viewLifecycleOwner, v::setSoundIsAllow)

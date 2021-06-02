@@ -7,6 +7,7 @@ import androidx.fragment.app.DialogFragment
 import com.example.yaroslavgorbach.randomizer.InputFilters
 import com.example.yaroslavgorbach.randomizer.databinding.DialogCreateDicesBinding
 import com.example.yaroslavgorbach.randomizer.screen.nav
+import com.example.yaroslavgorbach.randomizer.util.showKeyBoard
 import com.example.yaroslavgorbach.randomizer.util.toInt
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -17,6 +18,7 @@ class CreateDicesDialog: DialogFragment() {
         val dialog = MaterialAlertDialogBuilder(requireContext())
             .setView(binding.root)
             .create()
+        dialog.window?.showKeyBoard()
 
         binding.create.setOnClickListener {
             if (InputFilters.diceFilter(binding.numberDices)){

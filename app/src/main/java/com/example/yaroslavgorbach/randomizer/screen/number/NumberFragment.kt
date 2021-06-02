@@ -9,10 +9,11 @@ import androidx.core.os.bundleOf
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.component.number.NumberCom
 import com.example.yaroslavgorbach.randomizer.component.number.NumberComImp
-import com.example.yaroslavgorbach.randomizer.data.database.Repo
+import com.example.yaroslavgorbach.randomizer.data.local.Repo
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
 import com.example.yaroslavgorbach.randomizer.databinding.FragmentNumberBinding
 import com.example.yaroslavgorbach.randomizer.di.appComponent
+import com.example.yaroslavgorbach.randomizer.util.onBackPressed
 import javax.inject.Inject
 
 class NumberFragment : Fragment(R.layout.fragment_number) {
@@ -46,6 +47,7 @@ class NumberFragment : Fragment(R.layout.fragment_number) {
             }
 
             override fun onBack() {
+                onBackPressed()
             }
 
             override fun onSoundAllow() {

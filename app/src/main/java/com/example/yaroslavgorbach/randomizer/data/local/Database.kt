@@ -1,4 +1,4 @@
-package com.example.yaroslavgorbach.randomizer.data.database
+package com.example.yaroslavgorbach.randomizer.data.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

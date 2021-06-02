@@ -5,14 +5,13 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.core.os.bundleOf
-import androidx.lifecycle.Observer
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.component.dice.DiceImp
-import com.example.yaroslavgorbach.randomizer.data.database.Repo
+import com.example.yaroslavgorbach.randomizer.data.local.Repo
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
 import com.example.yaroslavgorbach.randomizer.databinding.FragmentDicesBinding
 import com.example.yaroslavgorbach.randomizer.di.appComponent
-import kotlinx.android.synthetic.main.item_dice.*
+import com.example.yaroslavgorbach.randomizer.util.onBackPressed
 import javax.inject.Inject
 
 class DiceFragment : Fragment(R.layout.fragment_dices) {
@@ -38,6 +37,7 @@ class DiceFragment : Fragment(R.layout.fragment_dices) {
         // init view
         val v = DiceView(FragmentDicesBinding.bind(view), number, soundManager, object :DiceView.Callback{
             override fun onBack() {
+                onBackPressed()
             }
 
             override fun onSoundDisallow() {

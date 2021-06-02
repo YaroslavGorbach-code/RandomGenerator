@@ -6,7 +6,7 @@ import android.view.animation.LinearInterpolator
 import android.widget.ImageView
 import androidx.lifecycle.MutableLiveData
 import com.example.yaroslavgorbach.randomizer.R
-import com.example.yaroslavgorbach.randomizer.data.database.Repo
+import com.example.yaroslavgorbach.randomizer.data.local.Repo
 import com.example.yaroslavgorbach.randomizer.util.disableViewDuringAnimation
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
 import com.example.yaroslavgorbach.randomizer.screen.coin.*

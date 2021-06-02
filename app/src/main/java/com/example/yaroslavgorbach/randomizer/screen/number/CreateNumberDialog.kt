@@ -8,6 +8,7 @@ import com.example.yaroslavgorbach.randomizer.InputFilters
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.databinding.DialogCreateNumberBinding
 import com.example.yaroslavgorbach.randomizer.screen.nav
+import com.example.yaroslavgorbach.randomizer.util.showKeyBoard
 import com.example.yaroslavgorbach.randomizer.util.toLong
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -18,7 +19,7 @@ class CreateNumberDialog : DialogFragment() {
         val dialog = MaterialAlertDialogBuilder(requireContext())
             .setView(binding.root)
             .create()
-
+        dialog.window?.showKeyBoard()
         binding.generate.setOnClickListener {
             if (InputFilters.numberMaxMinFilter(binding.maxNumber)
                 && InputFilters.numberMaxMinFilter(binding.minNumber)

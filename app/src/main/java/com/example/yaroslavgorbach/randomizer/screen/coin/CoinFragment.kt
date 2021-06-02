@@ -4,16 +4,14 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.example.yaroslavgorbach.randomizer.*
 import com.example.yaroslavgorbach.randomizer.component.coin.Coin
 import com.example.yaroslavgorbach.randomizer.component.coin.CoinImp
-import com.example.yaroslavgorbach.randomizer.data.database.Repo
+import com.example.yaroslavgorbach.randomizer.data.local.Repo
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
 import com.example.yaroslavgorbach.randomizer.databinding.FragmentCoinBinding
 import com.example.yaroslavgorbach.randomizer.di.appComponent
-import com.example.yaroslavgorbach.randomizer.util.setIconMusicOff
-import com.example.yaroslavgorbach.randomizer.util.setIconMusicOn
+import com.example.yaroslavgorbach.randomizer.util.onBackPressed
 import javax.inject.Inject
 
 class CoinFragment : Fragment(R.layout.fragment_coin) {
@@ -46,6 +44,7 @@ class CoinFragment : Fragment(R.layout.fragment_coin) {
             }
 
             override fun onBack() {
+                onBackPressed()
             }
 
         })

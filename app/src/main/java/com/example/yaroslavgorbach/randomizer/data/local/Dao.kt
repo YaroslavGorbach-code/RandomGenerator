@@ -1,4 +1,4 @@
-package com.example.yaroslavgorbach.randomizer.data.database
+package com.example.yaroslavgorbach.randomizer.data.local
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

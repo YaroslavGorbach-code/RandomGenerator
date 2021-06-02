@@ -22,9 +22,9 @@
             android:layout_height="wrap_content"
             android:hint="@string/number_of_dice"
             android:imeOptions="actionDone"
-            android:inputType="number"
-
-            />
+            android:inputType="number">
+            <requestFocus/>
+            ></com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
