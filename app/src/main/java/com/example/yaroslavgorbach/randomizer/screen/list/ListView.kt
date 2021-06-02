@@ -73,9 +73,7 @@ class ListView(
 
             itemV.setOnClickListener {
                 if (listItem.textView.text.isNotEmpty()) {
-                    listAnimator.hideItem(listItem.textView, onHideItem = {
-                        listItem.textView.text = null
-                    })
+                    showFinalItem(listItem)
                 } else {
                     animateItem(listItem, false)
                 }

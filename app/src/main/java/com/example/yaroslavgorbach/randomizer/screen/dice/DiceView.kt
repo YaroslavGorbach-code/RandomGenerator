@@ -9,7 +9,9 @@ import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import androidx.core.animation.doOnEnd
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.component.dice.DiceImp
 import com.example.yaroslavgorbach.randomizer.databinding.FragmentDicesBinding
@@ -21,6 +23,7 @@ import com.example.yaroslavgorbach.randomizer.util.setIconMusicOn
 class DiceView(
     private val binding: FragmentDicesBinding,
     number: Int,
+    lifecycleOwner: LifecycleOwner,
     private val soundManager: SoundManager,
     callback: Callback
 ) {
@@ -59,6 +62,7 @@ class DiceView(
         binding.toolbar.setNavigationOnClickListener { callback.onBack() }
         binding.animate.setOnClickListener { animateAll() }
         animateAll()
+        mSum.observe(lifecycleOwner, { binding.toolbar.title = it.toString() })
     }
 
     private fun animateAll() {

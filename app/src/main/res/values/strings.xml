@@ -75,5 +75,21 @@
     <string name="save_changes">Save changes?</string>
     <string name="no">No</string>
 
-
+    <!--  excuses-->
+    <string name="excuses">Excuses</string>
+    <string name="excuses_1">My neighbor called - the water pipes "broke" and basement is flooding. Got to get home ASAP, sorry!</string>
+    <string name="excuses_2">There are cops around, i’ll call you later</string>
+    <string name="excuses_3">Leonardo DiCaprio called me to netflix and chill last night</string>
+    <string name="excuses_4">My cat needed some love and i couldn’t leave him</string>
+    <string name="excuses_5">Sorry for missing the call my calendar has timezone issues</string>
+    <string name="excuses_6">The dog ate my notebook. Really! It`s no funny!</string>
+    <string name="excuses_7">My spiritual animal is a bear, so it’s hard for me to be awaken this cold winter days</string>
+    <string name="excuses_8">I moved to another house yesterday. had no time to inform you</string>
+    <string name="excuses_9">I was there the entire time, you just didn’t notice me</string>
+    <string name="excuses_10">It’s always hard for me to write first and i was waiting for your letter</string>
+    <string name="excuses_11">I woke up and somehow thought today was Sunday</string>
+    <string name="excuses_12">My trousers split on a way to work</string>
+    <string name="excuses_13">I moved to another house yesterday. had no time to inform you</string>
+    <string name="excuses_14">I’ve locked my keys in car. The locksmith’s on the way, but he said it might be hours before he arrives</string>
+    <string name="excuses_15">We ran out of toilet paper at my house last night, and my Dad isn’t feeling so good. He grabbed it in a big rush and I haven’t seen it since</string>
 </resources>

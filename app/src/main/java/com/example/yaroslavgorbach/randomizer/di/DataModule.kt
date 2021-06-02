@@ -20,21 +20,6 @@ class DataModule {
         return Room.databaseBuilder(
             context.applicationContext,
             Database::class.java, "list.db"
-        )
-            .addCallback(object : RoomDatabase.Callback() {
-                override fun onCreate(db: SupportSQLiteDatabase) {
-                    super.onCreate(db)
-                    val cv = ContentValues()
-                    cv.put("text", "item 1")
-                    cv.put("title", "TestList_1")
-                    db.insert("ListItemEntity", SQLiteDatabase.CONFLICT_REPLACE, cv)
-                    cv.put("text", "item 2")
-                    cv.put("title", "TestList_1")
-                    db.insert("ListItemEntity", SQLiteDatabase.CONFLICT_REPLACE, cv)
-                    cv.put("text", "item 3")
-                    cv.put("title", "TestList_1")
-                    db.insert("ListItemEntity", SQLiteDatabase.CONFLICT_REPLACE, cv)
-                }
-            }).build()
+        ).build()
     }
 }

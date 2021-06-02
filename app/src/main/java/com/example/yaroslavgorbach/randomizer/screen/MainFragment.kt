@@ -6,12 +6,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.yaroslavgorbach.randomizer.R
+import com.example.yaroslavgorbach.randomizer.data.local.Repo
 import com.example.yaroslavgorbach.randomizer.databinding.FragmentRandomListBinding
 import com.example.yaroslavgorbach.randomizer.di.appComponent
 import kotlinx.android.synthetic.main.fragment_random_list.*
+import javax.inject.Inject
 
 class MainFragment : Fragment(R.layout.fragment_random_list) {
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         appComponent.inject(this)
@@ -25,7 +26,6 @@ class MainFragment : Fragment(R.layout.fragment_random_list) {
         toolbar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.changeTheme -> {
-
                 }
                 R.id.rate -> {
                 }

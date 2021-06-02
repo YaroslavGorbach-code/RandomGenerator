@@ -46,7 +46,7 @@
     <string name="matches">Спички</string>
 
     <!--    fragment_number-->
-    <string name="number">Число</string>
+    <string name="number">Числа</string>
 
     <!--    fragment_random_list-->
     <string name="coin_u">МОНЕТКА</string>
@@ -77,6 +77,21 @@
     <string name="cancel">Отмена</string>
     <string name="save_changes">Сохранить изменения</string>
 
-
+    <string name="excuses">Отмазки</string>
+    <string name="excuses_1">У меня болел мизинчик на левой ноге</string>
+    <string name="excuses_2">А? Что? извините, плохо слышу, заезжаю в туннель…</string>
+    <string name="excuses_3">Установил последнее обновление Линукса - теперь ничего не работает. Да-да, и интернет не работает. И браузеры. Буду весь день разбираться</string>
+    <string name="excuses_4">По частям у меня все готово, просто нужно собрать в один проект</string>
+    <string name="excuses_5">Я опоздал, потому что заблудился на жизненном пути</string>
+    <string name="excuses_6">Я не брал трубку потому что ухо затекло</string>
+    <string name="excuses_7">Меня закрыли дома, а ключи забрали</string>
+    <string name="excuses_8">Когда я сказал, что сделаю через неделю, я имел в виду семь рабочих дней, у меня осталось еще два</string>
+    <string name="excuses_9">Не знаю, я тут на все кнопки уже понажимал и ничего не помогает, не знаю что еще сделать</string>
+    <string name="excuses_10">Я пропал на две недели не просто так. Я хотел посмотреть на ваш проект свежим взглядом</string>
+    <string name="excuses_11">Вчерашний день я уделил нахождению гармонии с миром и не мог работать</string>
+    <string name="excuses_12">Я семь дней не брал трубку, так как проходил обряд молчания, простите что не предупредил</string>
+    <string name="excuses_13">Я опоздал потому, что было уже поздно выходить раньше</string>
+    <string name="excuses_14">Вчера была Кровавая Луна, мама сказала нельзя работать</string>
+    <string name="excuses_15">Ворона украла флешку</string>
 
 </resources>

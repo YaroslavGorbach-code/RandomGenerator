@@ -3,7 +3,7 @@ package com.example.yaroslavgorbach.randomizer.di
 import android.content.Context
 import com.example.yaroslavgorbach.randomizer.data.local.Repo
 import com.example.yaroslavgorbach.randomizer.feature.SoundManager
-import com.example.yaroslavgorbach.randomizer.data.local.soundPref.SoundPrefs
+import com.example.yaroslavgorbach.randomizer.data.local.soundpref.SoundPrefs
 import dagger.Module
 import dagger.Provides
 

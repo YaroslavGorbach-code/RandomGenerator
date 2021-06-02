@@ -3,7 +3,7 @@ package com.example.yaroslavgorbach.randomizer.feature
 import android.content.Context
 import android.media.AudioAttributes
 import android.media.SoundPool
-import com.example.yaroslavgorbach.randomizer.data.local.soundPref.SoundPrefs
+import com.example.yaroslavgorbach.randomizer.data.local.soundpref.SoundPrefs
 import com.example.yaroslavgorbach.randomizer.R
 import com.example.yaroslavgorbach.randomizer.data.local.Repo
 import javax.inject.Inject
