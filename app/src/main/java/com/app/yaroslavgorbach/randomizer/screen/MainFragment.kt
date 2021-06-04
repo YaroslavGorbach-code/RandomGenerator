@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.app.yaroslavgorbach.randomizer.R
-import com.app.yaroslavgorbach.randomizer.databinding.FragmentRandomListBinding
 import com.app.yaroslavgorbach.randomizer.di.appComponent
+import com.app.yaroslavgorbach.randomizer.databinding.FragmentRandomListBinding
 import kotlinx.android.synthetic.main.fragment_random_list.*
 
 class MainFragment : Fragment(R.layout.fragment_random_list) {

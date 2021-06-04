@@ -7,6 +7,8 @@ import androidx.fragment.app.DialogFragment
 import com.app.yaroslavgorbach.randomizer.InputFilters
 import com.app.yaroslavgorbach.randomizer.databinding.DialogCreateNumberBinding
 import com.app.yaroslavgorbach.randomizer.screen.nav
+import com.app.yaroslavgorbach.randomizer.util.showKeyBoard
+import com.app.yaroslavgorbach.randomizer.util.toLong
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class CreateNumberDialog : DialogFragment() {

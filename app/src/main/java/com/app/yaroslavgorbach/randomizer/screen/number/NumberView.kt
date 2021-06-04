@@ -11,6 +11,10 @@ import android.widget.TextView
 import androidx.core.animation.doOnStart
 import com.app.yaroslavgorbach.randomizer.databinding.FragmentNumberBinding
 import com.app.yaroslavgorbach.randomizer.feature.SoundManager
+import com.app.yaroslavgorbach.randomizer.util.disableViewDuringAnimation
+import com.app.yaroslavgorbach.randomizer.util.getScreenHeight
+import com.app.yaroslavgorbach.randomizer.util.setIconMusicOff
+import com.app.yaroslavgorbach.randomizer.util.setIconMusicOn
 
 class NumberView(
     private val binding: FragmentNumberBinding,
@@ -52,7 +56,10 @@ class NumberView(
     private fun animate() {
         val hide = ValueAnimator.ofFloat(-binding.root.context.getScreenHeight().toFloat()).apply {
             doOnStart {
-                Handler(Looper.getMainLooper()).postDelayed({ soundManager.numberSwipeSoundPlay() }, 100)
+                Handler(Looper.getMainLooper()).postDelayed(
+                    { soundManager.numberSwipeSoundPlay() },
+                    100
+                )
             }
             addUpdateListener {
                 binding.numberParent.translationX = animatedValue as Float
@@ -62,8 +69,9 @@ class NumberView(
             }
         }
 
-        val show = ValueAnimator.ofFloat(binding.root.context.getScreenHeight().toFloat(), 0f).apply {
-            doOnStart { soundManager.numberSwipeSoundPlay() }
+        val show =
+            ValueAnimator.ofFloat(binding.root.context.getScreenHeight().toFloat(), 0f).apply {
+                doOnStart { soundManager.numberSwipeSoundPlay() }
                 addUpdateListener {
                     binding.numberParent.translationX = animatedValue as Float
                 }
@@ -89,6 +97,7 @@ class NumberView(
         }
         animateButton()
     }
+
     private fun animateButton() {
         ObjectAnimator.ofFloat(binding.animate, View.ROTATION, -360f, 0f).apply {
             duration = 1000

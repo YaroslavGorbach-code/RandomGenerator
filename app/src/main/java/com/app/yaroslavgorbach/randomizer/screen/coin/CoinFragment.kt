@@ -1,22 +1,25 @@
 package com.app.yaroslavgorbach.randomizer.screen.coin
+
 import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import com.app.yaroslavgorbach.randomizer.*
+import com.app.yaroslavgorbach.randomizer.R
 import com.app.yaroslavgorbach.randomizer.component.coin.Coin
 import com.app.yaroslavgorbach.randomizer.component.coin.CoinImp
 import com.app.yaroslavgorbach.randomizer.data.local.Repo
-import com.app.yaroslavgorbach.randomizer.feature.SoundManager
-import com.app.yaroslavgorbach.randomizer.databinding.FragmentCoinBinding
 import com.app.yaroslavgorbach.randomizer.di.appComponent
+import com.app.yaroslavgorbach.randomizer.feature.SoundManager
 import com.app.yaroslavgorbach.randomizer.util.onBackPressed
+import com.app.yaroslavgorbach.randomizer.databinding.FragmentCoinBinding
 import javax.inject.Inject
 
 class CoinFragment : Fragment(R.layout.fragment_coin) {
-    @Inject lateinit var soundManager: SoundManager
-    @Inject lateinit var repo: Repo
+    @Inject
+    lateinit var soundManager: SoundManager
+    @Inject
+    lateinit var repo: Repo
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -30,10 +33,7 @@ class CoinFragment : Fragment(R.layout.fragment_coin) {
         val coinComponent: Coin = CoinImp(soundManager, repo)
 
         // init view
-        val v = CoinView(FragmentCoinBinding.bind(view), object :CoinView.Callback{
-            override fun onCoin(coin: ImageView, fon: ImageView) {
-                coinComponent.animate(coin, fon)
-            }
+        val v = CoinView(FragmentCoinBinding.bind(view), soundManager, object : CoinView.Callback {
 
             override fun onSoundAllow() {
                 coinComponent.allowSound()
@@ -50,5 +50,5 @@ class CoinFragment : Fragment(R.layout.fragment_coin) {
         })
         coinComponent.getSoundIsAllow().observe(viewLifecycleOwner, v::setSoundIsAllow)
 
-        }
     }
+}

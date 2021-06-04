@@ -9,15 +9,17 @@ import com.app.yaroslavgorbach.randomizer.R
 import com.app.yaroslavgorbach.randomizer.component.matches.Matches
 import com.app.yaroslavgorbach.randomizer.component.matches.MatchesImp
 import com.app.yaroslavgorbach.randomizer.data.local.Repo
-import com.app.yaroslavgorbach.randomizer.databinding.FragmentMatchesBinding
 import com.app.yaroslavgorbach.randomizer.di.appComponent
 import com.app.yaroslavgorbach.randomizer.feature.SoundManager
 import com.app.yaroslavgorbach.randomizer.util.onBackPressed
+import com.app.yaroslavgorbach.randomizer.databinding.FragmentMatchesBinding
 import javax.inject.Inject
 
 class MatchesFragment : Fragment(R.layout.fragment_matches) {
-    @Inject lateinit var soundManager: SoundManager
-    @Inject lateinit var repo: Repo
+    @Inject
+    lateinit var soundManager: SoundManager
+    @Inject
+    lateinit var repo: Repo
 
     companion object Args {
         fun argsOf(number: Int, burned: Int) =

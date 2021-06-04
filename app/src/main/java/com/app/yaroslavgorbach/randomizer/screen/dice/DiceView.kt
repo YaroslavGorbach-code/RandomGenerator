@@ -15,6 +15,8 @@ import com.app.yaroslavgorbach.randomizer.R
 import com.app.yaroslavgorbach.randomizer.databinding.FragmentDicesBinding
 import com.app.yaroslavgorbach.randomizer.feature.SoundManager
 import com.app.yaroslavgorbach.randomizer.util.disableViewDuringAnimation
+import com.app.yaroslavgorbach.randomizer.util.setIconMusicOff
+import com.app.yaroslavgorbach.randomizer.util.setIconMusicOn
 
 class DiceView(
     private val binding: FragmentDicesBinding,
@@ -45,7 +47,7 @@ class DiceView(
             val item: View = inflater.inflate(R.layout.item_dice, binding.grid, false)
             val diceImage: ImageView = item.findViewById(R.id.dice)
             val dice = DiceModel(diceImage, 0)
-            item.setOnClickListener { rotateDice(dice)}
+            item.setOnClickListener { rotateDice(dice) }
             mSum.value = mSum.value!! + dice.points
             mDices.add(dice)
             binding.grid.addView(item)

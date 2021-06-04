@@ -9,6 +9,8 @@ import android.widget.TextView
 import com.app.yaroslavgorbach.randomizer.R
 import com.app.yaroslavgorbach.randomizer.databinding.FragmentListBinding
 import com.app.yaroslavgorbach.randomizer.feature.SoundManager
+import com.app.yaroslavgorbach.randomizer.util.setIconMusicOff
+import com.app.yaroslavgorbach.randomizer.util.setIconMusicOn
 
 @SuppressLint("ClickableViewAccessibility")
 class ListView(
@@ -49,7 +51,7 @@ class ListView(
         }
         binding.grid.setOnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_UP)
-            hideFinalItem()
+                hideFinalItem()
             true
         }
     }

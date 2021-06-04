@@ -13,8 +13,8 @@ import com.app.yaroslavgorbach.randomizer.InputFilters
 import com.app.yaroslavgorbach.randomizer.R
 import com.app.yaroslavgorbach.randomizer.data.local.ListItemEntity
 import com.app.yaroslavgorbach.randomizer.data.local.Repo
-import com.app.yaroslavgorbach.randomizer.databinding.DialogCreateListBinding
 import com.app.yaroslavgorbach.randomizer.di.appComponent
+import com.app.yaroslavgorbach.randomizer.databinding.DialogCreateListBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.GlobalScope
@@ -22,17 +22,17 @@ import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
-class CreateEditListDialog: DialogFragment() {
+class CreateEditListDialog : DialogFragment() {
     private val listOfItems = LinkedList<String>()
     private val listOfNewItems = mutableListOf<String>()
     private val listOfDeletedItems = mutableListOf<String>()
     private lateinit var binding: DialogCreateListBinding
-    @Inject lateinit var mRepo: Repo
+    @Inject
+    lateinit var mRepo: Repo
 
 
     companion object Args {
-        fun argsOf(title: String?)
-                = bundleOf("title" to title)
+        fun argsOf(title: String?) = bundleOf("title" to title)
         private val CreateEditListDialog.title get() = requireArguments()["title"] as String?
     }
 
@@ -93,7 +93,13 @@ class CreateEditListDialog: DialogFragment() {
                 if (title == null) {
                     listOfItems.forEach {
                         GlobalScope.launch {
-                            mRepo.addItem(ListItemEntity(null, it, binding.titleText.text.toString()))
+                            mRepo.addItem(
+                                ListItemEntity(
+                                    null,
+                                    it,
+                                    binding.titleText.text.toString()
+                                )
+                            )
                         }
                     }
                 } else {
@@ -125,6 +131,7 @@ class CreateEditListDialog: DialogFragment() {
         }
 
     }
+
     private fun changeListItems(
         listOfNewItems: MutableList<String>,
         listTitleEt: TextInputEditText,

@@ -8,9 +8,9 @@ import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.yaroslavgorbach.randomizer.R
 import com.app.yaroslavgorbach.randomizer.data.local.Repo
-import com.app.yaroslavgorbach.randomizer.databinding.DialogChoseListBinding
 import com.app.yaroslavgorbach.randomizer.di.appComponent
 import com.app.yaroslavgorbach.randomizer.screen.nav
+import com.app.yaroslavgorbach.randomizer.databinding.DialogChoseListBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

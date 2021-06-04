@@ -10,6 +10,8 @@ import com.app.yaroslavgorbach.randomizer.R
 import com.app.yaroslavgorbach.randomizer.databinding.FragmentMatchesBinding
 import com.app.yaroslavgorbach.randomizer.feature.SoundManager
 import com.app.yaroslavgorbach.randomizer.util.disableViewDuringAnimation
+import com.app.yaroslavgorbach.randomizer.util.setIconMusicOff
+import com.app.yaroslavgorbach.randomizer.util.setIconMusicOn
 
 class MatchesView(
     private val binding: FragmentMatchesBinding,
@@ -25,6 +27,7 @@ class MatchesView(
     }
 
     data class MatchModel(val imageView: ImageView, var isBurned: Boolean)
+
     private val mMatches = mutableListOf<MatchModel>()
     private var soundIsAllow: Boolean = false
 

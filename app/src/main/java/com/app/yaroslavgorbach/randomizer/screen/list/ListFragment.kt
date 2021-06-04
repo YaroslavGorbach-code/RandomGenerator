@@ -10,16 +10,19 @@ import com.app.yaroslavgorbach.randomizer.R
 import com.app.yaroslavgorbach.randomizer.component.list.ListComp
 import com.app.yaroslavgorbach.randomizer.component.list.ListCompImp
 import com.app.yaroslavgorbach.randomizer.data.local.Repo
-import com.app.yaroslavgorbach.randomizer.databinding.FragmentListBinding
 import com.app.yaroslavgorbach.randomizer.di.appComponent
 import com.app.yaroslavgorbach.randomizer.feature.SoundManager
 import com.app.yaroslavgorbach.randomizer.util.onBackPressed
+import com.app.yaroslavgorbach.randomizer.databinding.FragmentListBinding
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ListFragment : Fragment(R.layout.fragment_list) {
-    @Inject lateinit var repo: Repo
-    @Inject lateinit var soundManager: SoundManager
+    @Inject
+    lateinit var repo: Repo
+
+    @Inject
+    lateinit var soundManager: SoundManager
 
     companion object Args {
         fun argsOf(title: String) = bundleOf("title" to title)

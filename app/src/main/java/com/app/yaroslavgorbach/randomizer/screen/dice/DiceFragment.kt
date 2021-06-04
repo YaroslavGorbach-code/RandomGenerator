@@ -17,6 +17,7 @@ import javax.inject.Inject
 class DiceFragment : Fragment(R.layout.fragment_dices) {
     @Inject
     lateinit var soundManager: SoundManager
+
     @Inject
     lateinit var repo: Repo
 

@@ -7,5 +7,4 @@ interface Coin {
     fun getSoundIsAllow(): LiveData<Boolean>
     fun disallowSound()
     fun allowSound()
-    fun animate(coin: ImageView, fon: ImageView)
 }
